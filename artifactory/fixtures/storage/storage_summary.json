@@ -1,0 +1,47 @@
+{
+  "binariesSummary": {
+    "binariesCount": "125,726",
+    "binariesSize": "3.48 GB",
+    "artifactsSize": "59.77 GB",
+    "optimization": "5.82%",
+    "itemsCount": "2,176,580",
+    "artifactsCount": "2,084,408"
+  },
+  "fileStoreSummary": {
+    "storageType": "filesystem",
+    "storageDirectory": "/home/.../artifactory/devenv/.artifactory/data/filestore",
+    "totalSpace": "204.28 GB",
+    "usedSpace": "32.22 GB (15.77%)",
+    "freeSpace": "172.06 GB (84.23%)"
+  },
+  "repositoriesSummaryList": [
+    {
+      "repoKey": "plugins-release",
+      "repoType": "VIRTUAL",
+      "foldersCount": 0,
+      "filesCount": 0,
+      "usedSpace": "0 bytes",
+      "itemsCount": 0,
+      "packageType": "Maven",
+      "percentage": "0%"
+    },
+    {
+      "repoKey": "repo",
+      "repoType": "VIRTUAL",
+      "foldersCount": 0,
+      "filesCount": 0,
+      "usedSpace": "0 bytes",
+      "itemsCount": 0,
+      "packageType": "Generic",
+      "percentage": "0%"
+    },
+    {
+      "repoKey": "TOTAL",
+      "repoType": "NA",
+      "foldersCount": 92172,
+      "filesCount": 2084408,
+      "usedSpace": "59.77 GB",
+      "itemsCount": 2176580
+    }
+  ]
+}

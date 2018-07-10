@@ -1,0 +1,28 @@
+
+
+ SYSTEM INFORMATION DUMP
+ =======================
+
+ User Info
+ ========================
+   user.country                                                          | US
+   user.dir                                                              | /
+   user.home                                                             | /var/opt/jfrog/artifactory
+   user.language                                                         | en
+   user.name                                                             | artifactory
+   user.timezone                                                         | UTC
+
+ Host Info
+ ========================
+   Available Processors                                                  | 8
+   Heap Memory Usage-Commited                                            | 34359738368
+   Heap Memory Usage-Init                                                | 34359738368
+   Heap Memory Usage-Max                                                 | 34359738368
+   Heap Memory Usage-Used                                                | 4498467320
+   Non-Heap Memory Usage-Commited                                        | 216268800
+   Non-Heap Memory Usage-Init                                            | 2555904
+   Non-Heap Memory Usage-Max                                             | -1
+   Non-Heap Memory Usage-Used                                            | 211863008
+   os.arch                                                               | amd64
+   os.name                                                               | Linux
+   os.version                                                            | 3.10.0-514.21.1.el7.x86_64                                                 | Loaded

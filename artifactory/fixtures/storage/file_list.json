@@ -1,0 +1,20 @@
+{
+  "uri": "http://localhost:8081/artifactory/api/storage/local-repo1/folder",
+  "created": "2010-10-10 10:10:10",
+  "files": [
+    {
+      "uri": "/file.json",
+      "size": 253207,
+      "lastModified": "2011-11-11 11:11:11",
+      "folder": false,
+      "sha1": "ECB252044B5EA0F679EE78EC1A12904739E2904D"
+    },
+    {
+      "uri": "/foo.txt",
+      "size": 253100,
+      "lastModified": "2012-12-12 12:12:12",
+      "folder": false,
+      "sha1": "B680C4A75B05C5AAB4C365D68D9FACF42482BC64"
+    }
+  ]
+}

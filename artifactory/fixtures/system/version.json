@@ -1,0 +1,5 @@
+{
+  "version": "5.9.5",
+  "revision": "123456789",
+  "addons": [ "build", "ldap", "properties" ]
+}

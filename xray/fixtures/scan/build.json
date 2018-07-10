@@ -1,0 +1,82 @@
+{
+  "summary": {
+    "fail_build": false,
+    "message": "string",
+    "more_details_url": "string",
+    "total_alerts": "int",
+  },
+  "alerts": [
+    {
+      "created": "string",
+      "issues": [
+        {
+          "created": "string",
+          "cve": "string",
+          "description": "string",
+          "impacted_artifacts": [
+            {
+              "depth": "int",
+              "display_name": "string",
+              "infected_files": [
+                {
+                  "component_id": "string",
+                  "depth": "int",
+                  "details": [
+                    {
+                      "banned_licenses": [
+                        {
+                          "alert_type": "string",
+                          "description": "string",
+                          "id": {},
+                          "severity": "string",
+                          "summary": "string"
+                        }
+                      ],
+                      "child": "string",
+                      "vulnerabilities": [
+                        {
+                          "alert_type": "string",
+                          "description": "string",
+                          "id": {},
+                          "severity": "string",
+                          "summary": "string"
+                        }
+                      ]
+                    }
+                  ],
+                  "display_name": "string",
+                  "name": "string",
+                  "parent_sha": "string",
+                  "path": "string",
+                  "pkg_type": "string",
+                  "sha1": "string",
+                  "sha256": "string"
+                }
+              ],
+              "name": "string",
+              "parent_sha": "string",
+              "path": "string",
+              "pkg_type": "string",
+              "sha1": "string",
+              "sha256": "string"
+            }
+          ],
+          "provider": "string",
+          "severity": "string",
+          "summary": "string",
+          "type": "string"
+        }
+      ],
+      "top_severity": "string",
+      "watch_name": "string"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "string",
+      "components": ["string"],
+      "full_name": "string",
+      "more_info_url": ["string"],
+    }
+  ]
+}

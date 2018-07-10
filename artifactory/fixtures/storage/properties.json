@@ -1,0 +1,6 @@
+{
+  "uri": "http://localhost:8081/artifactory/api/storage/local-repo1/folder/file.json",
+  "properties": {
+    "p1": ["v1","v2","v3"]
+  }
+}
