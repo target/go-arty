@@ -1,5 +1,9 @@
 # go-arty
 
+[![GoDoc](https://godoc.org/github.com/target/go-arty/github?status.svg)](https://godoc.org/github.com/target/go-arty/github)
+[![Go Report Card](https://goreportcard.com/badge/github.com/target/go-arty)](https://goreportcard.com/report/github.com/target/go-arty)
+[![Build Status](https://travis-ci.org/target/go-arty.svg?branch=master)](https://travis-ci.org/target/go-arty)
+
 go-arty is a Go client library for accessing the [Artifactory](https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API) and [Xray](https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API) API.
 
 ## Usage
