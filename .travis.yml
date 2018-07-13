@@ -11,11 +11,9 @@ matrix:
     - go: master
   fast_finish: true
 
+before_install:
+  - go get github.com/mattn/goveralls
+
 script:
-  - |
-    for pkg in $(go list ./... | grep -v vendor)
-    do
-      cd $GOPATH/src/$pkg/
-      go vet
-      go test -cover -coverprofile coverage.out
-    done
+  - go test -cover $(go list ./... | grep -v /vendor/)
+  - $GOPATH/bin/goveralls -service=travis-ci
