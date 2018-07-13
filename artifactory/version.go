@@ -4,11 +4,11 @@ import "github.com/coreos/go-semver/semver"
 
 var (
 	// VersionMajor is for an API incompatible changes
-	VersionMajor int64 = 5
+	VersionMajor int64 = 6
 	// VersionMinor is for functionality in a backwards-compatible manner
-	VersionMinor int64 = 9
+	VersionMinor int64 = 1
 	// VersionPatch is for backwards-compatible bug fixes
-	VersionPatch int64 = 5
+	VersionPatch int64
 )
 
 // Version represents the minimum version of the Artifactory API this library supports
