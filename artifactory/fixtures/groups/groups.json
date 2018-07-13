@@ -1,0 +1,10 @@
+[
+  {
+    "name": "readers",
+    "uri": "http://localhost:8081/artifactory/api/security/groups/readers"
+  },
+  {
+    "name": "tech-leads",
+    "uri": "http://localhost:8081/artifactory/api/security/groups/tech-leads"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "uri": "http://localhost:8081/artifactory/api/storage/local-repo1/folder/file.json",
+  "downloadUri": "http://localhost:8081/artifactory/local-repo1/folder/file.json",
+  "repo": "local-repo1",
+  "path": "/folder/file.json",
+  "created": "2010-10-10 10:10:10",
+  "createdBy": "admin",
+  "lastModified": "2011-11-11 11:11:11",
+  "modifiedBy": "admin",
+  "lastUpdated": "2012-12-12 12:12:12",
+  "size": "1024",
+  "mimeType": "application/json",
+  "checksums":
+  {
+    "md5" : "B45CFFE084DD3D20D928BEE85E7B0F21",
+    "sha1" : "ECB252044B5EA0F679EE78EC1A12904739E2904D",
+    "sha256" : "473287F8298DBA7163A897908958F7C0EAE733E25D2E027992EA2EDC9BED2FA8"
+  },
+  "originalChecksums":{
+    "md5" : "6DDB57974C449A3BE93F3124211373C4",
+    "sha1" : "B680C4A75B05C5AAB4C365D68D9FACF42482BC64",
+    "sha256" : "5FE075210D189874420BC9EDFBB6216FBCEAABE3B1792D2C53C391A96009CA55"
+  }
+}

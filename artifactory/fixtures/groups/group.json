@@ -1,0 +1,8 @@
+{
+  "name": "dev-leads",
+  "description" : "The development leads group",
+  "autoJoin" : false,
+  "adminPrivileges" : false,
+  "realm": "ldap",
+  "realmAttributes": "Realm attributes for use by LDAP"
+}

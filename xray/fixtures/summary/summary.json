@@ -1,0 +1,60 @@
+{
+  "artifacts": [
+    {
+      "general": {
+        "name": "artifactory-pro.zip",
+        "path": "art2/ext-release-local/",
+        "pkg_type": "Generic",
+        "sha256": "d160c68ed8879ae42756e159daec1dd7ecfd53b6192321656b72715e20d46dd2",
+        "component_id": "gav://org.artifactory.pro:artifactory-pro-war:4.14.0"
+      },
+      "issues": [
+        {
+          "summary":"FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories",
+          "description":"this is the description of the issue",
+          "issue_type":"security",
+          "severity":"Major",
+          "provider":"JFrog",
+          "created":"2016-10-26T11:15:51.17Z",
+          "impact_path": [
+            "xray-artifactory/maven-1000/com/atlassian/aui/auiplugin/0.0.5-9-0-snapshot-035-do-not-use/Jinja2-2.7.2"
+          ]
+        }
+      ],
+      "licenses": [
+        {
+          "name":"MIT",
+          "full_name":"The MIT License",
+          "more_info_url":"https://opensource.org/licenses/MIT",
+          "components":[
+            "some-component-1",
+            "some-component-2",
+            "some-component-3"
+          ]
+        },
+        {
+          "name":"AGPL-3.0",
+          "full_name":"GNU AFFERO GENERAL PUBLIC LICENSE, Version 3",
+          "more_info_url":"https://opensource.org/licenses/AGPL-3.0",
+          "components":[
+            "some-component-4",
+            "some-component-5"
+          ]
+        },
+        {
+          "name":"unknown",
+          "components":[
+            "some-component-6",
+            "some-component-7"
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "identifier": "4e39f19212597312ee02db873847bcb12c17cc639898bd2fd9b6a4aff16690e5",
+      "error": "Artifact doesn't exist or not indexed in Xray"
+    }
+  ]
+}

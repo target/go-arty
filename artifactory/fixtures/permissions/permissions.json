@@ -1,0 +1,10 @@
+[
+  {
+    "name": "readSourceArtifacts",
+    "uri": "http://localhost:8081/artifactory/api/security/permissions/readSourceArtifacts"
+  },
+  {
+    "name": "populateCaches",
+    "uri": "http://localhost:8081/artifactory/api/security/permissions/populateCaches"
+  }
+]

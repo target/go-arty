@@ -1,0 +1,15 @@
+{
+  "key": "virtual-repo1",
+  "rclass" : "virtual",
+  "packageType": "generic",
+  "repositories": ["local-rep1", "local-rep2", "remote-rep1", "virtual-rep2"],
+  "description": "The virtual repository public description",
+  "notes": "Some internal notes",
+  "includesPattern": "**/*",
+  "excludesPattern": "",
+  "debianTrivialLayout" : false,
+  "artifactoryRequestsCanRetrieveRemoteArtifacts": false,
+  "keyPair": "keypair1",
+  "pomRepositoryReferencesCleanupPolicy": "discard_active_reference",
+  "defaultDeploymentRepo": "local-repo1"
+}

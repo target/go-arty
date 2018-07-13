@@ -1,0 +1,8 @@
+{
+  "messages": [
+    {
+      "level": "INFO",
+      "message": "moving local-repo1:folder/foo.txt to local-repo1:test/foo.txt completed successfully, 1 artifacts and 0 folders were moved"
+    }
+  ]
+}

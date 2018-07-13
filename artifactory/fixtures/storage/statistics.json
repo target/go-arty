@@ -1,0 +1,6 @@
+{
+  "uri": "http://localhost:8081/artifactory/api/storage/local-repo1/folder/file.json",
+  "lastDownloaded": "2012-12-12 12:12:12",
+  "downloadCount": 3,
+  "lastDownloadedBy": "admin"
+}
