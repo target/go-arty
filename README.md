@@ -1,7 +1,6 @@
 # go-arty
 
-[![Artifactory GoDoc](https://godoc.org/github.com/target/go-arty/artifactory?status.svg)](https://godoc.org/github.com/target/go-arty/artifactory)
-[![Xray GoDoc](https://godoc.org/github.com/target/go-arty/xray?status.svg)](https://godoc.org/github.com/target/go-arty/xray)
+[![GoDoc](https://godoc.org/github.com/target/go-arty?status.svg)](https://godoc.org/github.com/target/go-arty)
 [![Go Report Card](https://goreportcard.com/badge/target/go-arty)](https://goreportcard.com/report/target/go-arty)
 [![Build Status](https://travis-ci.org/target/go-arty.svg?branch=master)](https://travis-ci.org/target/go-arty)
 
