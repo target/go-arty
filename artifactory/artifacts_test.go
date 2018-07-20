@@ -50,8 +50,31 @@ func Test_Artifacts(t *testing.T) {
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Upload()", func() {
-				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", nil)
+			g.It("- should return no error with Upload() using 1 property", func() {
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value"}})
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
+				g.Assert(*actual).Equal("")
+			})
+
+			g.It("- bad file should return an error", func() {
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "this/is/a/bad/path.txt", map[string][]string{"key": []string{"value"}})
+				g.Assert(actual == nil).IsTrue()
+				g.Assert(resp == nil).IsTrue()
+				g.Assert(err != nil).IsTrue()
+				g.Assert(err.Error()).Equal("open this/is/a/bad/path.txt: no such file or directory")
+			})
+
+			g.It("- should return no error with Upload() using multiple properties", func() {
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}})
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
+			})
+
+			g.It("- should return no error with Upload() using multiple property keys", func() {
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}, "key2": []string{"anothervalue"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
