@@ -134,4 +134,42 @@ func Test_client(t *testing.T) {
 		})
 	})
 
+	
+
+	g.Describe("addOptions", func() {
+		type options struct {
+			ShowAll bool `url:"all"`
+			Page int `url:"page"`
+		}
+		g.It("- call addOptions - valid case", func() {
+			options := options{ShowAll: true, Page: 1} 
+			actual, err := addOptions("http://www.somestring.com", options)
+
+			g.Assert(actual).Equal("http://www.somestring.com?all=true&page=1")
+			g.Assert(err == nil).IsTrue()
+		})
+
+		g.It("- call addOptions - valid url with bad options type", func() {
+			actual, err := addOptions("http://www.somestring.com", 87)
+
+			g.Assert(actual).Equal("http://www.somestring.com")
+			g.Assert(err != nil).IsTrue()
+			g.Assert(err.Error()).Equal("query: Values() expects struct input. Got int")
+		})
+
+		g.It("- call addOptions - bad url parse", func() {
+			options := options{ShowAll: true, Page: 1} 
+			_, err := addOptions("!@*&^%%", options)
+			g.Assert(err != nil).IsTrue()
+			g.Assert(err.Error()).Equal("parse !@*&^%%: invalid URL escape \"%%\"")
+		})
+		
+		g.It("- call addOptions - nil options passed", func() {
+			options := (*options)(nil)
+			actual, err := addOptions("http://www.somestring.com", options)
+			g.Assert(actual).Equal("http://www.somestring.com")
+			g.Assert(err == nil).IsTrue()
+		})
+	})
+
 }
