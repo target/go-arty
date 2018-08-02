@@ -14,6 +14,6 @@ before_install:
   - go get github.com/mattn/goveralls
 
 script:
-  - go test artifactory/*.go -cover -coverprofile artifactory-coverage.out
-  - go test xray/*.go -cover -coverprofile xray-coverage.out
-  - $GOPATH/bin/goveralls -service=travis-ci -ignore='artifactory/fixtures/,xray/fixtures/'
+  - go test artifactory/*.go -cover -coverprofile artifactory/coverage.out
+  - go test xray/*.go -cover -coverprofile xray/coverage.out
+  - $GOPATH/bin/goveralls -service=travis-ci -coverprofile=artifactory/coverage.out,xray/coverage.out
