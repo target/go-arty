@@ -14,12 +14,6 @@ before_install:
   - go get github.com/mattn/goveralls
 
 script:
-  - |
-    for pkg in $(go list ./... | grep -v vendor)
-    do
-      cd $GOPATH/src/$pkg/
-      go vet
-      go test -cover -coverprofile coverage.out
-    done
-  - cd $TRAVIS_BUILD_DIR
-  - $GOPATH/bin/goveralls -service=travis-ci
+  - go test artifactory/*.go -cover -coverprofile artifactory/coverage.out
+  - go test xray/*.go -cover -coverprofile xray/coverage.out
+  - $GOPATH/bin/goveralls -service=travis-ci -coverprofile=artifactory/coverage.out,xray/coverage.out
