@@ -24,55 +24,55 @@ type SummaryService service
 
 // SummaryArtifactRequest represents the SummaryRequest request we send to Xray.
 type SummaryArtifactRequest struct {
-	Checksums []string `json:"checksums,omitempty"`
-	Paths     []string `json:"paths,omitempty"`
+	Checksums *[]string `json:"checksums,omitempty"`
+	Paths     *[]string `json:"paths,omitempty"`
 }
 
 // SummaryResponse represents the response from a summary in Xray.
 type SummaryResponse struct {
-	Artifacts []SummaryArtifact `json:"artifacts,omitempty"`
-	Errors    []SummaryError    `json:"errors,omitempty"`
+	Artifacts *[]SummaryArtifact `json:"artifacts,omitempty"`
+	Errors    *[]SummaryError    `json:"errors,omitempty"`
 }
 
 // SummaryArtifact represents a artifact within the summary in Xray.
 type SummaryArtifact struct {
-	General  SummaryGeneral   `json:"general,omitempty"`
-	Issues   []SummaryIssue   `json:"issues,omitempty"`
-	Licenses []SummaryLicense `json:"licenses,omitempty"`
+	General  *SummaryGeneral   `json:"general,omitempty"`
+	Issues   *[]SummaryIssue   `json:"issues,omitempty"`
+	Licenses *[]SummaryLicense `json:"licenses,omitempty"`
 }
 
 // SummaryIssue represents a issue within the summary in Xray.
 type SummaryIssue struct {
-	Created     string   `json:"created,omitempty"`
-	Description string   `json:"description,omitempty"`
-	ImpactPath  []string `json:"impact_path,omitempty"`
-	IssueType   string   `json:"issue_type,omitempty"`
-	Provider    string   `json:"provider,omitempty"`
-	Severity    string   `json:"severity,omitempty"`
-	Summary     string   `json:"summary,omitempty"`
+	Created     *string   `json:"created,omitempty"`
+	Description *string   `json:"description,omitempty"`
+	ImpactPath  *[]string `json:"impact_path,omitempty"`
+	IssueType   *string   `json:"issue_type,omitempty"`
+	Provider    *string   `json:"provider,omitempty"`
+	Severity    *string   `json:"severity,omitempty"`
+	Summary     *string   `json:"summary,omitempty"`
 }
 
 // SummaryGeneral represents the general information of a summary in Xray.
 type SummaryGeneral struct {
-	ComponentID string `json:"component_id,omitempty"`
-	Name        string `json:"name,omitempty"`
-	Path        string `json:"path,omitempty"`
-	PkgType     string `json:"pkg_type,omitempty"`
-	Sha256      string `json:"sha256,omitempty"`
+	ComponentID *string `json:"component_id,omitempty"`
+	Name        *string `json:"name,omitempty"`
+	Path        *string `json:"path,omitempty"`
+	PkgType     *string `json:"pkg_type,omitempty"`
+	Sha256      *string `json:"sha256,omitempty"`
 }
 
 // SummaryLicense represents a licence found from a summary in Xray.
 type SummaryLicense struct {
-	Components  []string `json:"components,omitempty"`
-	FullName    string   `json:"full_name,omitempty"`
-	MoreInfoURL []string `json:"more_info_url,omitempty"`
-	Name        string   `json:"name,omitempty"`
+	Components  *[]string `json:"components,omitempty"`
+	FullName    *string   `json:"full_name,omitempty"`
+	MoreInfoURL *[]string `json:"more_info_url,omitempty"`
+	Name        *string   `json:"name,omitempty"`
 }
 
 // SummaryError represents an error from a summery in Xray.
 type SummaryError struct {
-	Error      string `json:"error,omitempty"`
-	Identifier string `json:"identifier,omitempty"`
+	Error      *string `json:"error,omitempty"`
+	Identifier *string `json:"identifier,omitempty"`
 }
 
 // Artifact provides details about any artifact specified by path identifiers or checksum.

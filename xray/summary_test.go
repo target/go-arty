@@ -41,7 +41,7 @@ func Test_Summary(t *testing.T) {
 
 		g.Describe("Summary", func() {
 			artifactRequest := &SummaryArtifactRequest{
-				Paths: []string{"art2/ext-release-local/artifactory-pro.zip"},
+				Paths: &[]string{"art2/ext-release-local/artifactory-pro.zip"},
 			}
 
 			g.It("- should return no error with SummaryArtifact()", func() {

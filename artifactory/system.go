@@ -24,9 +24,13 @@ type SystemService service
 
 // Versions represents the version information about Artifactory.
 type Versions struct {
-	Version  string   `json:"version,omitempty"`
-	Revision string   `json:"revision,omitempty"`
-	Addons   []string `json:"addons,omitempty"`
+	Version  *string   `json:"version,omitempty"`
+	Revision *string   `json:"revision,omitempty"`
+	Addons   *[]string `json:"addons,omitempty"`
+}
+
+func (v Versions) String() string {
+	return Stringify(v)
 }
 
 // Ping returns a simple status response.

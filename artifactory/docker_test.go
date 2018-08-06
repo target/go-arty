@@ -43,13 +43,13 @@ func Test_Docker(t *testing.T) {
 
 		g.Describe("Docker", func() {
 
-			promotion := ImagePromotion{
-				TargetRepo:             "docker",
-				DockerRepository:       "docker-dev",
-				TargetDockerRepository: "docker-test",
-				Tag:       "latest",
-				TargetTag: "latest",
-				Copy:      true,
+			promotion := &ImagePromotion{
+				TargetRepo:             String("docker"),
+				DockerRepository:       String("docker-dev"),
+				TargetDockerRepository: String("docker-test"),
+				Tag:       String("latest"),
+				TargetTag: String("latest"),
+				Copy:      Bool(true),
 			}
 
 			g.It("- should return no error with GetRepositories()", func() {

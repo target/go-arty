@@ -41,13 +41,13 @@ func Test_Scan(t *testing.T) {
 
 		g.Describe("Scan", func() {
 			scanArtifact := &ScanArtifactRequest{
-				ComponentID: "",
+				ComponentID: String(""),
 			}
 
 			scanBuild := &ScanBuildRequest{
-				ArtifactoryID: "",
-				BuildName:     "",
-				BuildNumber:   "",
+				ArtifactoryID: String(""),
+				BuildName:     String(""),
+				BuildNumber:   String(""),
 			}
 			g.It("- should return no error with Artifact()", func() {
 				actual, resp, err := c.Scan.Artifact(scanArtifact)

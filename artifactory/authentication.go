@@ -26,21 +26,21 @@ const (
 // AuthenticationService contains authentication related functions.
 type AuthenticationService struct {
 	client   *Client
-	username string
-	secret   string
+	username *string
+	secret   *string
 	authType int
 }
 
 // SetBasicAuth sets the auth type as HTTP Basic auth.
 func (s *AuthenticationService) SetBasicAuth(username, password string) {
-	s.username = username
-	s.secret = password
+	s.username = String(username)
+	s.secret = String(password)
 	s.authType = authTypeBasic
 }
 
 // SetTokenAuth sets the auth type as Token auth.
 func (s *AuthenticationService) SetTokenAuth(token string) {
-	s.secret = token
+	s.secret = String(token)
 	s.authType = authTypeToken
 }
 

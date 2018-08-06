@@ -42,19 +42,19 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("Users", func() {
-			user := User{}
+			user := &User{}
 
 			g.BeforeEach(func() {
-				user = User{
-					Name:                     "test",
-					Email:                    "test@company.com",
-					Password:                 "testPassword",
-					Admin:                    false,
-					ProfileUpdatable:         true,
-					DisableUIAccess:          false,
-					InternalPasswordDisabled: false,
-					Realm:  "ldap",
-					Groups: []string{"readers"},
+				user = &User{
+					Name:                     String("test"),
+					Email:                    String("test@company.com"),
+					Password:                 String("testPassword"),
+					Admin:                    Bool(false),
+					ProfileUpdatable:         Bool(true),
+					DisableUIAccess:          Bool(false),
+					InternalPasswordDisabled: Bool(false),
+					Realm:  String("ldap"),
+					Groups: &[]string{"readers"},
 				}
 			})
 

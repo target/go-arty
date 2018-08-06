@@ -40,11 +40,11 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("Users", func() {
-			user := User{
-				Admin:    true,
-				Email:    "admin@company.com",
-				Name:     "admin",
-				Password: "somepass",
+			user := &User{
+				Admin:    Bool(true),
+				Email:    String("admin@company.com"),
+				Name:     String("admin"),
+				Password: String("somepass"),
 			}
 
 			g.It("- should return no error with GetAll()", func() {

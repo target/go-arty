@@ -128,11 +128,11 @@ func (c *Client) buildURLForRequest(urlStr string) (string, error) {
 func (c *Client) addAuthentication(req *http.Request) {
 	// Apply HTTP Basic Authentication.
 	if c.Authentication.HasBasicAuth() {
-		req.SetBasicAuth(c.Authentication.username, c.Authentication.secret)
+		req.SetBasicAuth(*c.Authentication.username, *c.Authentication.secret)
 
 		// Apply Token Authentication.
 	} else if c.Authentication.HasTokenAuth() {
-		req.Header.Add("X-JFrog-Art-Api", c.Authentication.secret)
+		req.Header.Add("X-JFrog-Art-Api", *c.Authentication.secret)
 	}
 }
 

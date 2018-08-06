@@ -41,9 +41,9 @@ func Test_Search(t *testing.T) {
 			s.Close()
 		})
 
-		coords := GAVCRequest{
-			ArtifactID: "folder",
-			Repos:      []string{"local-repo1"},
+		coords := &GAVCRequest{
+			ArtifactID: String("folder"),
+			Repos:      &[]string{"local-repo1"},
 		}
 
 		g.Describe("Search", func() {

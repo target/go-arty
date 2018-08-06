@@ -30,18 +30,18 @@ type PermissionsService service
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.PermissionTarget+json
 type PermissionTarget struct {
-	Name            string     `json:"name,omitempty"`
-	URI             string     `json:"uri,omitempty"`
-	IncludesPattern string     `json:"includesPattern,omitempty"`
-	ExcludesPattern string     `json:"excludesPattern,omitempty"`
-	Repositories    []string   `json:"repositories,omitempty"`
-	Principals      Principals `json:"principals,omitempty"`
+	Name            *string     `json:"name,omitempty"`
+	URI             *string     `json:"uri,omitempty"`
+	IncludesPattern *string     `json:"includesPattern,omitempty"`
+	ExcludesPattern *string     `json:"excludesPattern,omitempty"`
+	Repositories    *[]string   `json:"repositories,omitempty"`
+	Principals      *Principals `json:"principals,omitempty"`
 }
 
 // Principals represents user and group permissions in Artifactory.
 type Principals struct {
-	Users  map[string][]string `json:"users,omitempty"`
-	Groups map[string][]string `json:"groups,omitempty"`
+	Users  *map[string][]string `json:"users,omitempty"`
+	Groups *map[string][]string `json:"groups,omitempty"`
 }
 
 // GetAll returns a list of all permission targets.
@@ -69,8 +69,8 @@ func (s *PermissionsService) Get(target string) (*PermissionTarget, *Response, e
 // Create constructs a permission target with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplacePermissionTarget
-func (s *PermissionsService) Create(target PermissionTarget) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/permissions/%s", target.Name)
+func (s *PermissionsService) Create(target *PermissionTarget) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/permissions/%s", *target.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("PUT", u, target, v)
@@ -80,8 +80,8 @@ func (s *PermissionsService) Create(target PermissionTarget) (*string, *Response
 // Update modifies a permission target with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplacePermissionTarget
-func (s *PermissionsService) Update(target PermissionTarget) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/permissions/%s", target.Name)
+func (s *PermissionsService) Update(target *PermissionTarget) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/permissions/%s", *target.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("PUT", u, target, v)

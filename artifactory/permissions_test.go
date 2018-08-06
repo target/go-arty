@@ -44,13 +44,13 @@ func Test_Permissions(t *testing.T) {
 		g.Describe("Permissions", func() {
 			users := make(map[string][]string)
 			users["test"] = []string{"r", "w", "n"}
-			target := PermissionTarget{
-				Name:            "test",
-				IncludesPattern: "**",
-				ExcludesPattern: "",
-				Repositories:    []string{"test"},
-				Principals: Principals{
-					Users: users,
+			target := &PermissionTarget{
+				Name:            String("test"),
+				IncludesPattern: String("**"),
+				ExcludesPattern: String(""),
+				Repositories:    &[]string{"test"},
+				Principals: &Principals{
+					Users: &users,
 				},
 			}
 

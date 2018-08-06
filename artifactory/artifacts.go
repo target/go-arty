@@ -30,13 +30,13 @@ type ArtifactsService service
 
 // ArtifactMessage represents an artifact message in Artifactory.
 type ArtifactMessage struct {
-	Level   string `json:"level,omitempty"`
-	Message string `json:"message,omitempty"`
+	Level   *string `json:"level,omitempty"`
+	Message *string `json:"message,omitempty"`
 }
 
 // Artifacts represents artifacts in Artifactory.
 type Artifacts struct {
-	Messages []ArtifactMessage `json:"messages,omitempty"`
+	Messages *[]ArtifactMessage `json:"messages,omitempty"`
 }
 
 // Download retrieves the provided artifact.

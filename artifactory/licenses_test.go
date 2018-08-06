@@ -43,8 +43,8 @@ func Test_Licenses(t *testing.T) {
 				s.Close()
 			})
 
-			license := LicenseRequest{
-				LicenseKey: "179b7ea384d0c4655a00dfac7285a21d986a17923",
+			license := &LicenseRequest{
+				LicenseKey: String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
 			}
 
 			g.It("- should return no error with Get()", func() {
@@ -74,12 +74,12 @@ func Test_Licenses(t *testing.T) {
 				s.Close()
 			})
 
-			licenses := []LicenseRequest{
-				{LicenseKey: "179b7ea384d0c4655a00dfac7285a21d986a17923"},
+			licenses := &[]LicenseRequest{
+				{LicenseKey: String("179b7ea384d0c4655a00dfac7285a21d986a17923")},
 			}
 
-			licenseHashes := LicenseRemoval{
-				LicenseHashes: []string{"179b7ea384d0c4655a00dfac7285a21d986a17923"},
+			licenseHashes := &LicenseRemoval{
+				LicenseHashes: &[]string{"179b7ea384d0c4655a00dfac7285a21d986a17923"},
 			}
 
 			g.It("- should return no error with GetHA()", func() {

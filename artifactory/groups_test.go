@@ -42,13 +42,13 @@ func Test_Groups(t *testing.T) {
 		})
 
 		g.Describe("Groups", func() {
-			group := Group{
-				Name:            "test",
-				Description:     "test description",
-				AutoJoin:        false,
-				Admin:           false,
-				Realm:           "CROWD",
-				RealmAttributes: "",
+			group := &Group{
+				Name:            String("test"),
+				Description:     String("test description"),
+				AutoJoin:        Bool(false),
+				Admin:           Bool(false),
+				Realm:           String("CROWD"),
+				RealmAttributes: String(""),
 			}
 
 			g.It("- should return no error with GetAll()", func() {

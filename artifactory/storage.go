@@ -29,120 +29,120 @@ type StorageService service
 
 // Child represents a child under a folder in Artifactory.
 type Child struct {
-	URI    string `json:"uri,omitempty"`
-	Folder string `json:"folder,omitempty"`
+	URI    *string `json:"uri,omitempty"`
+	Folder *string `json:"folder,omitempty"`
 }
 
 // Folder represents a folder in Artifactory.
 type Folder struct {
-	URI          string  `json:"uri,omitempty"`
-	Repo         string  `json:"repo,omitempty"`
-	Path         string  `json:"path,omitempty"`
-	Created      string  `json:"created,omitempty"`
-	CreatedBy    string  `json:"createdBy,omitempty"`
-	LastModified string  `json:"lastModified,omitempty"`
-	ModifiedBy   string  `json:"modifiedBy,omitempty"`
-	LastUpdated  string  `json:"lastUpdated,omitempty"`
-	Children     []Child `json:"children,omitempty"`
+	URI          *string  `json:"uri,omitempty"`
+	Repo         *string  `json:"repo,omitempty"`
+	Path         *string  `json:"path,omitempty"`
+	Created      *string  `json:"created,omitempty"`
+	CreatedBy    *string  `json:"createdBy,omitempty"`
+	LastModified *string  `json:"lastModified,omitempty"`
+	ModifiedBy   *string  `json:"modifiedBy,omitempty"`
+	LastUpdated  *string  `json:"lastUpdated,omitempty"`
+	Children     *[]Child `json:"children,omitempty"`
 }
 
 // Checksums represents the checksums for a file in Artifactory.
 type Checksums struct {
-	MD5    string `json:"md5,omitempty"`
-	SHA1   string `json:"sha1,omitempty"`
-	SHA256 string `json:"sha256,omitempty"`
+	MD5    *string `json:"md5,omitempty"`
+	SHA1   *string `json:"sha1,omitempty"`
+	SHA256 *string `json:"sha256,omitempty"`
 }
 
 // File represents a file in Artifactory.
 type File struct {
-	URI               string    `json:"uri,omitempty"`
-	DownloadURI       string    `json:"downloadUri,omitempty"`
-	Repo              string    `json:"repo,omitempty"`
-	Path              string    `json:"path,omitempty"`
-	RemoteURL         string    `json:"remoteUrl,omitempty"`
-	Created           string    `json:"created,omitempty"`
-	CreatedBy         string    `json:"createdBy,omitempty"`
-	LastModified      string    `json:"lastModified,omitempty"`
-	ModifiedBy        string    `json:"modifiedBy,omitempty"`
-	LastUpdated       string    `json:"lastUpdated,omitempty"`
-	Size              string    `json:"size,omitempty"`
-	MimeType          string    `json:"mimeType,omitempty"`
-	Checksums         Checksums `json:"checksums,omitempty"`
-	OriginalChecksums Checksums `json:"originalChecksums,omitempty"`
+	URI               *string    `json:"uri,omitempty"`
+	DownloadURI       *string    `json:"downloadUri,omitempty"`
+	Repo              *string    `json:"repo,omitempty"`
+	Path              *string    `json:"path,omitempty"`
+	RemoteURL         *string    `json:"remoteUrl,omitempty"`
+	Created           *string    `json:"created,omitempty"`
+	CreatedBy         *string    `json:"createdBy,omitempty"`
+	LastModified      *string    `json:"lastModified,omitempty"`
+	ModifiedBy        *string    `json:"modifiedBy,omitempty"`
+	LastUpdated       *string    `json:"lastUpdated,omitempty"`
+	Size              *string    `json:"size,omitempty"`
+	MimeType          *string    `json:"mimeType,omitempty"`
+	Checksums         *Checksums `json:"checksums,omitempty"`
+	OriginalChecksums *Checksums `json:"originalChecksums,omitempty"`
 }
 
 // BinariesSummary represents the summary of binaries in Artifactory.
 type BinariesSummary struct {
-	BinariesCount  string `json:"binariesCount,omitempty"`
-	BinariesSize   string `json:"binariesSize,omitempty"`
-	ArtifactsSize  string `json:"artifactsSize,omitempty"`
-	Optimization   string `json:"optimization,omitempty"`
-	ItemsCount     string `json:"itemsCount,omitempty"`
-	ArtifactsCount string `json:"artifactsCount,omitempty"`
+	BinariesCount  *string `json:"binariesCount,omitempty"`
+	BinariesSize   *string `json:"binariesSize,omitempty"`
+	ArtifactsSize  *string `json:"artifactsSize,omitempty"`
+	Optimization   *string `json:"optimization,omitempty"`
+	ItemsCount     *string `json:"itemsCount,omitempty"`
+	ArtifactsCount *string `json:"artifactsCount,omitempty"`
 }
 
 // FileStoreSummary represents the summary of file storage in Artifactory.
 type FileStoreSummary struct {
-	StorageType      string `json:"storageType,omitempty"`
-	StorageDirectory string `json:"storageDirectory,omitempty"`
-	TotalSpace       string `json:"totalSpace,omitempty"`
-	UsedSpace        string `json:"usedSpace,omitempty"`
-	FreeSpace        string `json:"freeSpace,omitempty"`
+	StorageType      *string `json:"storageType,omitempty"`
+	StorageDirectory *string `json:"storageDirectory,omitempty"`
+	TotalSpace       *string `json:"totalSpace,omitempty"`
+	UsedSpace        *string `json:"usedSpace,omitempty"`
+	FreeSpace        *string `json:"freeSpace,omitempty"`
 }
 
 // RepositoriesSummary represents the summary of repositories in Artifactory.
 type RepositoriesSummary struct {
-	RepoKey      string `json:"repoKey,omitempty"`
-	RepoType     string `json:"repoType,omitempty"`
-	FoldersCount int    `json:"foldersCount,omitempty"`
-	FilesCount   int    `json:"filesCount,omitempty"`
-	UsedSpace    string `json:"usedSpace,omitempty"`
-	ItemsCount   int    `json:"itemsCount,omitempty"`
-	PackageType  string `json:"packageType,omitempty"`
-	Percentage   string `json:"percentage,omitempty"`
+	RepoKey      *string `json:"repoKey,omitempty"`
+	RepoType     *string `json:"repoType,omitempty"`
+	FoldersCount *int    `json:"foldersCount,omitempty"`
+	FilesCount   *int    `json:"filesCount,omitempty"`
+	UsedSpace    *string `json:"usedSpace,omitempty"`
+	ItemsCount   *int    `json:"itemsCount,omitempty"`
+	PackageType  *string `json:"packageType,omitempty"`
+	Percentage   *string `json:"percentage,omitempty"`
 }
 
 // StorageSummary represents the summary of storage in Artifactory.
 type StorageSummary struct {
-	BinariesSummary         BinariesSummary       `json:"binariesSummary,omitempty"`
-	FileStoreSummary        FileStoreSummary      `json:"fileStoreSummary,omitempty"`
-	RepositoriesSummaryList []RepositoriesSummary `json:"repositoriesSummaryList,omitempty"`
+	BinariesSummary         *BinariesSummary       `json:"binariesSummary,omitempty"`
+	FileStoreSummary        *FileStoreSummary      `json:"fileStoreSummary,omitempty"`
+	RepositoriesSummaryList *[]RepositoriesSummary `json:"repositoriesSummaryList,omitempty"`
 }
 
 // ItemLastModified represents the last modified date for a file in Artifactory.
 type ItemLastModified struct {
-	URI          string `json:"uri,omitempty"`
-	LastModified string `json:"lastModified,omitempty"`
+	URI          *string `json:"uri,omitempty"`
+	LastModified *string `json:"lastModified,omitempty"`
 }
 
 // FileStatistics represents statistics for a file in Artifactory.
 type FileStatistics struct {
-	URI              string `json:"uri,omitempty"`
-	LastDownloaded   string `json:"lastDownloaded,omitempty"`
-	DownloadCount    int    `json:"downloadCount,omitempty"`
-	LastDownloadedBy string `json:"lastDownloadedBy,omitempty"`
+	URI              *string `json:"uri,omitempty"`
+	LastDownloaded   *string `json:"lastDownloaded,omitempty"`
+	DownloadCount    *int    `json:"downloadCount,omitempty"`
+	LastDownloadedBy *string `json:"lastDownloadedBy,omitempty"`
 }
 
 // ItemProperties represents a set of properties for an item in Artifactory.
 type ItemProperties struct {
-	URI        string              `json:"uri,omitempty"`
-	Properties map[string][]string `json:"properties,omitempty"`
+	URI        *string              `json:"uri,omitempty"`
+	Properties *map[string][]string `json:"properties,omitempty"`
 }
 
 // FileList represents a list of files in Artifactory.
 type FileList struct {
-	URI     string         `json:"uri,omitempty"`
-	Created string         `json:"created,omitempty"`
-	Files   []FileListItem `json:"files,omitempty"`
+	URI     *string         `json:"uri,omitempty"`
+	Created *string         `json:"created,omitempty"`
+	Files   *[]FileListItem `json:"files,omitempty"`
 }
 
 // FileListItem represents an item in a list of files in Artifactory.
 type FileListItem struct {
-	URI          string `json:"uri,omitempty"`
-	Size         int    `json:"size,omitempty"`
-	LastModified string `json:"lastModified,omitempty"`
-	Folder       bool   `json:"folder,omitempty"`
-	SHA1         string `json:"sha1,omitempty"`
+	URI          *string `json:"uri,omitempty"`
+	Size         *int    `json:"size,omitempty"`
+	LastModified *string `json:"lastModified,omitempty"`
+	Folder       *bool   `json:"folder,omitempty"`
+	SHA1         *string `json:"sha1,omitempty"`
 }
 
 // GetFolder returns the provided folder.

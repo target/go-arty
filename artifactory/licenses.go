@@ -24,47 +24,47 @@ type LicensesService service
 
 // License represents a license in Artifactory.
 type License struct {
-	LicenseType  string `json:"type,omitempty"`
-	ValidThrough string `json:"validThrough,omitempty"`
-	LicensedTo   string `json:"licensedTo,omitempty"`
+	LicenseType  *string `json:"type,omitempty"`
+	ValidThrough *string `json:"validThrough,omitempty"`
+	LicensedTo   *string `json:"licensedTo,omitempty"`
 }
 
 // HALicense represents a HA license in Artifactory.
 type HALicense struct {
-	LicenseType  string `json:"type,omitempty"`
-	ValidThrough string `json:"validThrough,omitempty"`
-	LicensedTo   string `json:"licensedTo,omitempty"`
-	LicenseHash  string `json:"licenseHash,omitempty"`
-	NodeID       string `json:"nodeId,omitempty"`
-	NodeURL      string `json:"nodeUrl,omitempty"`
-	Expired      bool   `json:"expired,omitempty"`
+	LicenseType  *string `json:"type,omitempty"`
+	ValidThrough *string `json:"validThrough,omitempty"`
+	LicensedTo   *string `json:"licensedTo,omitempty"`
+	LicenseHash  *string `json:"licenseHash,omitempty"`
+	NodeID       *string `json:"nodeId,omitempty"`
+	NodeURL      *string `json:"nodeUrl,omitempty"`
+	Expired      *bool   `json:"expired,omitempty"`
 }
 
 // HALicenses represents an array of HA licenses in Artifactory.
 type HALicenses struct {
-	Licenses []HALicense `json:"licenses,omitempty"`
+	Licenses *[]HALicense `json:"licenses,omitempty"`
 }
 
 // LicenseRequest represents the license request in Artifactory.
 type LicenseRequest struct {
-	LicenseKey string `json:"licenseKey,omitempty"`
+	LicenseKey *string `json:"licenseKey,omitempty"`
 }
 
 // LicenseResponse represents the response from installing a license in Artifactory.
 type LicenseResponse struct {
-	Status  int    `json:"status,omitempty"`
-	Message string `json:"message,omitempty"`
+	Status  *int    `json:"status,omitempty"`
+	Message *string `json:"message,omitempty"`
 }
 
 // HALicenseResponse represents the response from installing a HA license(s) in Artifactory.
 type HALicenseResponse struct {
-	Status   int               `json:"status,omitempty"`
-	Messages map[string]string `json:"messages,omitempty"`
+	Status   *int               `json:"status,omitempty"`
+	Messages *map[string]string `json:"messages,omitempty"`
 }
 
 // LicenseRemoval is a list of license hashes for when removing licenses in Artifactory.
 type LicenseRemoval struct {
-	LicenseHashes []string `url:"licenseHash,omitempty"`
+	LicenseHashes *[]string `url:"licenseHash,omitempty"`
 }
 
 // Get returns a single license.
@@ -81,7 +81,7 @@ func (s *LicensesService) Get() (*License, *Response, error) {
 // Install deploys the provided license to the instance.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-InstallLicense
-func (s *LicensesService) Install(license LicenseRequest) (*LicenseResponse, *Response, error) {
+func (s *LicensesService) Install(license *LicenseRequest) (*LicenseResponse, *Response, error) {
 	u := "/api/system/licenses"
 	v := new(LicenseResponse)
 
@@ -103,7 +103,7 @@ func (s *LicensesService) GetHA() (*HALicenses, *Response, error) {
 // InstallHA deploys the provided license(s) to an HA cluster.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-InstallHAClusterLicenses
-func (s *LicensesService) InstallHA(licenses []LicenseRequest) (*HALicenseResponse, *Response, error) {
+func (s *LicensesService) InstallHA(licenses *[]LicenseRequest) (*HALicenseResponse, *Response, error) {
 	u := "/api/system/licenses"
 	v := new(HALicenseResponse)
 
@@ -114,7 +114,7 @@ func (s *LicensesService) InstallHA(licenses []LicenseRequest) (*HALicenseRespon
 // DeleteHA removes the provided license key(s) from an HA cluster.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteHAClusterLicense
-func (s *LicensesService) DeleteHA(hashes LicenseRemoval) (*LicenseResponse, *Response, error) {
+func (s *LicensesService) DeleteHA(hashes *LicenseRemoval) (*LicenseResponse, *Response, error) {
 	u := "/api/system/licenses"
 	v := new(LicenseResponse)
 

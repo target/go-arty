@@ -43,10 +43,10 @@ func Test_Repositories(t *testing.T) {
 
 		g.Describe("Repositories", func() {
 			repo := GenericRepository{
-				Key:         "test",
-				RClass:      "local",
-				PackageType: "generic",
-				Description: "test repository",
+				Key:         String("test"),
+				RClass:      String("local"),
+				PackageType: String("generic"),
+				Description: String("test repository"),
 			}
 
 			g.It("- should return no error with GetAll()", func() {

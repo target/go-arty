@@ -111,12 +111,12 @@ func (c *Client) buildURLForRequest(urlStr string) (string, error) {
 func (c *Client) addAuthentication(req *http.Request) {
 	// Apply HTTP Basic Authentication.
 	if c.Authentication.HasBasicAuth() {
-		req.SetBasicAuth(c.Authentication.username, c.Authentication.secret)
+		req.SetBasicAuth(*c.Authentication.username, *c.Authentication.secret)
 	}
 
 	if c.Authentication.HasTokenAuth() {
 		q := req.URL.Query()
-		q.Add("token", c.Authentication.secret)
+		q.Add("token", *c.Authentication.secret)
 		req.URL.RawQuery = q.Encode()
 	}
 }
