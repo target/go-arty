@@ -29,10 +29,18 @@ type Registry struct {
 	Repositories *[]string `json:"repositories,omitempty"`
 }
 
+func (r Registry) String() string {
+	return Stringify(r)
+}
+
 // Tags represents the list of tags for a Docker repository in Artifactory.
 type Tags struct {
 	Name *string   `json:"name,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
+}
+
+func (t Tags) String() string {
+	return Stringify(t)
 }
 
 // ImagePromotion represents the Docker image promotion request in Artifactory.

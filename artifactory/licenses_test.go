@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -46,6 +48,104 @@ func Test_Licenses(t *testing.T) {
 			license := &LicenseRequest{
 				LicenseKey: String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
 			}
+
+			g.It("- should return valid string for License with String()", func() {
+				actual := &License{
+					Type:         String("Commercial"),
+					ValidThrough: String("May 15, 2014"),
+					LicensedTo:   String("JFrog inc."),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/licenses/get_license.json")
+
+				var expected License
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for HALicense with String()", func() {
+				actual := &HALicense{
+					Type:         String("Enterprise"),
+					ValidThrough: String("May 15, 2018"),
+					LicensedTo:   String("JFrog"),
+					LicenseHash:  String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
+					NodeID:       String("artifactory1"),
+					NodeURL:      String("http://localhost:8091/artifactory"),
+					Expired:      Bool(false),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/licenses/get_ha_license.json")
+
+				var body HALicenses
+				_ = json.Unmarshal(data, &body)
+
+				expected := *body.Licenses
+
+				g.Assert(actual.String() == expected[0].String()).IsTrue()
+			})
+
+			g.It("- should return valid string for HALicenses with String()", func() {
+				actual := &HALicenses{
+					Licenses: &[]HALicense{
+						HALicense{
+							Type:         String("Enterprise"),
+							ValidThrough: String("May 15, 2018"),
+							LicensedTo:   String("JFrog"),
+							LicenseHash:  String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
+							NodeID:       String("artifactory1"),
+							NodeURL:      String("http://localhost:8091/artifactory"),
+							Expired:      Bool(false),
+						},
+						HALicense{
+							Type:         String("Enterprise"),
+							ValidThrough: String("May 15, 2018"),
+							LicensedTo:   String("JFrog"),
+							LicenseHash:  String("e10b8aa1d1dc5107439ce43debc6e65dfeb71afd3"),
+							NodeID:       String("Not in use"),
+							NodeURL:      String("Not in use"),
+							Expired:      Bool(false),
+						},
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/licenses/get_ha_license.json")
+
+				var expected HALicenses
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for LicenseResponse with String()", func() {
+				actual := &LicenseResponse{
+					Status:  Int(200),
+					Message: String("The license has been successfully installed."),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/licenses/post_license.json")
+
+				var expected LicenseResponse
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for HALicenseResponse with String()", func() {
+				actual := &HALicenseResponse{
+					Status: Int(200),
+					Messages: &map[string]string{
+						"179b7ea384d0c4655a00dfac7285a21d986a17923": "OK",
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/licenses/post_ha_license.json")
+
+				var expected HALicenseResponse
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with Get()", func() {
 				actual, resp, err := c.Licenses.Get()

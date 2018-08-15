@@ -34,9 +34,17 @@ type ArtifactMessage struct {
 	Message *string `json:"message,omitempty"`
 }
 
+func (a ArtifactMessage) String() string {
+	return Stringify(a)
+}
+
 // Artifacts represents artifacts in Artifactory.
 type Artifacts struct {
 	Messages *[]ArtifactMessage `json:"messages,omitempty"`
+}
+
+func (a Artifacts) String() string {
+	return Stringify(a)
 }
 
 // Download retrieves the provided artifact.

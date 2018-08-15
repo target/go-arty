@@ -42,17 +42,38 @@ func Test_Permissions(t *testing.T) {
 		})
 
 		g.Describe("Permissions", func() {
+			target := &PermissionTarget{}
 			users := make(map[string][]string)
-			users["test"] = []string{"r", "w", "n"}
-			target := &PermissionTarget{
-				Name:            String("test"),
-				IncludesPattern: String("**"),
-				ExcludesPattern: String(""),
-				Repositories:    &[]string{"test"},
-				Principals: &Principals{
-					Users: &users,
-				},
-			}
+			groups := make(map[string][]string)
+
+			g.BeforeEach(func() {
+				users["alice"] = []string{"d", "w", "n", "r"}
+				users["bob"] = []string{"r", "w", "m"}
+
+				groups["dev-leads"] = []string{"m", "r", "n"}
+				groups["readers"] = []string{"r"}
+
+				target = &PermissionTarget{
+					Name:            String("populateCaches"),
+					IncludesPattern: String("**"),
+					ExcludesPattern: String(""),
+					Repositories:    &[]string{"local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"},
+					Principals: &Principals{
+						Users:  &users,
+						Groups: &groups,
+					},
+				}
+			})
+
+			// TODO: I hate the randomized order of maps
+			// g.It("- should return valid string for PermissionTarget with String()", func() {
+			// 	data, _ := ioutil.ReadFile("fixtures/permissions/permission.json")
+			//
+			// 	var expected PermissionTarget
+			// 	_ = json.Unmarshal(data, &expected)
+			//
+			// 	g.Assert(target.String() == expected.String()).IsTrue()
+			// })
 
 			g.It("- should return no error with GetAll()", func() {
 				actual, resp, err := c.Permissions.GetAll()

@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -42,14 +44,27 @@ func Test_Groups(t *testing.T) {
 		})
 
 		g.Describe("Groups", func() {
-			group := &Group{
-				Name:            String("test"),
-				Description:     String("test description"),
-				AutoJoin:        Bool(false),
-				Admin:           Bool(false),
-				Realm:           String("CROWD"),
-				RealmAttributes: String(""),
-			}
+			group := &Group{}
+
+			g.BeforeEach(func() {
+				group = &Group{
+					Name:            String("dev-leads"),
+					Description:     String("The development leads group"),
+					AutoJoin:        Bool(false),
+					AdminPrivileges: Bool(false),
+					Realm:           String("ldap"),
+					RealmAttributes: String("Realm attributes for use by LDAP"),
+				}
+			})
+
+			g.It("- should return valid string for Group with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/groups/group.json")
+
+				var expected Group
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(group.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with GetAll()", func() {
 				actual, resp, err := c.Groups.GetAll()

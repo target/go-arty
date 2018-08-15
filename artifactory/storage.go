@@ -35,15 +35,19 @@ type Child struct {
 
 // Folder represents a folder in Artifactory.
 type Folder struct {
-	URI          *string  `json:"uri,omitempty"`
-	Repo         *string  `json:"repo,omitempty"`
-	Path         *string  `json:"path,omitempty"`
-	Created      *string  `json:"created,omitempty"`
-	CreatedBy    *string  `json:"createdBy,omitempty"`
-	LastModified *string  `json:"lastModified,omitempty"`
-	ModifiedBy   *string  `json:"modifiedBy,omitempty"`
-	LastUpdated  *string  `json:"lastUpdated,omitempty"`
-	Children     *[]Child `json:"children,omitempty"`
+	URI          *string    `json:"uri,omitempty"`
+	Repo         *string    `json:"repo,omitempty"`
+	Path         *string    `json:"path,omitempty"`
+	Created      *Timestamp `json:"created,omitempty"`
+	CreatedBy    *string    `json:"createdBy,omitempty"`
+	LastModified *Timestamp `json:"lastModified,omitempty"`
+	ModifiedBy   *string    `json:"modifiedBy,omitempty"`
+	LastUpdated  *Timestamp `json:"lastUpdated,omitempty"`
+	Children     *[]Child   `json:"children,omitempty"`
+}
+
+func (f Folder) String() string {
+	return Stringify(f)
 }
 
 // Checksums represents the checksums for a file in Artifactory.
@@ -60,15 +64,19 @@ type File struct {
 	Repo              *string    `json:"repo,omitempty"`
 	Path              *string    `json:"path,omitempty"`
 	RemoteURL         *string    `json:"remoteUrl,omitempty"`
-	Created           *string    `json:"created,omitempty"`
+	Created           *Timestamp `json:"created,omitempty"`
 	CreatedBy         *string    `json:"createdBy,omitempty"`
-	LastModified      *string    `json:"lastModified,omitempty"`
+	LastModified      *Timestamp `json:"lastModified,omitempty"`
 	ModifiedBy        *string    `json:"modifiedBy,omitempty"`
-	LastUpdated       *string    `json:"lastUpdated,omitempty"`
+	LastUpdated       *Timestamp `json:"lastUpdated,omitempty"`
 	Size              *string    `json:"size,omitempty"`
 	MimeType          *string    `json:"mimeType,omitempty"`
 	Checksums         *Checksums `json:"checksums,omitempty"`
 	OriginalChecksums *Checksums `json:"originalChecksums,omitempty"`
+}
+
+func (f File) String() string {
+	return Stringify(f)
 }
 
 // BinariesSummary represents the summary of binaries in Artifactory.
@@ -109,18 +117,30 @@ type StorageSummary struct {
 	RepositoriesSummaryList *[]RepositoriesSummary `json:"repositoriesSummaryList,omitempty"`
 }
 
+func (s StorageSummary) String() string {
+	return Stringify(s)
+}
+
 // ItemLastModified represents the last modified date for a file in Artifactory.
 type ItemLastModified struct {
-	URI          *string `json:"uri,omitempty"`
-	LastModified *string `json:"lastModified,omitempty"`
+	URI          *string    `json:"uri,omitempty"`
+	LastModified *Timestamp `json:"lastModified,omitempty"`
+}
+
+func (i ItemLastModified) String() string {
+	return Stringify(i)
 }
 
 // FileStatistics represents statistics for a file in Artifactory.
 type FileStatistics struct {
-	URI              *string `json:"uri,omitempty"`
-	LastDownloaded   *string `json:"lastDownloaded,omitempty"`
-	DownloadCount    *int    `json:"downloadCount,omitempty"`
-	LastDownloadedBy *string `json:"lastDownloadedBy,omitempty"`
+	URI              *string    `json:"uri,omitempty"`
+	LastDownloaded   *Timestamp `json:"lastDownloaded,omitempty"`
+	DownloadCount    *int       `json:"downloadCount,omitempty"`
+	LastDownloadedBy *string    `json:"lastDownloadedBy,omitempty"`
+}
+
+func (f FileStatistics) String() string {
+	return Stringify(f)
 }
 
 // ItemProperties represents a set of properties for an item in Artifactory.
@@ -129,20 +149,28 @@ type ItemProperties struct {
 	Properties *map[string][]string `json:"properties,omitempty"`
 }
 
+func (i ItemProperties) String() string {
+	return Stringify(i)
+}
+
 // FileList represents a list of files in Artifactory.
 type FileList struct {
 	URI     *string         `json:"uri,omitempty"`
-	Created *string         `json:"created,omitempty"`
+	Created *Timestamp      `json:"created,omitempty"`
 	Files   *[]FileListItem `json:"files,omitempty"`
+}
+
+func (f FileList) String() string {
+	return Stringify(f)
 }
 
 // FileListItem represents an item in a list of files in Artifactory.
 type FileListItem struct {
-	URI          *string `json:"uri,omitempty"`
-	Size         *int    `json:"size,omitempty"`
-	LastModified *string `json:"lastModified,omitempty"`
-	Folder       *bool   `json:"folder,omitempty"`
-	SHA1         *string `json:"sha1,omitempty"`
+	URI          *string    `json:"uri,omitempty"`
+	Size         *int       `json:"size,omitempty"`
+	LastModified *Timestamp `json:"lastModified,omitempty"`
+	Folder       *bool      `json:"folder,omitempty"`
+	SHA1         *string    `json:"sha1,omitempty"`
 }
 
 // GetFolder returns the provided folder.

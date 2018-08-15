@@ -1,6 +1,6 @@
 {
   "name" : "admin",
-  "email" : "admin@admin.com",
+  "email" : "admin@company.com",
   "password" : "somepass",
   "admin" : true,
   "profileUpdatable" : true,

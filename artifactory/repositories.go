@@ -38,6 +38,10 @@ type Repository struct {
 	URL         *string `json:"url,omitempty"`
 }
 
+func (r Repository) String() string {
+	return Stringify(r)
+}
+
 // GenericRepository represents the common json across all repository types from Artifactory.
 type GenericRepository struct {
 	Key                          *string   `json:"key,omitempty"`
@@ -56,21 +60,30 @@ type GenericRepository struct {
 	PropertySets                 *[]string `json:"propertySets,omitempty"`
 }
 
+func (g GenericRepository) String() string {
+	return Stringify(g)
+}
+
 // LocalRepository represents a local repository in Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Repository+Configuration+JSON#RepositoryConfigurationJSON-application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json
 type LocalRepository struct {
 	*GenericRepository
 
-	DebianTrivialLayout     *bool   `json:"debianTrivialLayout,omitempty"`
-	ChecksumPolicyType      *string `json:"checksumPolicyType,omitempty"`
-	MaxUniqueTags           *int    `json:"maxUniqueTags,omitempty"`
-	SnapshotVersionBehavior *string `json:"snapshotVersionBehavior,omitempty"`
-	ArchiveBrowsingEnabled  *bool   `json:"archiveBrowsingEnabled,omitempty"`
-	CalculateYumMetadata    *bool   `json:"calculateYumMetadata,omitempty"`
-	YumRootDepth            *int    `json:"yumRootDepth,omitempty"`
-	DockerAPIVersion        *string `json:"dockerApiVersion,omitempty"`
-	EnableFileListsIndexing *bool   `json:"enableFileListsIndexing,omitempty"`
+	DebianTrivialLayout             *bool     `json:"debianTrivialLayout,omitempty"`
+	ChecksumPolicyType              *string   `json:"checksumPolicyType,omitempty"`
+	MaxUniqueTags                   *int      `json:"maxUniqueTags,omitempty"`
+	SnapshotVersionBehavior         *string   `json:"snapshotVersionBehavior,omitempty"`
+	ArchiveBrowsingEnabled          *bool     `json:"archiveBrowsingEnabled,omitempty"`
+	CalculateYumMetadata            *bool     `json:"calculateYumMetadata,omitempty"`
+	YumRootDepth                    *int      `json:"yumRootDepth,omitempty"`
+	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty"`
+	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty"`
+	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty"`
+}
+
+func (l LocalRepository) String() string {
+	return Stringify(l)
 }
 
 // RemoteRepository represents a remote repository in Artifactory.
@@ -92,8 +105,9 @@ type RemoteRepository struct {
 	RetrievalCachePeriodSecs          *int    `json:"retrievalCachePeriodSecs,omitempty"`
 	FailedRetrievalCachePeriodSecs    *int    `json:"failedRetrievalCachePeriodSecs,omitempty"`
 	MissedRetrievalCachePeriodSecs    *int    `json:"missedRetrievalCachePeriodSecs,omitempty"`
-	UnusedArtifactsCleanupEnabled     *bool   `json:"unusedArtifactCleanupEnabled,omitempty"`
-	UnusedArtifactsCleanupPeriodHours *int    `json:"unusedArtifactCleanupPeriodHours,omitempty"`
+	UnusedArtifactsCleanupEnabled     *bool   `json:"unusedArtifactsCleanupEnabled,omitempty"`
+	UnusedArtifactsCleanupPeriodHours *int    `json:"unusedArtifactsCleanupPeriodHours,omitempty"`
+	AssumedOfflinePeriodSecs          *int    `json:"assumedOfflinePeriodSecs,omitempty"`
 	FetchJarsEagerly                  *bool   `json:"fetchJarsEagerly,omitempty"`
 	FetchSourcesEagerly               *bool   `json:"fetchSourcesEagerly,omitempty"`
 	ShareConfiguration                *bool   `json:"shareConfiguration,omitempty"`
@@ -106,9 +120,13 @@ type RemoteRepository struct {
 	PyPIRegistryURL                   *string `json:"pyPIRegistryUrl,omitempty"`
 	VcsType                           *string `json:"vcsType,omitempty"`
 	VcsGitProvider                    *string `json:"vcsGitProvider,omitempty"`
-	VcsGitDownloader                  *string `json:"vcsGitDownloader,omitempty"`
+	VcsGitDownloadUrl                 *string `json:"VcsGitDownloadUrl,omitempty"`
 	BypassHeadRequest                 *bool   `json:"bypassHeadRequest,omitempty"`
 	ClientTLSCertificate              *string `json:"clientTlsCertificate,omitempty"`
+}
+
+func (r RemoteRepository) String() string {
+	return Stringify(r)
 }
 
 // VirtualRepository represents a virtual repository in Artifactory.
@@ -123,6 +141,10 @@ type VirtualRepository struct {
 	KeyPair                                       *string   `json:"keyPair,omitempty"`
 	PomRepositoryReferencesCleanupPolicy          *string   `json:"pomRepositoryReferencesCleanupPolicy,omitempty"`
 	DefaultDeploymentRepo                         *string   `json:"defaultDeploymentRepo,omitempty"`
+}
+
+func (v VirtualRepository) String() string {
+	return Stringify(v)
 }
 
 // GetAll returns a list of all repositories.

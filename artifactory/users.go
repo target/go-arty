@@ -51,9 +51,17 @@ type APIKey struct {
 	APIKey *string `json:"apiKey,omitempty"`
 }
 
+func (a APIKey) String() string {
+	return Stringify(a)
+}
+
 // DeleteAPIKey represents a response from deleting an API key in Artifactory
 type DeleteAPIKey struct {
 	Info *string `json:"info,omitempty"`
+}
+
+func (d DeleteAPIKey) String() string {
+	return Stringify(d)
 }
 
 // GetAll returns a list of all users.

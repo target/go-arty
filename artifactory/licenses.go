@@ -24,14 +24,18 @@ type LicensesService service
 
 // License represents a license in Artifactory.
 type License struct {
-	LicenseType  *string `json:"type,omitempty"`
+	Type         *string `json:"type,omitempty"`
 	ValidThrough *string `json:"validThrough,omitempty"`
 	LicensedTo   *string `json:"licensedTo,omitempty"`
 }
 
+func (l License) String() string {
+	return Stringify(l)
+}
+
 // HALicense represents a HA license in Artifactory.
 type HALicense struct {
-	LicenseType  *string `json:"type,omitempty"`
+	Type         *string `json:"type,omitempty"`
 	ValidThrough *string `json:"validThrough,omitempty"`
 	LicensedTo   *string `json:"licensedTo,omitempty"`
 	LicenseHash  *string `json:"licenseHash,omitempty"`
@@ -40,9 +44,17 @@ type HALicense struct {
 	Expired      *bool   `json:"expired,omitempty"`
 }
 
+func (h HALicense) String() string {
+	return Stringify(h)
+}
+
 // HALicenses represents an array of HA licenses in Artifactory.
 type HALicenses struct {
 	Licenses *[]HALicense `json:"licenses,omitempty"`
+}
+
+func (h HALicenses) String() string {
+	return Stringify(h)
 }
 
 // LicenseRequest represents the license request in Artifactory.
@@ -56,10 +68,18 @@ type LicenseResponse struct {
 	Message *string `json:"message,omitempty"`
 }
 
+func (l LicenseResponse) String() string {
+	return Stringify(l)
+}
+
 // HALicenseResponse represents the response from installing a HA license(s) in Artifactory.
 type HALicenseResponse struct {
 	Status   *int               `json:"status,omitempty"`
 	Messages *map[string]string `json:"messages,omitempty"`
+}
+
+func (h HALicenseResponse) String() string {
+	return Stringify(h)
 }
 
 // LicenseRemoval is a list of license hashes for when removing licenses in Artifactory.
@@ -114,9 +134,9 @@ func (s *LicensesService) InstallHA(licenses *[]LicenseRequest) (*HALicenseRespo
 // DeleteHA removes the provided license key(s) from an HA cluster.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteHAClusterLicense
-func (s *LicensesService) DeleteHA(hashes *LicenseRemoval) (*LicenseResponse, *Response, error) {
+func (s *LicensesService) DeleteHA(hashes *LicenseRemoval) (*HALicenseResponse, *Response, error) {
 	u := "/api/system/licenses"
-	v := new(LicenseResponse)
+	v := new(HALicenseResponse)
 
 	u, err := addOptions(u, hashes)
 	if err != nil {

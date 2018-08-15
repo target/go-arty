@@ -22,10 +22,10 @@ import (
 )
 
 const (
-	emptyTimeStr               = `"0001-01-01T00:00:00Z"`
-	referenceTimeStr           = `"2006-01-02T15:04:05Z"`
-	referenceTimeStrFractional = `"2006-01-02T15:04:05.000Z"` // This format was returned by the Projects API before October 1, 2017.
-	referenceUnixTimeStr       = `1136214245`
+	emptyTimeStr         = `"0001-01-01T00:00:00Z"`
+	referenceTimeStr     = `"2006-01-02T15:04:05Z"`
+	referenceISOTimeStr  = `"2006-01-02 15:04:05"`
+	referenceUnixTimeStr = `1136214245`
 )
 
 var (
@@ -67,8 +67,8 @@ func TestTimestamp_Unmarshal(t *testing.T) {
 		equal   bool
 	}{
 		{"Reference", referenceTimeStr, Timestamp{referenceTime}, false, true},
+		{"ReferenceISO", referenceISOTimeStr, Timestamp{referenceTime}, false, true},
 		{"ReferenceUnix", referenceUnixTimeStr, Timestamp{referenceTime}, false, true},
-		{"ReferenceFractional", referenceTimeStrFractional, Timestamp{referenceTime}, false, true},
 		{"Empty", emptyTimeStr, Timestamp{}, false, true},
 		{"UnixStart", `0`, Timestamp{unixOrigin}, false, true},
 		{"Mismatch", referenceTimeStr, Timestamp{}, false, false},
@@ -152,6 +152,7 @@ func TestWrappedTimstamp_Unmarshal(t *testing.T) {
 		equal   bool
 	}{
 		{"Reference", referenceTimeStr, WrappedTimestamp{0, Timestamp{referenceTime}}, false, true},
+		{"ReferenceISO", referenceISOTimeStr, WrappedTimestamp{0, Timestamp{referenceTime}}, false, true},
 		{"ReferenceUnix", referenceUnixTimeStr, WrappedTimestamp{0, Timestamp{referenceTime}}, false, true},
 		{"Empty", emptyTimeStr, WrappedTimestamp{0, Timestamp{}}, false, true},
 		{"UnixStart", `0`, WrappedTimestamp{0, Timestamp{unixOrigin}}, false, true},

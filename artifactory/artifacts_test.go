@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -42,6 +44,40 @@ func Test_Artifacts(t *testing.T) {
 		})
 
 		g.Describe("Artifacts", func() {
+
+			g.It("- should return valid string for ArtifactMessage with String()", func() {
+				actual := &ArtifactMessage{
+					Level:   String("INFO"),
+					Message: String("copying local-repo1:folder/foo.txt to local-repo1:test/foo.txt completed successfully, 1 artifacts and 0 folders were copied"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/artifacts/copy.json")
+
+				var body Artifacts
+				_ = json.Unmarshal(data, &body)
+
+				expected := *body.Messages
+
+				g.Assert(actual.String() == expected[0].String()).IsTrue()
+			})
+
+			g.It("- should return valid string for Artifacts with String()", func() {
+				actual := &Artifacts{
+					Messages: &[]ArtifactMessage{
+						ArtifactMessage{
+							Level:   String("INFO"),
+							Message: String("copying local-repo1:folder/foo.txt to local-repo1:test/foo.txt completed successfully, 1 artifacts and 0 folders were copied"),
+						},
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/artifacts/copy.json")
+
+				var expected Artifacts
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with Download()", func() {
 				actual, resp, err := c.Artifacts.Download("local-repo1", "foo.txt")

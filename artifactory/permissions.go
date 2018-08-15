@@ -38,6 +38,10 @@ type PermissionTarget struct {
 	Principals      *Principals `json:"principals,omitempty"`
 }
 
+func (p PermissionTarget) String() string {
+	return Stringify(p)
+}
+
 // Principals represents user and group permissions in Artifactory.
 type Principals struct {
 	Users  *map[string][]string `json:"users,omitempty"`

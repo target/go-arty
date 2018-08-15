@@ -36,6 +36,10 @@ type GAVCResponse struct {
 	Results *[]File `json:"results,omitempty"`
 }
 
+func (g GAVCResponse) String() string {
+	return Stringify(g)
+}
+
 // GAVC returns the list of artifacts from the Maven search.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GAVCSearch

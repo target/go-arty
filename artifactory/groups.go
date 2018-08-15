@@ -34,9 +34,13 @@ type Group struct {
 	URI             *string `json:"uri,omitempty"`
 	Description     *string `json:"description,omitempty"`
 	AutoJoin        *bool   `json:"autoJoin,omitempty"`
-	Admin           *bool   `json:"admin,omitempty"`
+	AdminPrivileges *bool   `json:"adminPrivileges,omitempty"`
 	Realm           *string `json:"realm,omitempty"`
 	RealmAttributes *string `json:"realmAttributes,omitempty"`
+}
+
+func (g Group) String() string {
+	return Stringify(g)
 }
 
 // GetAll returns a list of all groups.

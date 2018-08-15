@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -42,6 +44,22 @@ func Test_System(t *testing.T) {
 		})
 
 		g.Describe("System", func() {
+
+			g.It("- should return valid string for Versions with String()", func() {
+				actual := &Versions{
+					Version:  String("5.9.5"),
+					Revision: String("123456789"),
+					Addons:   &[]string{"build", "ldap", "properties"},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/system/version.json")
+
+				var expected Versions
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with Ping()", func() {
 				actual, resp, err := c.System.Ping()
 				g.Assert(actual != nil).IsTrue()

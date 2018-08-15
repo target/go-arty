@@ -17,6 +17,7 @@ package artifactory
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestStringify(t *testing.T) {
@@ -60,7 +61,19 @@ func TestStringify(t *testing.T) {
 			`["a" "b"]`,
 		},
 
-		// TODO: actual Artifactory structs
+		// actual Artifactory structs
+		{
+			Timestamp{time.Date(2006, time.January, 02, 15, 04, 05, 0, time.UTC)},
+			`artifactory.Timestamp{2006-01-02 15:04:05 +0000 UTC}`,
+		},
+		{
+			User{Name: String("test"), Email: String("test@company.com")},
+			`artifactory.User{Name:"test", Email:"test@company.com"}`,
+		},
+		{
+			GenericRepository{Key: String("test"), RClass: String("")},
+			`artifactory.GenericRepository{Key:"test", RClass:""}`,
+		},
 	}
 
 	for i, tt := range tests {
@@ -81,7 +94,30 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
-		// TODO: have tests
+		{ArtifactMessage{Level: String("n")}, `artifactory.ArtifactMessage{Level:"n"}`},
+		{Registry{Repositories: &[]string{"n"}}, `artifactory.Registry{Repositories:["n"]}`},
+		{Tags{Name: String("test")}, `artifactory.Tags{Name:"test"}`},
+		{Group{Name: String("test")}, `artifactory.Group{Name:"test"}`},
+		{License{Type: String("Commercial")}, `artifactory.License{Type:"Commercial"}`},
+		{HALicense{Type: String("Commercial")}, `artifactory.HALicense{Type:"Commercial"}`},
+		{LicenseResponse{Status: Int(200)}, `artifactory.LicenseResponse{Status:200}`},
+		{HALicenseResponse{Status: Int(200)}, `artifactory.HALicenseResponse{Status:200}`},
+		{PermissionTarget{Name: String("test")}, `artifactory.PermissionTarget{Name:"test"}`},
+		{Repository{Key: String("test")}, `artifactory.Repository{Key:"test"}`},
+		{GenericRepository{Key: String("test")}, `artifactory.GenericRepository{Key:"test"}`},
+		{LocalRepository{ChecksumPolicyType: String("test")}, `artifactory.LocalRepository{ChecksumPolicyType:"test"}`},
+		{RemoteRepository{URL: String("test")}, `artifactory.RemoteRepository{URL:"test"}`},
+		{VirtualRepository{KeyPair: String("test")}, `artifactory.VirtualRepository{KeyPair:"test"}`},
+		{Folder{URI: String("test")}, `artifactory.Folder{URI:"test"}`},
+		{File{URI: String("test")}, `artifactory.File{URI:"test"}`},
+		{ItemLastModified{URI: String("test")}, `artifactory.ItemLastModified{URI:"test"}`},
+		{FileStatistics{URI: String("test")}, `artifactory.FileStatistics{URI:"test"}`},
+		{ItemProperties{URI: String("test")}, `artifactory.ItemProperties{URI:"test"}`},
+		{FileList{URI: String("test")}, `artifactory.FileList{URI:"test"}`},
+		{Versions{Version: String("test")}, `artifactory.Versions{Version:"test"}`},
+		{User{Name: String("test")}, `artifactory.User{Name:"test"}`},
+		{APIKey{APIKey: String("test")}, `artifactory.APIKey{APIKey:"test"}`},
+		{DeleteAPIKey{Info: String("test")}, `artifactory.DeleteAPIKey{Info:"test"}`},
 	}
 
 	for i, tt := range tests {
