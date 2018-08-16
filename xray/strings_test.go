@@ -17,6 +17,7 @@ package xray
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 func TestStringify(t *testing.T) {
@@ -60,7 +61,19 @@ func TestStringify(t *testing.T) {
 			`["a" "b"]`,
 		},
 
-		// TODO: actual Artifactory structs
+		// actual Xray structs
+		{
+			Timestamp{time.Date(2006, time.January, 02, 15, 04, 05, 0, time.UTC)},
+			`xray.Timestamp{2006-01-02 15:04:05 +0000 UTC}`,
+		},
+		{
+			User{Name: String("test"), Email: String("test@company.com")},
+			`xray.User{Email:"test@company.com", Name:"test"}`,
+		},
+		{
+			Ping{Status: String("test")},
+			`xray.Ping{Status:"test"}`,
+		},
 	}
 
 	for i, tt := range tests {
@@ -71,7 +84,7 @@ func TestStringify(t *testing.T) {
 	}
 }
 
-// Directly test the String() methods on various Artifactory types. We don't do an
+// Directly test the String() methods on various Xray types. We don't do an
 // exaustive test of all the various field types, since TestStringify() above
 // takes care of that. Rather, we just make sure that Stringify() is being
 // used to build the strings, which we do by verifying that pointers are
@@ -81,7 +94,13 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
-		// TODO: have tests
+		{ScanArtifactResponse{Info: String("test")}, `xray.ScanArtifactResponse{Info:"test"}`},
+		{ScanBuildResponse{Summary: &ScanSummary{Message: String("test")}}, `xray.ScanBuildResponse{Summary:xray.ScanSummary{Message:"test"}}`},
+		{SummaryResponse{Errors: &[]SummaryError{SummaryError{Error: String("test")}}}, `xray.SummaryResponse{Errors:[xray.SummaryError{Error:"test"}]}`},
+		{Ping{Status: String("test")}, `xray.Ping{Status:"test"}`},
+		{Versions{XrayVersion: String("test")}, `xray.Versions{XrayVersion:"test"}`},
+		{Timestamp{time.Date(2006, time.January, 02, 15, 04, 05, 0, time.UTC)}, `2006-01-02 15:04:05 +0000 UTC`},
+		{User{Name: String("test")}, `xray.User{Name:"test"}`},
 	}
 
 	for i, tt := range tests {

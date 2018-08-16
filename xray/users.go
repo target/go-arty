@@ -32,6 +32,10 @@ type User struct {
 	Password *string `json:"password,omitempty"`
 }
 
+func (u User) String() string {
+	return Stringify(u)
+}
+
 // GetAll returns a list of all users.
 //
 // Docs: https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-GetUsers/GetUser

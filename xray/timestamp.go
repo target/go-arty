@@ -20,8 +20,8 @@ import (
 )
 
 // Timestamp represents a time that can be unmarshalled from a JSON string
-// formatted as either an RFC3339 or Unix timestamp. This is necessary for some
-// fields since the GitHub API is inconsistent in how it represents times. All
+// formatted as either an RFC3339 or ISO 8601 or Unix timestamp. This is necessary for some
+// fields since the Xray API is inconsistent in how it represents times. All
 // exported methods of time.Time can be called on Timestamp.
 type Timestamp struct {
 	time.Time
@@ -32,7 +32,7 @@ func (t Timestamp) String() string {
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface.
-// Time is expected in RFC3339 or Unix format.
+// Time is expected in RFC3339 or ISO 8601 or Unix format.
 func (t *Timestamp) UnmarshalJSON(data []byte) (err error) {
 	str := string(data)
 	i, err := strconv.ParseInt(str, 10, 64)
@@ -40,6 +40,9 @@ func (t *Timestamp) UnmarshalJSON(data []byte) (err error) {
 		t.Time = time.Unix(i, 0)
 	} else {
 		t.Time, err = time.Parse(`"`+time.RFC3339+`"`, str)
+		if err != nil {
+			t.Time, err = time.Parse(`"`+"2006-01-02 15:04:05"+`"`, str)
+		}
 	}
 	return
 }

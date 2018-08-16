@@ -34,6 +34,10 @@ type SummaryResponse struct {
 	Errors    *[]SummaryError    `json:"errors,omitempty"`
 }
 
+func (s SummaryResponse) String() string {
+	return Stringify(s)
+}
+
 // SummaryArtifact represents a artifact within the summary in Xray.
 type SummaryArtifact struct {
 	General  *SummaryGeneral   `json:"general,omitempty"`

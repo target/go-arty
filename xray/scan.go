@@ -39,6 +39,10 @@ type ScanArtifactResponse struct {
 	Info *string `json:"info,omitempty"`
 }
 
+func (s ScanArtifactResponse) String() string {
+	return Stringify(s)
+}
+
 // ScanBuildRequest represents the scan build request we send to Xray.
 type ScanBuildRequest struct {
 	ArtifactoryID *string `json:"artifactoryId,omitempty"`
@@ -53,9 +57,13 @@ type ScanBuildResponse struct {
 	Licenses *[]ScanLicense `json:"licenses,omitempty"`
 }
 
+func (s ScanBuildResponse) String() string {
+	return Stringify(s)
+}
+
 // ScanSummary represents a summary of the scan in Xray.
 type ScanSummary struct {
-	FailBuild      *string `json:"fail_build,omitempty"`
+	FailBuild      *bool   `json:"fail_build,omitempty"`
 	Message        *string `json:"message,omitempty"`
 	MoreDetailsURL *string `json:"more_details_url,omitempty"`
 	TotalAlerts    *string `json:"total_alerts,omitempty"`
@@ -63,7 +71,7 @@ type ScanSummary struct {
 
 // ScanAlert represents an alert of the scan in Xray.
 type ScanAlert struct {
-	Created     *string      `json:"created,omitempty"`
+	Created     *Timestamp   `json:"created,omitempty"`
 	Issues      *[]ScanIssue `json:"issues,omitempty"`
 	TopSeverity *string      `json:"top_severity,omitempty"`
 	WatchName   *string      `json:"watch_name,omitempty"`
@@ -71,7 +79,7 @@ type ScanAlert struct {
 
 // ScanIssue represents a issue of the scan in Xray.
 type ScanIssue struct {
-	Created           *string                 `json:"created,omitempty"`
+	Created           *Timestamp              `json:"created,omitempty"`
 	Cve               *string                 `json:"cve,omitempty"`
 	Description       *string                 `json:"description,omitempty"`
 	ImpactedArtifacts *[]ScanImpactedArtifact `json:"impacted_artifacts,omitempty"`

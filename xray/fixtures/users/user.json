@@ -1,6 +1,6 @@
 {
   "admin": true,
-  "email": "admin@admin.com",
+  "email": "admin@company.com",
   "name": "admin",
   "password": "somepass"
 }

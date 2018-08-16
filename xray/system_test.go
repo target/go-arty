@@ -15,6 +15,8 @@
 package xray
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -40,6 +42,34 @@ func Test_System(t *testing.T) {
 		})
 
 		g.Describe("System", func() {
+
+			g.It("- should return valid string for Ping with String()", func() {
+				actual := &Ping{
+					Status: String("pong"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/system/ping.json")
+
+				var expected Ping
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for Versions with String()", func() {
+				actual := &Versions{
+					XrayVersion:  String("1.4"),
+					XrayRevision: String("b3034"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/system/version.json")
+
+				var expected Versions
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with Ping()", func() {
 				actual, resp, err := c.System.Ping()
 				g.Assert(actual != nil).IsTrue()
