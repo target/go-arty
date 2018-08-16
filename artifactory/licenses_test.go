@@ -71,7 +71,7 @@ func Test_Licenses(t *testing.T) {
 					LicensedTo:   String("JFrog"),
 					LicenseHash:  String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
 					NodeID:       String("artifactory1"),
-					NodeURL:      String("http://localhost:8091/artifactory"),
+					NodeURL:      String("http://localhost:8081/artifactory"),
 					Expired:      Bool(false),
 				}
 
@@ -94,7 +94,7 @@ func Test_Licenses(t *testing.T) {
 							LicensedTo:   String("JFrog"),
 							LicenseHash:  String("179b7ea384d0c4655a00dfac7285a21d986a17923"),
 							NodeID:       String("artifactory1"),
-							NodeURL:      String("http://localhost:8091/artifactory"),
+							NodeURL:      String("http://localhost:8081/artifactory"),
 							Expired:      Bool(false),
 						},
 						HALicense{
