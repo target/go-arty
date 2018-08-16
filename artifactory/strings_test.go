@@ -94,8 +94,8 @@ func TestString(t *testing.T) {
 		in  interface{}
 		out string
 	}{
-		{ArtifactMessage{Level: String("n")}, `artifactory.ArtifactMessage{Level:"n"}`},
-		{Registry{Repositories: &[]string{"n"}}, `artifactory.Registry{Repositories:["n"]}`},
+		{ArtifactMessage{Level: String("test")}, `artifactory.ArtifactMessage{Level:"test"}`},
+		{Registry{Repositories: &[]string{"test"}}, `artifactory.Registry{Repositories:["test"]}`},
 		{Tags{Name: String("test")}, `artifactory.Tags{Name:"test"}`},
 		{Group{Name: String("test")}, `artifactory.Group{Name:"test"}`},
 		{License{Type: String("Commercial")}, `artifactory.License{Type:"Commercial"}`},
@@ -115,6 +115,7 @@ func TestString(t *testing.T) {
 		{ItemProperties{URI: String("test")}, `artifactory.ItemProperties{URI:"test"}`},
 		{FileList{URI: String("test")}, `artifactory.FileList{URI:"test"}`},
 		{Versions{Version: String("test")}, `artifactory.Versions{Version:"test"}`},
+		{Timestamp{time.Date(2006, time.January, 02, 15, 04, 05, 0, time.UTC)}, `2006-01-02 15:04:05 +0000 UTC`},
 		{User{Name: String("test")}, `artifactory.User{Name:"test"}`},
 		{APIKey{APIKey: String("test")}, `artifactory.APIKey{APIKey:"test"}`},
 		{DeleteAPIKey{Info: String("test")}, `artifactory.DeleteAPIKey{Info:"test"}`},
