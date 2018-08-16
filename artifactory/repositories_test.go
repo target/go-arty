@@ -90,7 +90,6 @@ func Test_Repositories(t *testing.T) {
 				var expected GenericRepository
 				_ = json.Unmarshal(data, &expected)
 
-				// expected := "artifactory.User{Name:\"test\", Email:\"test@company.com\", Password:\"testPassword\", Admin:false, ProfileUpdatable:true, DisableUIAccess:false, InternalPasswordDisabled:false, Realm:\"ldap\", Groups:[\"readers\"]}"
 				g.Assert(actual.String() == expected.String()).IsTrue()
 			})
 
