@@ -66,6 +66,8 @@ users, _, err := client.Users.GetAll()
 
 The `xray` package allows you to pass basic auth or a [token](https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-Authentication).
 
+**NOTE: To get the token for Xray, you have to hit an API endpoint that returns the token. See [the docs for more info](https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-GetToken).**
+
 Example using basic auth:
 
 ```go
