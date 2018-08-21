@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -41,12 +43,32 @@ func Test_Search(t *testing.T) {
 			s.Close()
 		})
 
-		coords := GAVCRequest{
-			ArtifactID: "folder",
-			Repos:      []string{"local-repo1"},
+		coords := &GAVCRequest{
+			ArtifactID: String("folder"),
+			Repos:      &[]string{"local-repo1"},
 		}
 
 		g.Describe("Search", func() {
+			g.It("- should return valid string for GAVCResponse with String()", func() {
+				actual := &GAVCResponse{
+					Results: &[]File{
+						File{
+							URI: String("http://localhost:8081/artifactory/api/storage/local-repo1/folder/file.json"),
+						},
+						File{
+							URI: String("http://localhost:8081/artifactory/api/storage/local-repo1/folder/foo.txt"),
+						},
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/search/files.json")
+
+				var expected GAVCResponse
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with GAVC()", func() {
 				actual, resp, err := c.Search.GAVC(coords)
 				g.Assert(actual != nil).IsTrue()

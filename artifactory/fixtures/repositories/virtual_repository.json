@@ -2,7 +2,7 @@
   "key": "virtual-repo1",
   "rclass" : "virtual",
   "packageType": "generic",
-  "repositories": ["local-rep1", "local-rep2", "remote-rep1", "virtual-rep2"],
+  "repositories": ["local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"],
   "description": "The virtual repository public description",
   "notes": "Some internal notes",
   "includesPattern": "**/*",

@@ -10,12 +10,12 @@
       },
       "issues": [
         {
-          "summary":"FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories",
-          "description":"this is the description of the issue",
-          "issue_type":"security",
-          "severity":"Major",
-          "provider":"JFrog",
-          "created":"2016-10-26T11:15:51.17Z",
+          "summary": "FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories",
+          "description": "this is the description of the issue",
+          "issue_type": "security",
+          "severity": "Major",
+          "provider": "JFrog",
+          "created": "2016-10-26T11:15:51.17Z",
           "impact_path": [
             "xray-artifactory/maven-1000/com/atlassian/aui/auiplugin/0.0.5-9-0-snapshot-035-do-not-use/Jinja2-2.7.2"
           ]
@@ -25,7 +25,7 @@
         {
           "name":"MIT",
           "full_name":"The MIT License",
-          "more_info_url":"https://opensource.org/licenses/MIT",
+          "more_info_url": ["https://opensource.org/licenses/MIT"],
           "components":[
             "some-component-1",
             "some-component-2",
@@ -35,7 +35,7 @@
         {
           "name":"AGPL-3.0",
           "full_name":"GNU AFFERO GENERAL PUBLIC LICENSE, Version 3",
-          "more_info_url":"https://opensource.org/licenses/AGPL-3.0",
+          "more_info_url": ["https://opensource.org/licenses/AGPL-3.0"],
           "components":[
             "some-component-4",
             "some-component-5"

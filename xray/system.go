@@ -22,13 +22,21 @@ type SystemService service
 
 // Ping represents the ping response status from Xray
 type Ping struct {
-	Status string `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
+}
+
+func (p Ping) String() string {
+	return Stringify(p)
 }
 
 // Versions represents the version information about Xray.
 type Versions struct {
-	XrayVersion  string `json:"xray_version,omitempty"`
-	XrayRevision string `json:"xray_revision,omitempty"`
+	XrayVersion  *string `json:"xray_version,omitempty"`
+	XrayRevision *string `json:"xray_revision,omitempty"`
+}
+
+func (v Versions) String() string {
+	return Stringify(v)
 }
 
 // Ping returns a simple status response.

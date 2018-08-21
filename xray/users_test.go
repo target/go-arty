@@ -15,6 +15,8 @@
 package xray
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -40,12 +42,25 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("Users", func() {
-			user := User{
-				Admin:    true,
-				Email:    "admin@company.com",
-				Name:     "admin",
-				Password: "somepass",
-			}
+			user := &User{}
+
+			g.BeforeEach(func() {
+				user = &User{
+					Admin:    Bool(true),
+					Email:    String("admin@company.com"),
+					Name:     String("admin"),
+					Password: String("somepass"),
+				}
+			})
+
+			g.It("- should return valid string for User with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/users/user.json")
+
+				var expected User
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(user.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with GetAll()", func() {
 				actual, resp, err := c.Users.GetAll()

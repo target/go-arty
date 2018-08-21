@@ -2,11 +2,11 @@
   "name": "populateCaches",
   "includesPattern": "**",
   "excludesPattern": "",
-  "repositories": ["local-rep1", "local-rep2", "remote-rep1", "virtual-rep2"],
+  "repositories": ["local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"],
   "principals": {
     "users" : {
-      "bob": ["r","w","m"],
-      "alice" : ["d","w","n", "r"]
+      "alice" : ["d","w","n", "r"],
+      "bob": ["r","w","m"]
     },
     "groups" : {
       "dev-leads" : ["m","r","n"],

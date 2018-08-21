@@ -15,8 +15,11 @@
 package xray
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
+	"time"
 
 	"github.com/franela/goblin"
 	"github.com/gin-gonic/gin"
@@ -41,14 +44,120 @@ func Test_Scan(t *testing.T) {
 
 		g.Describe("Scan", func() {
 			scanArtifact := &ScanArtifactRequest{
-				ComponentID: "",
+				ComponentID: String(""),
 			}
 
 			scanBuild := &ScanBuildRequest{
-				ArtifactoryID: "",
-				BuildName:     "",
-				BuildNumber:   "",
+				ArtifactoryID: String(""),
+				BuildName:     String(""),
+				BuildNumber:   String(""),
 			}
+
+			g.It("- should return valid string for ScanArtifactResponse with String()", func() {
+				actual := &ScanArtifactResponse{
+					Info: String("Scan of artifact is in progress"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/scan/artifact.json")
+
+				var expected ScanArtifactResponse
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for ScanBuildResponse with String()", func() {
+				actual := &ScanBuildResponse{
+					Summary: &ScanSummary{
+						FailBuild:      Bool(false),
+						Message:        String("string"),
+						MoreDetailsURL: String("string"),
+						TotalAlerts:    String("int"),
+					},
+					Alerts: &[]ScanAlert{
+						ScanAlert{
+							Created:     &Timestamp{time.Date(2011, time.November, 11, 11, 11, 11, 0, time.UTC)},
+							TopSeverity: String("string"),
+							WatchName:   String("string"),
+							Issues: &[]ScanIssue{
+								ScanIssue{
+									Created:     &Timestamp{time.Date(2012, time.December, 12, 12, 12, 12, 0, time.UTC)},
+									Cve:         String("string"),
+									Description: String("string"),
+									Provider:    String("string"),
+									Severity:    String("string"),
+									Summary:     String("string"),
+									Type:        String("string"),
+									ImpactedArtifacts: &[]ScanImpactedArtifact{
+										ScanImpactedArtifact{
+											Depth:       String("int"),
+											DisplayName: String("string"),
+											Name:        String("string"),
+											ParentSha:   String("string"),
+											Path:        String("string"),
+											PkgType:     String("string"),
+											Sha1:        String("string"),
+											Sha256:      String("string"),
+											InfectedFiles: &[]ScanInfectedFile{
+												ScanInfectedFile{
+													ComponentID: String("string"),
+													Depth:       String("int"),
+													DisplayName: String("string"),
+													Name:        String("string"),
+													ParentSha:   String("string"),
+													Path:        String("string"),
+													PkgType:     String("string"),
+													Sha1:        String("string"),
+													Sha256:      String("string"),
+													Details: &[]ScanDetail{
+														ScanDetail{
+															BannedLicenses: &[]ScanBannedLicense{
+																ScanBannedLicense{
+																	AlertType:   String("string"),
+																	Description: String("string"),
+																	ID:          &struct{}{},
+																	Severity:    String("string"),
+																	Summary:     String("string"),
+																},
+															},
+															Child: String("string"),
+															Vulnerabilities: &[]ScanVulnerability{
+																ScanVulnerability{
+																	AlertType:   String("string"),
+																	Description: String("string"),
+																	ID:          &struct{}{},
+																	Severity:    String("string"),
+																	Summary:     String("string"),
+																},
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					Licenses: &[]ScanLicense{
+						ScanLicense{
+							Name:        String("string"),
+							Components:  &[]string{"string"},
+							FullName:    String("string"),
+							MoreInfoURL: &[]string{"string"},
+						},
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/scan/build.json")
+
+				var expected ScanBuildResponse
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with Artifact()", func() {
 				actual, resp, err := c.Scan.Artifact(scanArtifact)
 				g.Assert(actual != nil).IsTrue()

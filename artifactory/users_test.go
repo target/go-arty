@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -42,20 +44,30 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("Users", func() {
-			user := User{}
+			user := &User{}
 
 			g.BeforeEach(func() {
-				user = User{
-					Name:                     "test",
-					Email:                    "test@company.com",
-					Password:                 "testPassword",
-					Admin:                    false,
-					ProfileUpdatable:         true,
-					DisableUIAccess:          false,
-					InternalPasswordDisabled: false,
-					Realm:  "ldap",
-					Groups: []string{"readers"},
+				user = &User{
+					Name:                     String("admin"),
+					Email:                    String("admin@company.com"),
+					Password:                 String("somepass"),
+					Admin:                    Bool(true),
+					ProfileUpdatable:         Bool(true),
+					DisableUIAccess:          Bool(false),
+					InternalPasswordDisabled: Bool(false),
+					Groups:       &[]string{"administrators"},
+					LastLoggedIn: String("2015-08-11T14:04:11.472Z"),
+					Realm:        String("internal"),
 				}
+			})
+
+			g.It("- should return valid string for User with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/users/user.json")
+
+				var expected User
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(user.String() == expected.String()).IsTrue()
 			})
 
 			g.It("- should return no error with GetAll()", func() {
@@ -95,6 +107,33 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("API Keys", func() {
+
+			g.It("- should return valid string for APIKey with String()", func() {
+				actual := &APIKey{
+					APIKey: String("AreallyCOOLsuperSECRETapiKEYthatNOBODYknows"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/users/get_api_key.json")
+
+				var expected APIKey
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for DeleteAPIKey with String()", func() {
+				actual := &DeleteAPIKey{
+					Info: String("Api key for user: 'admin' has been successfully revoked"),
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/users/delete_api_key.json")
+
+				var expected DeleteAPIKey
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with GetAPIKey()", func() {
 				actual, resp, err := c.Users.GetAPIKey()
 				g.Assert(actual != nil).IsTrue()

@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -43,14 +45,54 @@ func Test_Docker(t *testing.T) {
 
 		g.Describe("Docker", func() {
 
-			promotion := ImagePromotion{
-				TargetRepo:             "docker",
-				DockerRepository:       "docker-dev",
-				TargetDockerRepository: "docker-test",
-				Tag:       "latest",
-				TargetTag: "latest",
-				Copy:      true,
+			promotion := &ImagePromotion{
+				TargetRepo:             String("docker"),
+				DockerRepository:       String("docker-dev"),
+				TargetDockerRepository: String("docker-test"),
+				Tag:       String("latest"),
+				TargetTag: String("latest"),
+				Copy:      Bool(true),
 			}
+
+			g.It("- should return valid string for Registry with String()", func() {
+				actual := &Registry{
+					Repositories: &[]string{
+						"docker-dev",
+						"docker-test",
+						"docker-stage",
+						"docker-prod",
+						"hello-world",
+						"hello-cloud",
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/docker/repositories.json")
+
+				var expected Registry
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for Tags with String()", func() {
+				actual := &Tags{
+					Name: String("docker-dev"),
+					Tags: &[]string{
+						"0.1.0",
+						"0.2.0",
+						"0.3.0",
+						"0.4.0",
+						"0.5.0",
+					},
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/docker/tags.json")
+
+				var expected Tags
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with GetRepositories()", func() {
 				actual, resp, err := c.Docker.GetRepositories("docker")

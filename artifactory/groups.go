@@ -30,13 +30,17 @@ type GroupsService service
 //
 // Doc: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.Group+json
 type Group struct {
-	Name            string `json:"name,omitempty"`
-	URI             string `json:"uri,omitempty"`
-	Description     string `json:"description,omitempty"`
-	AutoJoin        bool   `json:"autoJoin,omitempty"`
-	Admin           bool   `json:"admin,omitempty"`
-	Realm           string `json:"realm,omitempty"`
-	RealmAttributes string `json:"realmAttributes,omitempty"`
+	Name            *string `json:"name,omitempty"`
+	URI             *string `json:"uri,omitempty"`
+	Description     *string `json:"description,omitempty"`
+	AutoJoin        *bool   `json:"autoJoin,omitempty"`
+	AdminPrivileges *bool   `json:"adminPrivileges,omitempty"`
+	Realm           *string `json:"realm,omitempty"`
+	RealmAttributes *string `json:"realmAttributes,omitempty"`
+}
+
+func (g Group) String() string {
+	return Stringify(g)
 }
 
 // GetAll returns a list of all groups.
@@ -64,8 +68,8 @@ func (s *GroupsService) Get(group string) (*Group, *Response, error) {
 // Create constructs a group with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplaceGroup
-func (s *GroupsService) Create(group Group) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/groups/%s", group.Name)
+func (s *GroupsService) Create(group *Group) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/groups/%s", *group.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("PUT", u, group, v)
@@ -75,8 +79,8 @@ func (s *GroupsService) Create(group Group) (*string, *Response, error) {
 // Update modifies a group with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-UpdateGroup
-func (s *GroupsService) Update(group Group) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/groups/%s", group.Name)
+func (s *GroupsService) Update(group *Group) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/groups/%s", *group.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("POST", u, group, v)

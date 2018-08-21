@@ -24,22 +24,26 @@ type SearchService service
 
 // GAVCRequest represents the GAVC request for searches in Artifactory.
 type GAVCRequest struct {
-	GroupID    string   `url:"g,omitempty"`
-	ArtifactID string   `url:"a,omitempty"`
-	Version    string   `url:"v,omitempty"`
-	Classifier string   `url:"c,omitempty"`
-	Repos      []string `url:"repos,omitempty"`
+	GroupID    *string   `url:"g,omitempty"`
+	ArtifactID *string   `url:"a,omitempty"`
+	Version    *string   `url:"v,omitempty"`
+	Classifier *string   `url:"c,omitempty"`
+	Repos      *[]string `url:"repos,omitempty"`
 }
 
 // GAVCResponse represents the GAVC response for searches in Artifactory.
 type GAVCResponse struct {
-	Results []File `json:"results,omitempty"`
+	Results *[]File `json:"results,omitempty"`
+}
+
+func (g GAVCResponse) String() string {
+	return Stringify(g)
 }
 
 // GAVC returns the list of artifacts from the Maven search.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GAVCSearch
-func (s *SearchService) GAVC(coords GAVCRequest) (*GAVCResponse, *Response, error) {
+func (s *SearchService) GAVC(coords *GAVCRequest) (*GAVCResponse, *Response, error) {
 	u := "/api/search/gavc"
 	v := new(GAVCResponse)
 

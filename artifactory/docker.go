@@ -26,23 +26,31 @@ type DockerService service
 
 // Registry represents the list of Docker repositories in a registry in Artifactory.
 type Registry struct {
-	Repositories []string `json:"repositories,omitempty"`
+	Repositories *[]string `json:"repositories,omitempty"`
+}
+
+func (r Registry) String() string {
+	return Stringify(r)
 }
 
 // Tags represents the list of tags for a Docker repository in Artifactory.
 type Tags struct {
-	Name string   `json:"name,omitempty"`
-	Tags []string `json:"tags,omitempty"`
+	Name *string   `json:"name,omitempty"`
+	Tags *[]string `json:"tags,omitempty"`
+}
+
+func (t Tags) String() string {
+	return Stringify(t)
 }
 
 // ImagePromotion represents the Docker image promotion request in Artifactory.
 type ImagePromotion struct {
-	TargetRepo             string `json:"targetRepo,omitempty"`             // The target repository for the move or copy
-	DockerRepository       string `json:"dockerRepository,omitempty"`       // The docker repository name to promote
-	TargetDockerRepository string `json:"targetDockerRepository,omitempty"` // An optional Docker repository name, if null, will use the same name as 'dockerRepository'
-	Tag                    string `json:"tag,omitempty"`                    // An optional tag name to promote, if null - the entire docker repository will be promoted. Available from v4.10.
-	TargetTag              string `json:"targetTag,omitempty"`              // An optional target tag to assign the image after promotion, if null - will use the same tag
-	Copy                   bool   `json:"copy,omitempty"`                   // An optional value to set whether to copy instead of move. Default: false
+	TargetRepo             *string `json:"targetRepo,omitempty"`             // The target repository for the move or copy
+	DockerRepository       *string `json:"dockerRepository,omitempty"`       // The docker repository name to promote
+	TargetDockerRepository *string `json:"targetDockerRepository,omitempty"` // An optional Docker repository name, if null, will use the same name as 'dockerRepository'
+	Tag                    *string `json:"tag,omitempty"`                    // An optional tag name to promote, if null - the entire docker repository will be promoted. Available from v4.10.
+	TargetTag              *string `json:"targetTag,omitempty"`              // An optional target tag to assign the image after promotion, if null - will use the same tag
+	Copy                   *bool   `json:"copy,omitempty"`                   // An optional value to set whether to copy instead of move. Default: false
 }
 
 // GetRepositories returns a list of all Docker repositories for the provided registry.
@@ -70,7 +78,7 @@ func (s *DockerService) GetTags(registry, repository string) (*Tags, *Response, 
 // PromoteImage promotes the provided Docker image(s) from the provided source repository to the provided destination repository.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-PromoteDockerImage
-func (s *DockerService) PromoteImage(registry string, promotion ImagePromotion) (*string, *Response, error) {
+func (s *DockerService) PromoteImage(registry string, promotion *ImagePromotion) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/docker/%s/v2/promote", registry)
 	v := new(string)
 

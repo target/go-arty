@@ -26,10 +26,14 @@ type UsersService service
 //
 // Docs: https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-USERMANAGEMENT
 type User struct {
-	Admin    bool   `json:"admin,omitempty"`
-	Email    string `json:"email,omitempty"`
-	Name     string `json:"name,omitempty"`
-	Password string `json:"password,omitempty"`
+	Admin    *bool   `json:"admin,omitempty"`
+	Email    *string `json:"email,omitempty"`
+	Name     *string `json:"name,omitempty"`
+	Password *string `json:"password,omitempty"`
+}
+
+func (u User) String() string {
+	return Stringify(u)
 }
 
 // GetAll returns a list of all users.
@@ -57,7 +61,7 @@ func (s *UsersService) Get(user string) (*User, *Response, error) {
 // Create constructs a new User with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-CreateUser
-func (s *UsersService) Create(user User) (*User, *Response, error) {
+func (s *UsersService) Create(user *User) (*User, *Response, error) {
 	u := "/api/v1/users"
 	v := new(User)
 
@@ -68,8 +72,8 @@ func (s *UsersService) Create(user User) (*User, *Response, error) {
 // Update modifies a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API#XrayRESTAPI-UpdateUser
-func (s *UsersService) Update(user User) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/v1/users/%s", user.Name)
+func (s *UsersService) Update(user *User) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/v1/users/%s", *user.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("PUT", u, user, v)

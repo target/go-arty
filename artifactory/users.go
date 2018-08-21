@@ -30,26 +30,38 @@ type UsersService service
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.User+json
 type User struct {
-	Name                     string   `json:"name,omitempty"`
-	Email                    string   `json:"email,omitempty"`
-	Password                 string   `json:"password,omitempty"`
-	Admin                    bool     `json:"admin,omitempty"`
-	ProfileUpdatable         bool     `json:"profileUpdatable,omitempty"`
-	DisableUIAccess          bool     `json:"disableUIAccess,omitempty"`
-	InternalPasswordDisabled bool     `json:"internalPasswordDisabled,omitempty"`
-	LastLoggedIn             string   `json:"lastLoggedIn,omitempty"`
-	Realm                    string   `json:"realm,omitempty"`
-	Groups                   []string `json:"groups,omitempty"`
+	Name                     *string   `json:"name,omitempty"`
+	Email                    *string   `json:"email,omitempty"`
+	Password                 *string   `json:"password,omitempty"`
+	Admin                    *bool     `json:"admin,omitempty"`
+	ProfileUpdatable         *bool     `json:"profileUpdatable,omitempty"`
+	DisableUIAccess          *bool     `json:"disableUIAccess,omitempty"`
+	InternalPasswordDisabled *bool     `json:"internalPasswordDisabled,omitempty"`
+	LastLoggedIn             *string   `json:"lastLoggedIn,omitempty"`
+	Realm                    *string   `json:"realm,omitempty"`
+	Groups                   *[]string `json:"groups,omitempty"`
+}
+
+func (u User) String() string {
+	return Stringify(u)
 }
 
 // APIKey represents an api key in Artifactory.
 type APIKey struct {
-	APIKey string `json:"apiKey,omitempty"`
+	APIKey *string `json:"apiKey,omitempty"`
+}
+
+func (a APIKey) String() string {
+	return Stringify(a)
 }
 
 // DeleteAPIKey represents a response from deleting an API key in Artifactory
 type DeleteAPIKey struct {
-	Info string `json:"info,omitempty"`
+	Info *string `json:"info,omitempty"`
+}
+
+func (d DeleteAPIKey) String() string {
+	return Stringify(d)
 }
 
 // GetAll returns a list of all users.
@@ -77,8 +89,8 @@ func (s *UsersService) Get(user string) (*User, *Response, error) {
 // Create constructs a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplaceUser
-func (s *UsersService) Create(user User) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/users/%s", user.Name)
+func (s *UsersService) Create(user *User) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("PUT", u, user, v)
@@ -88,8 +100,8 @@ func (s *UsersService) Create(user User) (*string, *Response, error) {
 // Update modifies a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-UpdateUser
-func (s *UsersService) Update(user User) (*string, *Response, error) {
-	u := fmt.Sprintf("/api/security/users/%s", user.Name)
+func (s *UsersService) Update(user *User) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
 	resp, err := s.client.Call("POST", u, user, v)

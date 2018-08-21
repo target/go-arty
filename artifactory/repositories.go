@@ -32,97 +32,119 @@ type RepositoriesService service
 
 // Repository represents a repository in Artifactory.
 type Repository struct {
-	Key         string `json:"key,omitempty"`
-	Type        string `json:"type,omitempty"`
-	Description string `json:"description,omitempty"`
-	URL         string `json:"url,omitempty"`
+	Key         *string `json:"key,omitempty"`
+	Type        *string `json:"type,omitempty"`
+	Description *string `json:"description,omitempty"`
+	URL         *string `json:"url,omitempty"`
+}
+
+func (r Repository) String() string {
+	return Stringify(r)
 }
 
 // GenericRepository represents the common json across all repository types from Artifactory.
 type GenericRepository struct {
-	Key                          string   `json:"key,omitempty"`
-	RClass                       string   `json:"rclass,omitempty"`
-	PackageType                  string   `json:"packageType,omitempty"`
-	Description                  string   `json:"description,omitempty"`
-	Notes                        string   `json:"notes,omitempty"`
-	IncludesPattern              string   `json:"includesPattern,omitempty"`
-	ExcludesPattern              string   `json:"excludesPattern,omitempty"`
-	LayoutRef                    string   `json:"repoLayoutRef,omitempty"`
-	HandleReleases               bool     `json:"handleReleases,omitempty"`
-	HandleSnapshots              bool     `json:"handleSnapshots,omitempty"`
-	MaxUniqueSnapshots           int      `json:"maxUniqueSnapshots,omitempty"`
-	SuppressPomConsistencyChecks bool     `json:"suppressPomConsistencyChecks,omitempty"`
-	BlackedOut                   bool     `json:"blackedOut,omitempty"`
-	PropertySets                 []string `json:"propertySets,omitempty"`
+	Key                          *string   `json:"key,omitempty"`
+	RClass                       *string   `json:"rclass,omitempty"`
+	PackageType                  *string   `json:"packageType,omitempty"`
+	Description                  *string   `json:"description,omitempty"`
+	Notes                        *string   `json:"notes,omitempty"`
+	IncludesPattern              *string   `json:"includesPattern,omitempty"`
+	ExcludesPattern              *string   `json:"excludesPattern,omitempty"`
+	LayoutRef                    *string   `json:"repoLayoutRef,omitempty"`
+	HandleReleases               *bool     `json:"handleReleases,omitempty"`
+	HandleSnapshots              *bool     `json:"handleSnapshots,omitempty"`
+	MaxUniqueSnapshots           *int      `json:"maxUniqueSnapshots,omitempty"`
+	SuppressPomConsistencyChecks *bool     `json:"suppressPomConsistencyChecks,omitempty"`
+	BlackedOut                   *bool     `json:"blackedOut,omitempty"`
+	PropertySets                 *[]string `json:"propertySets,omitempty"`
+}
+
+func (g GenericRepository) String() string {
+	return Stringify(g)
 }
 
 // LocalRepository represents a local repository in Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Repository+Configuration+JSON#RepositoryConfigurationJSON-application/vnd.org.jfrog.artifactory.repositories.LocalRepositoryConfiguration+json
 type LocalRepository struct {
-	GenericRepository
+	*GenericRepository
 
-	DebianTrivialLayout     bool   `json:"debianTrivialLayout,omitempty"`
-	ChecksumPolicyType      string `json:"checksumPolicyType,omitempty"`
-	MaxUniqueTags           int    `json:"maxUniqueTags,omitempty"`
-	SnapshotVersionBehavior string `json:"snapshotVersionBehavior,omitempty"`
-	ArchiveBrowsingEnabled  bool   `json:"archiveBrowsingEnabled,omitempty"`
-	CalculateYumMetadata    bool   `json:"calculateYumMetadata,omitempty"`
-	YumRootDepth            int    `json:"yumRootDepth,omitempty"`
-	DockerAPIVersion        string `json:"dockerApiVersion,omitempty"`
-	EnableFileListsIndexing bool   `json:"enableFileListsIndexing,omitempty"`
+	DebianTrivialLayout             *bool     `json:"debianTrivialLayout,omitempty"`
+	ChecksumPolicyType              *string   `json:"checksumPolicyType,omitempty"`
+	MaxUniqueTags                   *int      `json:"maxUniqueTags,omitempty"`
+	SnapshotVersionBehavior         *string   `json:"snapshotVersionBehavior,omitempty"`
+	ArchiveBrowsingEnabled          *bool     `json:"archiveBrowsingEnabled,omitempty"`
+	CalculateYumMetadata            *bool     `json:"calculateYumMetadata,omitempty"`
+	YumRootDepth                    *int      `json:"yumRootDepth,omitempty"`
+	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty"`
+	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty"`
+	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty"`
+}
+
+func (l LocalRepository) String() string {
+	return Stringify(l)
 }
 
 // RemoteRepository represents a remote repository in Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Repository+Configuration+JSON#RepositoryConfigurationJSON-application/vnd.org.jfrog.artifactory.repositories.RemoteRepositoryConfiguration+json
 type RemoteRepository struct {
-	GenericRepository
+	*GenericRepository
 
-	URL                               string `json:"url,omitempty"`
-	Username                          string `json:"username,omitempty"`
-	Password                          string `json:"password,omitempty"`
-	Proxy                             string `json:"proxy,omitempty"`
-	RemoteRepoChecksumPolicyType      string `json:"remoteRepoChecksumPolicyType,omitempty"`
-	HardFail                          bool   `json:"hardFail,omitempty"`
-	Offline                           bool   `json:"offline,omitempty"`
-	StoreArtifactsLocally             bool   `json:"storeArtifactsLocally,omitempty"`
-	SocketTimeoutMillis               int    `json:"socketTimeoutMillis,omitempty"`
-	LocalAddress                      string `json:"localAddress,omitempty"`
-	RetrievalCachePeriodSecs          int    `json:"retrievalCachePeriodSecs,omitempty"`
-	FailedRetrievalCachePeriodSecs    int    `json:"failedRetrievalCachePeriodSecs,omitempty"`
-	MissedRetrievalCachePeriodSecs    int    `json:"missedRetrievalCachePeriodSecs,omitempty"`
-	UnusedArtifactsCleanupEnabled     bool   `json:"unusedArtifactCleanupEnabled,omitempty"`
-	UnusedArtifactsCleanupPeriodHours int    `json:"unusedArtifactCleanupPeriodHours,omitempty"`
-	FetchJarsEagerly                  bool   `json:"fetchJarsEagerly,omitempty"`
-	FetchSourcesEagerly               bool   `json:"fetchSourcesEagerly,omitempty"`
-	ShareConfiguration                bool   `json:"shareConfiguration,omitempty"`
-	SynchronizeProperties             bool   `json:"synchronizeProperties,omitempty"`
-	BlockMismatchingMimeTypes         bool   `json:"blockMismatchingMimeTypes,omitempty"`
-	AllowAnyHostAuth                  bool   `json:"allowAnyHostAuth,omitempty"`
-	EnableCookieManagement            bool   `json:"enableCookieManagement,omitempty"`
-	BowerRegistryURL                  string `json:"bowerRegistryUrl,omitempty"`
-	ComposerRegistryURL               string `json:"composerRegistryUrl,omitempty"`
-	PyPIRegistryURL                   string `json:"pyPIRegistryUrl,omitempty"`
-	VcsType                           string `json:"vcsType,omitempty"`
-	VcsGitProvider                    string `json:"vcsGitProvider,omitempty"`
-	VcsGitDownloader                  string `json:"vcsGitDownloader,omitempty"`
-	BypassHeadRequest                 bool   `json:"bypassHeadRequest,omitempty"`
-	ClientTLSCertificate              string `json:"clientTlsCertificate,omitempty"`
+	URL                               *string `json:"url,omitempty"`
+	Username                          *string `json:"username,omitempty"`
+	Password                          *string `json:"password,omitempty"`
+	Proxy                             *string `json:"proxy,omitempty"`
+	RemoteRepoChecksumPolicyType      *string `json:"remoteRepoChecksumPolicyType,omitempty"`
+	HardFail                          *bool   `json:"hardFail,omitempty"`
+	Offline                           *bool   `json:"offline,omitempty"`
+	StoreArtifactsLocally             *bool   `json:"storeArtifactsLocally,omitempty"`
+	SocketTimeoutMillis               *int    `json:"socketTimeoutMillis,omitempty"`
+	LocalAddress                      *string `json:"localAddress,omitempty"`
+	RetrievalCachePeriodSecs          *int    `json:"retrievalCachePeriodSecs,omitempty"`
+	FailedRetrievalCachePeriodSecs    *int    `json:"failedRetrievalCachePeriodSecs,omitempty"`
+	MissedRetrievalCachePeriodSecs    *int    `json:"missedRetrievalCachePeriodSecs,omitempty"`
+	UnusedArtifactsCleanupEnabled     *bool   `json:"unusedArtifactsCleanupEnabled,omitempty"`
+	UnusedArtifactsCleanupPeriodHours *int    `json:"unusedArtifactsCleanupPeriodHours,omitempty"`
+	AssumedOfflinePeriodSecs          *int    `json:"assumedOfflinePeriodSecs,omitempty"`
+	FetchJarsEagerly                  *bool   `json:"fetchJarsEagerly,omitempty"`
+	FetchSourcesEagerly               *bool   `json:"fetchSourcesEagerly,omitempty"`
+	ShareConfiguration                *bool   `json:"shareConfiguration,omitempty"`
+	SynchronizeProperties             *bool   `json:"synchronizeProperties,omitempty"`
+	BlockMismatchingMimeTypes         *bool   `json:"blockMismatchingMimeTypes,omitempty"`
+	AllowAnyHostAuth                  *bool   `json:"allowAnyHostAuth,omitempty"`
+	EnableCookieManagement            *bool   `json:"enableCookieManagement,omitempty"`
+	BowerRegistryURL                  *string `json:"bowerRegistryUrl,omitempty"`
+	ComposerRegistryURL               *string `json:"composerRegistryUrl,omitempty"`
+	PyPIRegistryURL                   *string `json:"pyPIRegistryUrl,omitempty"`
+	VcsType                           *string `json:"vcsType,omitempty"`
+	VcsGitProvider                    *string `json:"vcsGitProvider,omitempty"`
+	VcsGitDownloadUrl                 *string `json:"VcsGitDownloadUrl,omitempty"`
+	BypassHeadRequest                 *bool   `json:"bypassHeadRequest,omitempty"`
+	ClientTLSCertificate              *string `json:"clientTlsCertificate,omitempty"`
+}
+
+func (r RemoteRepository) String() string {
+	return Stringify(r)
 }
 
 // VirtualRepository represents a virtual repository in Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Repository+Configuration+JSON#RepositoryConfigurationJSON-application/vnd.org.jfrog.artifactory.repositories.VirtualRepositoryConfiguration+json
 type VirtualRepository struct {
-	GenericRepository
+	*GenericRepository
 
-	Repositories                                  []string `json:"repositories,omitempty"`
-	DebianTrivialLayout                           bool     `json:"debianTrivialLayout,omitempty"`
-	ArtifactoryRequestsCanRetrieveRemoteArtifacts bool     `json:"artifactoryRequestsCanRetrieveRemoteArtifacts,omitempty"`
-	KeyPair                                       string   `json:"keyPair,omitempty"`
-	PomRepositoryReferencesCleanupPolicy          string   `json:"pomRepositoryReferencesCleanupPolicy,omitempty"`
-	DefaultDeploymentRepo                         string   `json:"defaultDeploymentRepo,omitempty"`
+	Repositories                                  *[]string `json:"repositories,omitempty"`
+	DebianTrivialLayout                           *bool     `json:"debianTrivialLayout,omitempty"`
+	ArtifactoryRequestsCanRetrieveRemoteArtifacts *bool     `json:"artifactoryRequestsCanRetrieveRemoteArtifacts,omitempty"`
+	KeyPair                                       *string   `json:"keyPair,omitempty"`
+	PomRepositoryReferencesCleanupPolicy          *string   `json:"pomRepositoryReferencesCleanupPolicy,omitempty"`
+	DefaultDeploymentRepo                         *string   `json:"defaultDeploymentRepo,omitempty"`
+}
+
+func (v VirtualRepository) String() string {
+	return Stringify(v)
 }
 
 // GetAll returns a list of all repositories.
