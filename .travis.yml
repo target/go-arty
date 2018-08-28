@@ -1,9 +1,9 @@
 sudo: false
 language: go
 go:
+  - "1.11.x"
   - "1.10.x"
   - "1.9.x"
-  - "1.8.x"
   - master
 matrix:
   allow_failures:
@@ -14,12 +14,5 @@ before_install:
   - go get github.com/mattn/goveralls
 
 script:
-  - |
-    for pkg in $(go list ./... | grep -v vendor)
-    do
-      cd $GOPATH/src/$pkg/
-      go vet
-      go test -cover -coverprofile coverage.out
-    done
-  - cd $TRAVIS_BUILD_DIR
-  - $GOPATH/bin/goveralls -service=travis-ci
+  - ./test.sh
+  - $GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci
