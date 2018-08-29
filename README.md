@@ -84,6 +84,24 @@ client, _ := xray.NewClient("xray.company.com", nil)
 client.Authentication.SetTokenAuth("token")
 ```
 
+## Creating/Updating Resources
+
+All structs in this library use pointer values for all non-repeated fields. This allows distinguishing between unset fields and those set to a zero-value. Helper functions have been provided to easily create these pointers for string, bool, and int values. For example:
+
+```go
+// create a new user named "admin"
+user := &artifactory.User{
+	Name:     artifactory.String("admin"),
+	Email:    artifactory.String("admin@company.com"),
+	Password: artifactory.String("secretPassword"),
+	Admin:    artifactory.Bool(true),
+}
+
+client.Users.Create(user)
+```
+
+Users who have worked with protocol buffers should find this pattern familiar.
+
 ## Versioning
 
 In general, `go-arty` follows [semantic versioning](https://semver.org/) as closely as we can for tagging releases of the package. For self-contained libraries, the application of semantic versioning is relatively straightforward and generally understood. But because `go-arty` is a client library for the Artifactory API and the Xray API, which both change behavior frequently, we've adopted the following versioning policy:

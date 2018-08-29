@@ -12,7 +12,19 @@ matrix:
 
 before_install:
   - go get github.com/mattn/goveralls
+  - go get github.com/go-playground/overalls
 
 script:
-  - ./test.sh
-  - $GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci
+  - go test -v -race ./...
+  - go vet ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go vet ./... produces a zero diff; clean up any changes afterwards.
+
+  # We've commented out this line as the behavior of go fmt changes too much between the versions we're currently testing
+  # Our hope is by leaving it here it will serve as a reminder
+  #- go fmt ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go fmt ./... produces a zero diff; clean up any changes afterwards.
+
+  - go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
+
+  # Generate test coverage report. This must be after all other tests.
+  - rm -f artifactory/artifactory-accessors.go xray/xray-accessors.go # exclude generated code
+  - $GOPATH/bin/overalls -project=github.com/target/go-arty -covermode=count
+  - $GOPATH/bin/goveralls -coverprofile=overalls.coverprofile -service=travis-ci
