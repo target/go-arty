@@ -116,11 +116,11 @@ This library was initially developed for internal applications at Target, so API
 
 ## Contributing
 
-We always welcome new PRs! See [_Contributing_](CONTRIBUTING.md) for further instructions.
+We always welcome new PRs! See [_Contributing_](.github/CONTRIBUTING.md) for further instructions.
 
 ## Bugs and Feature Requests
 
-Found something that doesn't seem right or have a feature request? [Please open a new issue](issues/new/).
+Found something that doesn't seem right or have a feature request? [Please open a new issue](../../issues/new/).
 
 ## Copyright and License
 
