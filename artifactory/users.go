@@ -65,10 +65,8 @@ func (d DeleteAPIKey) String() string {
 }
 
 // GetAll returns a list of all users.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUsers
 func (s *UsersService) GetAll() (*[]User, *Response, error) {
-	u := fmt.Sprintf("/api/security/users")
+	u := fmt.Sprintf("/api/users")
 	v := new([]User)
 
 	resp, err := s.client.Call("GET", u, nil, v)

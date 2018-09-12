@@ -55,9 +55,9 @@ func Test_Users(t *testing.T) {
 					ProfileUpdatable:         Bool(true),
 					DisableUIAccess:          Bool(false),
 					InternalPasswordDisabled: Bool(false),
-					Groups:       &[]string{"administrators"},
-					LastLoggedIn: String("2015-08-11T14:04:11.472Z"),
-					Realm:        String("internal"),
+					Groups:                   &[]string{"administrators"},
+					LastLoggedIn:             String("2015-08-11T14:04:11.472Z"),
+					Realm:                    String("internal"),
 				}
 			})
 

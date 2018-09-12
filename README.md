@@ -7,7 +7,6 @@
 
 go-arty is a Go client library for accessing the [Artifactory](https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API) and [Xray](https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API) API.
 
-
 ## Artifactory
 
 ### Usage
@@ -19,7 +18,7 @@ import "github.com/target/go-arty/artifactory"
 Construct a new Artifactory client, then use the various services on the client to access different parts of the Artifactory API. For example:
 
 ```go
-client, _ := artifactory.NewClient("artifactory.company.com", nil)
+client, _ := artifactory.NewClient("https://artifactory.company.com", nil)
 
 // list all users from the artifactory server
 users, _, err := client.Users.GetAll()
@@ -32,7 +31,7 @@ The `artifactory` package allows you to pass basic auth or an [API Key](https://
 Example using basic auth:
 
 ```go
-client, _ := artifactory.NewClient("artifactory.company.com", nil)
+client, _ := artifactory.NewClient("https://artifactory.company.com", nil)
 
 client.Authentication.SetBasicAuth("username", "password")
 ```
@@ -40,7 +39,7 @@ client.Authentication.SetBasicAuth("username", "password")
 Example using API Key:
 
 ```go
-client, _ := artifactory.NewClient("artifactory.company.com", nil)
+client, _ := artifactory.NewClient("https://artifactory.company.com", nil)
 
 client.Authentication.SetTokenAuth("token")
 ```
@@ -71,7 +70,7 @@ The `xray` package allows you to pass basic auth or a [token](https://www.jfrog.
 Example using basic auth:
 
 ```go
-client, _ := xray.NewClient("xray.company.com", nil)
+client, _ := xray.NewClient("https://xray.company.com", nil)
 
 client.Authentication.SetBasicAuth("username", "password")
 ```
@@ -79,7 +78,7 @@ client.Authentication.SetBasicAuth("username", "password")
 Example using token:
 
 ```go
-client, _ := xray.NewClient("xray.company.com", nil)
+client, _ := xray.NewClient("https://xray.company.com", nil)
 
 client.Authentication.SetTokenAuth("token")
 ```

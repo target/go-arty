@@ -16,7 +16,7 @@ func FakeHandler() http.Handler {
 
 	e := gin.New()
 
-	e.GET("/api/security/users", getUsers)
+	e.GET("/api/users", getUsers)
 	e.GET("/api/security/users/:user", getUser)
 	e.PUT("/api/security/users/:user", createUser)
 	e.POST("/api/security/users/:user", updateUser)
