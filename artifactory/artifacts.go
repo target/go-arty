@@ -69,7 +69,7 @@ func (s *ArtifactsService) Upload(repo, path, file string, properties map[string
 		if len(v) == 1 {
 			propertyString = propertyString + fmt.Sprintf("%s=%s", k, v[0])
 		} else {
-			propertyString = propertyString + fmt.Sprintf("%s=[%s]", k, strings.Join(v, ","))
+			propertyString = propertyString + fmt.Sprintf("%s=%s", k, strings.Join(v, ","))
 		}
 
 		if index != len(properties) {
@@ -77,7 +77,7 @@ func (s *ArtifactsService) Upload(repo, path, file string, properties map[string
 		}
 	}
 
-	u := fmt.Sprintf("/%s/%s/%s", repo, path, file)
+	u := fmt.Sprintf("/%s/%s/%s;%s", repo, path, file, propertyString)
 	v := new(string)
 
 	data, err := os.Open(file)
