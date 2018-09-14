@@ -90,6 +90,7 @@ func Test_Artifacts(t *testing.T) {
 				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
+				g.Assert(resp.Request.URL.Path).Equal("/local-repo1/folder/fixtures/artifacts/foo.txt;key=value")
 				g.Assert(err == nil).IsTrue()
 				g.Assert(*actual).Equal("")
 			})
@@ -106,6 +107,7 @@ func Test_Artifacts(t *testing.T) {
 				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
+				g.Assert(resp.Request.URL.Path).Equal("/local-repo1/folder/fixtures/artifacts/foo.txt;key=value,value2,value3")
 				g.Assert(err == nil).IsTrue()
 			})
 
@@ -113,6 +115,7 @@ func Test_Artifacts(t *testing.T) {
 				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}, "key2": []string{"anothervalue"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
+				g.Assert(resp.Request.URL.Path).Equal("/local-repo1/folder/fixtures/artifacts/foo.txt;key=value,value2,value3;key2=anothervalue")
 				g.Assert(err == nil).IsTrue()
 			})
 
