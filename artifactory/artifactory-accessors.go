@@ -1383,6 +1383,86 @@ func (r *Repository) GetURL() string {
 	return *r.URL
 }
 
+// GetAdmin returns the Admin field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetAdmin() bool {
+	if s == nil || s.Admin == nil {
+		return false
+	}
+	return *s.Admin
+}
+
+// GetDisableUIAccess returns the DisableUIAccess field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetDisableUIAccess() bool {
+	if s == nil || s.DisableUIAccess == nil {
+		return false
+	}
+	return *s.DisableUIAccess
+}
+
+// GetEmail returns the Email field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetEmail() string {
+	if s == nil || s.Email == nil {
+		return ""
+	}
+	return *s.Email
+}
+
+// GetGroups returns the Groups field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetGroups() []string {
+	if s == nil || s.Groups == nil {
+		return nil
+	}
+	return *s.Groups
+}
+
+// GetInternalPasswordDisabled returns the InternalPasswordDisabled field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetInternalPasswordDisabled() bool {
+	if s == nil || s.InternalPasswordDisabled == nil {
+		return false
+	}
+	return *s.InternalPasswordDisabled
+}
+
+// GetLastLoggedIn returns the LastLoggedIn field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetLastLoggedIn() string {
+	if s == nil || s.LastLoggedIn == nil {
+		return ""
+	}
+	return *s.LastLoggedIn
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetName() string {
+	if s == nil || s.Name == nil {
+		return ""
+	}
+	return *s.Name
+}
+
+// GetPassword returns the Password field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetPassword() string {
+	if s == nil || s.Password == nil {
+		return ""
+	}
+	return *s.Password
+}
+
+// GetProfileUpdatable returns the ProfileUpdatable field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetProfileUpdatable() bool {
+	if s == nil || s.ProfileUpdatable == nil {
+		return false
+	}
+	return *s.ProfileUpdatable
+}
+
+// GetRealm returns the Realm field if it's non-nil, zero value otherwise.
+func (s *SecurityUser) GetRealm() string {
+	if s == nil || s.Realm == nil {
+		return ""
+	}
+	return *s.Realm
+}
+
 // GetBinariesSummary returns the BinariesSummary field.
 func (s *StorageSummary) GetBinariesSummary() *BinariesSummary {
 	if s == nil {
@@ -1421,86 +1501,6 @@ func (t *Tags) GetTags() []string {
 		return nil
 	}
 	return *t.Tags
-}
-
-// GetAdmin returns the Admin field if it's non-nil, zero value otherwise.
-func (u *User) GetAdmin() bool {
-	if u == nil || u.Admin == nil {
-		return false
-	}
-	return *u.Admin
-}
-
-// GetDisableUIAccess returns the DisableUIAccess field if it's non-nil, zero value otherwise.
-func (u *User) GetDisableUIAccess() bool {
-	if u == nil || u.DisableUIAccess == nil {
-		return false
-	}
-	return *u.DisableUIAccess
-}
-
-// GetEmail returns the Email field if it's non-nil, zero value otherwise.
-func (u *User) GetEmail() string {
-	if u == nil || u.Email == nil {
-		return ""
-	}
-	return *u.Email
-}
-
-// GetGroups returns the Groups field if it's non-nil, zero value otherwise.
-func (u *User) GetGroups() []string {
-	if u == nil || u.Groups == nil {
-		return nil
-	}
-	return *u.Groups
-}
-
-// GetInternalPasswordDisabled returns the InternalPasswordDisabled field if it's non-nil, zero value otherwise.
-func (u *User) GetInternalPasswordDisabled() bool {
-	if u == nil || u.InternalPasswordDisabled == nil {
-		return false
-	}
-	return *u.InternalPasswordDisabled
-}
-
-// GetLastLoggedIn returns the LastLoggedIn field if it's non-nil, zero value otherwise.
-func (u *User) GetLastLoggedIn() string {
-	if u == nil || u.LastLoggedIn == nil {
-		return ""
-	}
-	return *u.LastLoggedIn
-}
-
-// GetName returns the Name field if it's non-nil, zero value otherwise.
-func (u *User) GetName() string {
-	if u == nil || u.Name == nil {
-		return ""
-	}
-	return *u.Name
-}
-
-// GetPassword returns the Password field if it's non-nil, zero value otherwise.
-func (u *User) GetPassword() string {
-	if u == nil || u.Password == nil {
-		return ""
-	}
-	return *u.Password
-}
-
-// GetProfileUpdatable returns the ProfileUpdatable field if it's non-nil, zero value otherwise.
-func (u *User) GetProfileUpdatable() bool {
-	if u == nil || u.ProfileUpdatable == nil {
-		return false
-	}
-	return *u.ProfileUpdatable
-}
-
-// GetRealm returns the Realm field if it's non-nil, zero value otherwise.
-func (u *User) GetRealm() string {
-	if u == nil || u.Realm == nil {
-		return ""
-	}
-	return *u.Realm
 }
 
 // GetAddons returns the Addons field if it's non-nil, zero value otherwise.

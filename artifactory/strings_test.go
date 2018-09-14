@@ -83,8 +83,8 @@ func TestStringify(t *testing.T) {
 			`artifactory.Timestamp{2006-01-02 15:04:05 +0000 UTC}`,
 		},
 		{
-			User{Name: String("test"), Email: String("test@company.com")},
-			`artifactory.User{Name:"test", Email:"test@company.com"}`,
+			SecurityUser{Name: String("test"), Email: String("test@company.com")},
+			`artifactory.SecurityUser{Name:"test", Email:"test@company.com"}`,
 		},
 		{
 			GenericRepository{Key: String("test"), RClass: String("")},
@@ -132,7 +132,7 @@ func TestString(t *testing.T) {
 		{FileList{URI: String("test")}, `artifactory.FileList{URI:"test"}`},
 		{Versions{Version: String("test")}, `artifactory.Versions{Version:"test"}`},
 		{Timestamp{time.Date(2006, time.January, 02, 15, 04, 05, 0, time.UTC)}, `2006-01-02 15:04:05 +0000 UTC`},
-		{User{Name: String("test")}, `artifactory.User{Name:"test"}`},
+		{SecurityUser{Name: String("test")}, `artifactory.SecurityUser{Name:"test"}`},
 		{APIKey{APIKey: String("test")}, `artifactory.APIKey{APIKey:"test"}`},
 		{DeleteAPIKey{Info: String("test")}, `artifactory.DeleteAPIKey{Info:"test"}`},
 	}
