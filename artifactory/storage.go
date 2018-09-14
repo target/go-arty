@@ -173,6 +173,16 @@ type FileListItem struct {
 	SHA1         *string    `json:"sha1,omitempty"`
 }
 
+// EffectiveItemPermissions represents a list of permissions for a file or folder in Artifactory.
+type EffectiveItemPermissions struct {
+	URI        *string     `json:"uri,omitempty"`
+	Principals *Principals `json:"principals,omitempty"`
+}
+
+func (e EffectiveItemPermissions) String() string {
+	return Stringify(e)
+}
+
 // GetFolder returns the provided folder.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-FolderInfo
@@ -289,6 +299,17 @@ func (s *StorageService) GetFileList(repo, path string) (*FileList, *Response, e
 func (s *StorageService) GetStorageSummary() (*StorageSummary, *Response, error) {
 	u := "/api/storageinfo"
 	v := new(StorageSummary)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v, resp, err
+}
+
+// GetEffectiveItemPermissions returns the effective item permissions for a file or folder.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-EffectiveItemPermissions
+func (s *StorageService) GetEffectiveItemPermissions(repo, path string) (*EffectiveItemPermissions, *Response, error) {
+	u := fmt.Sprintf("/api/storage/%s/%s?permissions", repo, path)
+	v := new(EffectiveItemPermissions)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
