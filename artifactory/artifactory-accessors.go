@@ -143,6 +143,22 @@ func (d *DeleteAPIKey) GetInfo() string {
 	return *d.Info
 }
 
+// GetPrincipals returns the Principals field.
+func (e *EffectiveItemPermissions) GetPrincipals() *Principals {
+	if e == nil {
+		return nil
+	}
+	return e.Principals
+}
+
+// GetURI returns the URI field if it's non-nil, zero value otherwise.
+func (e *EffectiveItemPermissions) GetURI() string {
+	if e == nil || e.URI == nil {
+		return ""
+	}
+	return *e.URI
+}
+
 // GetChecksums returns the Checksums field.
 func (f *File) GetChecksums() *Checksums {
 	if f == nil {

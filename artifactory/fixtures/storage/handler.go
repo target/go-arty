@@ -28,6 +28,15 @@ func FakeHandler() http.Handler {
 
 func getFolder(c *gin.Context) {
 	repository := c.Param("repository")
+	perms := c.Query("permissions")
+	if len(perms) > 0 {
+		if strings.Contains(repository, "not-found") {
+			c.JSON(400, "This method can only be invoked on local/cached repositories.")
+			return
+		}
+
+		c.String(200, loadFixture("fixtures/storage/effective_permissions.json"))
+	}
 	if strings.Contains(repository, "not-found") {
 		c.JSON(404, fmt.Sprintf("Repository %s does not exist", repository))
 		return

@@ -1,0 +1,22 @@
+{
+	"uri": "http://localhost:8081/artifactory/api/storage/local-repo1/file",
+	"principals": {
+		"users": {
+			"user1": [
+				"r"
+			],
+			"user2": [
+				"r",
+				"d",
+				"w",
+				"m",
+                "n"
+            ]
+		},
+		"groups": {
+			"readers": [
+				"r"
+			]
+		}
+	}
+}
