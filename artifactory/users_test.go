@@ -44,10 +44,11 @@ func Test_Users(t *testing.T) {
 		})
 
 		g.Describe("Users", func() {
-			user := &SecurityUser{}
+			user := &User{}
+			suser := &SecurityUser{}
 
 			g.BeforeEach(func() {
-				user = &SecurityUser{
+				suser = &SecurityUser{
 					Name:                     String("admin"),
 					Email:                    String("admin@company.com"),
 					Password:                 String("somepass"),
@@ -59,15 +60,48 @@ func Test_Users(t *testing.T) {
 					LastLoggedIn:             String("2015-08-11T14:04:11.472Z"),
 					Realm:                    String("internal"),
 				}
+				user = &User{
+					Name:                     String("admin"),
+					Email:                    String("admin@company.com"),
+					Admin:                    Bool(true),
+					GroupAdmin:               Bool(false),
+					ProfileUpdatable:         Bool(true),
+					InternalPasswordDisabled: Bool(false),
+					Groups:                   &[]string{"administrators"},
+					LastLoggedIn:             String("2018-11-15 15:17:09 +00:00"),
+					LastLoggedInMillis:       Int64(1542295029877),
+					Realm:                    String("ldap"),
+					OfflineMode:              Bool(false),
+					DisableUIAccess:          Bool(false),
+					ProWithoutLicense:        Bool(false),
+					ExternalRealmLink:        String("Check external status"),
+					ExistsInDB:               Bool(false),
+					HideUploads:              Bool(false),
+					RequireProfileUnlock:     Bool(false),
+					RequireProfilePassword:   Bool(false),
+					Locked:                   Bool(false),
+					CredentialsExpired:       Bool(false),
+					NumberOfGroups:           Int(1),
+					NumberOfPermissions:      Int(0),
+				}
 			})
 
 			g.It("- should return valid string for User with String()", func() {
 				data, _ := ioutil.ReadFile("fixtures/users/user.json")
 
-				var expected SecurityUser
+				var expected User
 				_ = json.Unmarshal(data, &expected)
 
 				g.Assert(user.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return valid string for SecurityUser with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/users/security_user.json")
+
+				var expected SecurityUser
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(suser.String() == expected.String()).IsTrue()
 			})
 
 			g.It("- should return no error with GetAllSecurity()", func() {
@@ -85,14 +119,14 @@ func Test_Users(t *testing.T) {
 			})
 
 			g.It("- should return no error with Create()", func() {
-				actual, resp, err := c.Users.Create(user)
+				actual, resp, err := c.Users.Create(suser)
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
 			g.It("- should return no error with Update()", func() {
-				actual, resp, err := c.Users.Update(user)
+				actual, resp, err := c.Users.Update(suser)
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()

@@ -50,28 +50,28 @@ func (u SecurityUser) String() string {
 //
 // Docs: This struct is currently undocumented by JFrog
 type User struct {
-	Name                     string   `json:"name,omitempty"`
-	Email                    string   `json:"email,omitempty"`
-	Admin                    bool     `json:"admin,omitempty"`
-	GroupAdmin               bool     `json:"groupAdmin,omitempty"`
-	ProfileUpdatable         bool     `json:"profileUpdatable,omitempty"`
-	InternalPasswordDisabled bool     `json:"internalPasswordDisabled,omitempty"`
-	Groups                   []string `json:"groups,omitempty"`
-	LastLoggedIn             string   `json:"lastLoggedIn,omitempty"`
-	LastLoggedInMillis       int64    `json:"lastLoggedInMillis,omitempty"`
-	Realm                    string   `json:"realm,omitempty"`
-	OfflineMode              bool     `json:"offlineMode,omitempty"`
-	DisableUIAccess          bool     `json:"disableUIAccess,omitempty"`
-	ProWithoutLicense        bool     `json:"proWithoutLicense,omitempty"`
-	ExternalRealmLink        string   `json:"externalRealmLink,omitempty"`
-	ExistsInDB               bool     `json:"existsInDB,omitempty"`
-	HideUploads              bool     `json:"hideUploads,omitempty"`
-	RequireProfileUnlock     bool     `json:"requireProfileUnlock,omitempty"`
-	RequireProfilePassword   bool     `json:"requireProfilePassword,omitempty"`
-	Locked                   bool     `json:"locked,omitempty"`
-	CredentialsExpired       bool     `json:"credentialsExpired,omitempty"`
-	NumberOfGroups           int      `json:"numberOfGroups,omitempty"`
-	NumberOfPermissions      int      `json:"numberOfPermissions,omitempty"`
+	Name                     *string   `json:"name,omitempty"`
+	Email                    *string   `json:"email,omitempty"`
+	Admin                    *bool     `json:"admin,omitempty"`
+	GroupAdmin               *bool     `json:"groupAdmin,omitempty"`
+	ProfileUpdatable         *bool     `json:"profileUpdatable,omitempty"`
+	InternalPasswordDisabled *bool     `json:"internalPasswordDisabled,omitempty"`
+	Groups                   *[]string `json:"groups,omitempty"`
+	LastLoggedIn             *string   `json:"lastLoggedIn,omitempty"`
+	LastLoggedInMillis       *int64    `json:"lastLoggedInMillis,omitempty"`
+	Realm                    *string   `json:"realm,omitempty"`
+	OfflineMode              *bool     `json:"offlineMode,omitempty"`
+	DisableUIAccess          *bool     `json:"disableUIAccess,omitempty"`
+	ProWithoutLicense        *bool     `json:"proWithoutLicense,omitempty"`
+	ExternalRealmLink        *string   `json:"externalRealmLink,omitempty"`
+	ExistsInDB               *bool     `json:"existsInDB,omitempty"`
+	HideUploads              *bool     `json:"hideUploads,omitempty"`
+	RequireProfileUnlock     *bool     `json:"requireProfileUnlock,omitempty"`
+	RequireProfilePassword   *bool     `json:"requireProfilePassword,omitempty"`
+	Locked                   *bool     `json:"locked,omitempty"`
+	CredentialsExpired       *bool     `json:"credentialsExpired,omitempty"`
+	NumberOfGroups           *int      `json:"numberOfGroups,omitempty"`
+	NumberOfPermissions      *int      `json:"numberOfPermissions,omitempty"`
 }
 
 func (u User) String() string {
