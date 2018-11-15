@@ -1503,6 +1503,182 @@ func (t *Tags) GetTags() []string {
 	return *t.Tags
 }
 
+// GetAdmin returns the Admin field if it's non-nil, zero value otherwise.
+func (u *User) GetAdmin() bool {
+	if u == nil || u.Admin == nil {
+		return false
+	}
+	return *u.Admin
+}
+
+// GetCredentialsExpired returns the CredentialsExpired field if it's non-nil, zero value otherwise.
+func (u *User) GetCredentialsExpired() bool {
+	if u == nil || u.CredentialsExpired == nil {
+		return false
+	}
+	return *u.CredentialsExpired
+}
+
+// GetDisableUIAccess returns the DisableUIAccess field if it's non-nil, zero value otherwise.
+func (u *User) GetDisableUIAccess() bool {
+	if u == nil || u.DisableUIAccess == nil {
+		return false
+	}
+	return *u.DisableUIAccess
+}
+
+// GetEmail returns the Email field if it's non-nil, zero value otherwise.
+func (u *User) GetEmail() string {
+	if u == nil || u.Email == nil {
+		return ""
+	}
+	return *u.Email
+}
+
+// GetExistsInDB returns the ExistsInDB field if it's non-nil, zero value otherwise.
+func (u *User) GetExistsInDB() bool {
+	if u == nil || u.ExistsInDB == nil {
+		return false
+	}
+	return *u.ExistsInDB
+}
+
+// GetExternalRealmLink returns the ExternalRealmLink field if it's non-nil, zero value otherwise.
+func (u *User) GetExternalRealmLink() string {
+	if u == nil || u.ExternalRealmLink == nil {
+		return ""
+	}
+	return *u.ExternalRealmLink
+}
+
+// GetGroupAdmin returns the GroupAdmin field if it's non-nil, zero value otherwise.
+func (u *User) GetGroupAdmin() bool {
+	if u == nil || u.GroupAdmin == nil {
+		return false
+	}
+	return *u.GroupAdmin
+}
+
+// GetGroups returns the Groups field if it's non-nil, zero value otherwise.
+func (u *User) GetGroups() []string {
+	if u == nil || u.Groups == nil {
+		return nil
+	}
+	return *u.Groups
+}
+
+// GetHideUploads returns the HideUploads field if it's non-nil, zero value otherwise.
+func (u *User) GetHideUploads() bool {
+	if u == nil || u.HideUploads == nil {
+		return false
+	}
+	return *u.HideUploads
+}
+
+// GetInternalPasswordDisabled returns the InternalPasswordDisabled field if it's non-nil, zero value otherwise.
+func (u *User) GetInternalPasswordDisabled() bool {
+	if u == nil || u.InternalPasswordDisabled == nil {
+		return false
+	}
+	return *u.InternalPasswordDisabled
+}
+
+// GetLastLoggedIn returns the LastLoggedIn field if it's non-nil, zero value otherwise.
+func (u *User) GetLastLoggedIn() string {
+	if u == nil || u.LastLoggedIn == nil {
+		return ""
+	}
+	return *u.LastLoggedIn
+}
+
+// GetLastLoggedInMillis returns the LastLoggedInMillis field if it's non-nil, zero value otherwise.
+func (u *User) GetLastLoggedInMillis() int64 {
+	if u == nil || u.LastLoggedInMillis == nil {
+		return 0
+	}
+	return *u.LastLoggedInMillis
+}
+
+// GetLocked returns the Locked field if it's non-nil, zero value otherwise.
+func (u *User) GetLocked() bool {
+	if u == nil || u.Locked == nil {
+		return false
+	}
+	return *u.Locked
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (u *User) GetName() string {
+	if u == nil || u.Name == nil {
+		return ""
+	}
+	return *u.Name
+}
+
+// GetNumberOfGroups returns the NumberOfGroups field if it's non-nil, zero value otherwise.
+func (u *User) GetNumberOfGroups() int {
+	if u == nil || u.NumberOfGroups == nil {
+		return 0
+	}
+	return *u.NumberOfGroups
+}
+
+// GetNumberOfPermissions returns the NumberOfPermissions field if it's non-nil, zero value otherwise.
+func (u *User) GetNumberOfPermissions() int {
+	if u == nil || u.NumberOfPermissions == nil {
+		return 0
+	}
+	return *u.NumberOfPermissions
+}
+
+// GetOfflineMode returns the OfflineMode field if it's non-nil, zero value otherwise.
+func (u *User) GetOfflineMode() bool {
+	if u == nil || u.OfflineMode == nil {
+		return false
+	}
+	return *u.OfflineMode
+}
+
+// GetProfileUpdatable returns the ProfileUpdatable field if it's non-nil, zero value otherwise.
+func (u *User) GetProfileUpdatable() bool {
+	if u == nil || u.ProfileUpdatable == nil {
+		return false
+	}
+	return *u.ProfileUpdatable
+}
+
+// GetProWithoutLicense returns the ProWithoutLicense field if it's non-nil, zero value otherwise.
+func (u *User) GetProWithoutLicense() bool {
+	if u == nil || u.ProWithoutLicense == nil {
+		return false
+	}
+	return *u.ProWithoutLicense
+}
+
+// GetRealm returns the Realm field if it's non-nil, zero value otherwise.
+func (u *User) GetRealm() string {
+	if u == nil || u.Realm == nil {
+		return ""
+	}
+	return *u.Realm
+}
+
+// GetRequireProfilePassword returns the RequireProfilePassword field if it's non-nil, zero value otherwise.
+func (u *User) GetRequireProfilePassword() bool {
+	if u == nil || u.RequireProfilePassword == nil {
+		return false
+	}
+	return *u.RequireProfilePassword
+}
+
+// GetRequireProfileUnlock returns the RequireProfileUnlock field if it's non-nil, zero value otherwise.
+func (u *User) GetRequireProfileUnlock() bool {
+	if u == nil || u.RequireProfileUnlock == nil {
+		return false
+	}
+	return *u.RequireProfileUnlock
+}
+
 // GetAddons returns the Addons field if it's non-nil, zero value otherwise.
 func (v *Versions) GetAddons() []string {
 	if v == nil || v.Addons == nil {

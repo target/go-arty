@@ -111,29 +111,29 @@ func Test_Users(t *testing.T) {
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Get()", func() {
-				actual, resp, err := c.Users.Get("admin")
+			g.It("- should return no error with GetSecurity()", func() {
+				actual, resp, err := c.Users.GetSecurity("admin")
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Create()", func() {
-				actual, resp, err := c.Users.Create(suser)
+			g.It("- should return no error with CreateSecurity()", func() {
+				actual, resp, err := c.Users.CreateSecurity(suser)
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Update()", func() {
-				actual, resp, err := c.Users.Update(suser)
+			g.It("- should return no error with UpdateSecurity()", func() {
+				actual, resp, err := c.Users.UpdateSecurity(suser)
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Delete()", func() {
-				actual, resp, err := c.Users.Delete("admin")
+			g.It("- should return no error with DeleteSecurity()", func() {
+				actual, resp, err := c.Users.DeleteSecurity("admin")
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()

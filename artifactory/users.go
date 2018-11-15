@@ -118,10 +118,10 @@ func (s *UsersService) GetAllSecurity() (*[]SecurityUser, *Response, error) {
 	return v, resp, err
 }
 
-// Get returns the provided user.
+// GetSecurity returns the provided user.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUserDetails
-func (s *UsersService) Get(user string) (*SecurityUser, *Response, error) {
+func (s *UsersService) GetSecurity(user string) (*SecurityUser, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", user)
 	v := new(SecurityUser)
 
@@ -129,10 +129,10 @@ func (s *UsersService) Get(user string) (*SecurityUser, *Response, error) {
 	return v, resp, err
 }
 
-// Create constructs a user with the provided details.
+// CreateSecurity constructs a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplaceUser
-func (s *UsersService) Create(user *SecurityUser) (*string, *Response, error) {
+func (s *UsersService) CreateSecurity(user *SecurityUser) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
@@ -140,10 +140,10 @@ func (s *UsersService) Create(user *SecurityUser) (*string, *Response, error) {
 	return v, resp, err
 }
 
-// Update modifies a user with the provided details.
+// UpdateSecurity modifies a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-UpdateUser
-func (s *UsersService) Update(user *SecurityUser) (*string, *Response, error) {
+func (s *UsersService) UpdateSecurity(user *SecurityUser) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
@@ -151,10 +151,10 @@ func (s *UsersService) Update(user *SecurityUser) (*string, *Response, error) {
 	return v, resp, err
 }
 
-// Delete removes the provided user.
+// DeleteSecurity removes the provided user.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteUser
-func (s *UsersService) Delete(user string) (*string, *Response, error) {
+func (s *UsersService) DeleteSecurity(user string) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", user)
 	v := new(string)
 
