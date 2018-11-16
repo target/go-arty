@@ -104,6 +104,13 @@ func Test_Users(t *testing.T) {
 				g.Assert(suser.String() == expected.String()).IsTrue()
 			})
 
+			g.It("- should return no error with GetAll()", func() {
+				actual, resp, err := c.Users.GetAll()
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
+			})
+
 			g.It("- should return no error with GetAllSecurity()", func() {
 				actual, resp, err := c.Users.GetAllSecurity()
 				g.Assert(actual != nil).IsTrue()

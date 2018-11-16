@@ -1,10 +1,54 @@
 [
-  {
-    "name": "davids",
-    "uri" : "http://localhost:8080/artifactory/api/security/users/davids"
-  },
-  {
-    "name": "danl",
-    "uri" : "http://localhost:8080/artifactory/api/security/users/danl"
-  }
+    {
+      "name": "davids",
+      "email": "david.s@company.com",
+      "admin": false,
+      "groupAdmin": false,
+      "profileUpdatable": false,
+      "internalPasswordDisabled": false,
+      "groups": [
+        "readers"
+      ],
+      "lastLoggedIn": "2016-10-31 16:23:08 +00:00",
+      "lastLoggedInMillis": 1477930988884,
+      "realm": "ldap",
+      "offlineMode": false,
+      "disableUIAccess": false,
+      "proWithoutLicense": false,
+      "externalRealmLink": "Check external status",
+      "existsInDB": false,
+      "hideUploads": false,
+      "requireProfileUnlock": false,
+      "requireProfilePassword": false,
+      "locked": false,
+      "credentialsExpired": false,
+      "numberOfGroups": 1,
+      "numberOfPermissions": 0
+    },
+    {
+      "name": "danl",
+      "email": "dan.l@company.com",
+      "admin": false,
+      "groupAdmin": false,
+      "profileUpdatable": false,
+      "internalPasswordDisabled": false,
+      "groups": [
+        "readers"
+      ],
+      "lastLoggedIn": "2016-11-18 20:26:29 +00:00",
+      "lastLoggedInMillis": 1479500789242,
+      "realm": "ldap",
+      "offlineMode": false,
+      "disableUIAccess": false,
+      "proWithoutLicense": false,
+      "externalRealmLink": "Check external status",
+      "existsInDB": false,
+      "hideUploads": false,
+      "requireProfileUnlock": false,
+      "requireProfilePassword": false,
+      "locked": false,
+      "credentialsExpired": false,
+      "numberOfGroups": 1,
+      "numberOfPermissions": 0
+    }
 ]
