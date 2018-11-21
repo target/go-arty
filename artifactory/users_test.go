@@ -45,9 +45,10 @@ func Test_Users(t *testing.T) {
 
 		g.Describe("Users", func() {
 			user := &User{}
+			suser := &SecurityUser{}
 
 			g.BeforeEach(func() {
-				user = &User{
+				suser = &SecurityUser{
 					Name:                     String("admin"),
 					Email:                    String("admin@company.com"),
 					Password:                 String("somepass"),
@@ -55,9 +56,33 @@ func Test_Users(t *testing.T) {
 					ProfileUpdatable:         Bool(true),
 					DisableUIAccess:          Bool(false),
 					InternalPasswordDisabled: Bool(false),
-					Groups:       &[]string{"administrators"},
-					LastLoggedIn: String("2015-08-11T14:04:11.472Z"),
-					Realm:        String("internal"),
+					Groups:                   &[]string{"administrators"},
+					LastLoggedIn:             String("2015-08-11T14:04:11.472Z"),
+					Realm:                    String("internal"),
+				}
+				user = &User{
+					Name:                     String("admin"),
+					Email:                    String("admin@company.com"),
+					Admin:                    Bool(true),
+					GroupAdmin:               Bool(false),
+					ProfileUpdatable:         Bool(true),
+					InternalPasswordDisabled: Bool(false),
+					Groups:                   &[]string{"administrators"},
+					LastLoggedIn:             String("2018-11-15 15:17:09 +00:00"),
+					LastLoggedInMillis:       Int64(1542295029877),
+					Realm:                    String("ldap"),
+					OfflineMode:              Bool(false),
+					DisableUIAccess:          Bool(false),
+					ProWithoutLicense:        Bool(false),
+					ExternalRealmLink:        String("Check external status"),
+					ExistsInDB:               Bool(false),
+					HideUploads:              Bool(false),
+					RequireProfileUnlock:     Bool(false),
+					RequireProfilePassword:   Bool(false),
+					Locked:                   Bool(false),
+					CredentialsExpired:       Bool(false),
+					NumberOfGroups:           Int(1),
+					NumberOfPermissions:      Int(0),
 				}
 			})
 
@@ -70,6 +95,15 @@ func Test_Users(t *testing.T) {
 				g.Assert(user.String() == expected.String()).IsTrue()
 			})
 
+			g.It("- should return valid string for SecurityUser with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/users/security_user.json")
+
+				var expected SecurityUser
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(suser.String() == expected.String()).IsTrue()
+			})
+
 			g.It("- should return no error with GetAll()", func() {
 				actual, resp, err := c.Users.GetAll()
 				g.Assert(actual != nil).IsTrue()
@@ -77,29 +111,36 @@ func Test_Users(t *testing.T) {
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Get()", func() {
-				actual, resp, err := c.Users.Get("admin")
+			g.It("- should return no error with GetAllSecurity()", func() {
+				actual, resp, err := c.Users.GetAllSecurity()
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Create()", func() {
-				actual, resp, err := c.Users.Create(user)
+			g.It("- should return no error with GetSecurity()", func() {
+				actual, resp, err := c.Users.GetSecurity("admin")
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Update()", func() {
-				actual, resp, err := c.Users.Update(user)
+			g.It("- should return no error with CreateSecurity()", func() {
+				actual, resp, err := c.Users.CreateSecurity(suser)
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Delete()", func() {
-				actual, resp, err := c.Users.Delete("admin")
+			g.It("- should return no error with UpdateSecurity()", func() {
+				actual, resp, err := c.Users.UpdateSecurity(suser)
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
+			})
+
+			g.It("- should return no error with DeleteSecurity()", func() {
+				actual, resp, err := c.Users.DeleteSecurity("admin")
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()

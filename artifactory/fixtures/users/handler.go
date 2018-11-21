@@ -16,17 +16,18 @@ func FakeHandler() http.Handler {
 
 	e := gin.New()
 
-	e.GET("/api/security/users", getUsers)
-	e.GET("/api/security/users/:user", getUser)
-	e.PUT("/api/security/users/:user", createUser)
-	e.POST("/api/security/users/:user", updateUser)
-	e.DELETE("/api/security/users/:user", deleteUser)
+	e.GET("/api/users", getUsers)
+	e.GET("/api/security/users", getSecurityUsers)
+	e.GET("/api/security/users/:user", getSecurityUser)
+	e.PUT("/api/security/users/:user", createSecurityUser)
+	e.POST("/api/security/users/:user", updateSecurityUser)
+	e.DELETE("/api/security/users/:user", deleteSecurityUser)
 
 	e.GET("/api/security/apiKey", getAPIKey)
 	e.POST("/api/security/apiKey", getAPIKey)
 	e.PUT("/api/security/apiKey", getAPIKey)
 	e.DELETE("/api/security/apiKey", deleteAPIKey)
-	e.DELETE("/api/security/apiKey/:user", deleteUserAPIKey)
+	e.DELETE("/api/security/apiKey/:user", deleteSecurityUserAPIKey)
 
 	e.GET("/api/security/encryptedPassword", getEncryptedPassword)
 
@@ -37,7 +38,11 @@ func getUsers(c *gin.Context) {
 	c.String(200, loadFixture("fixtures/users/users.json"))
 }
 
-func getUser(c *gin.Context) {
+func getSecurityUsers(c *gin.Context) {
+	c.String(200, loadFixture("fixtures/users/security_users.json"))
+}
+
+func getSecurityUser(c *gin.Context) {
 	user := c.Param("user")
 
 	if strings.Contains(user, "not-found") {
@@ -45,10 +50,10 @@ func getUser(c *gin.Context) {
 		return
 	}
 
-	c.String(200, loadFixture("fixtures/users/user.json"))
+	c.String(200, loadFixture("fixtures/users/security_user.json"))
 }
 
-func createUser(c *gin.Context) {
+func createSecurityUser(c *gin.Context) {
 	user := c.Param("user")
 
 	if strings.Contains(user, "not-found") {
@@ -59,7 +64,7 @@ func createUser(c *gin.Context) {
 	c.JSON(201, "")
 }
 
-func updateUser(c *gin.Context) {
+func updateSecurityUser(c *gin.Context) {
 	user := c.Param("user")
 
 	if strings.Contains(user, "not-found") {
@@ -70,7 +75,7 @@ func updateUser(c *gin.Context) {
 	c.JSON(200, "")
 }
 
-func deleteUser(c *gin.Context) {
+func deleteSecurityUser(c *gin.Context) {
 	user := c.Param("user")
 
 	if strings.Contains(user, "not-found") {
@@ -89,7 +94,7 @@ func deleteAPIKey(c *gin.Context) {
 	c.String(200, loadFixture("fixtures/users/delete_api_key.json"))
 }
 
-func deleteUserAPIKey(c *gin.Context) {
+func deleteSecurityUserAPIKey(c *gin.Context) {
 	user := c.Param("user")
 
 	if strings.Contains(user, "not-found") {

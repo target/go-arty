@@ -26,10 +26,10 @@ import (
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-SECURITY
 type UsersService service
 
-// User represents a user in Artifactory.
+// SecurityUser represents a security user in Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.User+json
-type User struct {
+type SecurityUser struct {
 	Name                     *string   `json:"name,omitempty"`
 	Email                    *string   `json:"email,omitempty"`
 	Password                 *string   `json:"password,omitempty"`
@@ -40,6 +40,38 @@ type User struct {
 	LastLoggedIn             *string   `json:"lastLoggedIn,omitempty"`
 	Realm                    *string   `json:"realm,omitempty"`
 	Groups                   *[]string `json:"groups,omitempty"`
+}
+
+func (u SecurityUser) String() string {
+	return Stringify(u)
+}
+
+// User represents a user in Artifactory.
+//
+// Docs: This struct is currently undocumented by JFrog
+type User struct {
+	Name                     *string   `json:"name,omitempty"`
+	Email                    *string   `json:"email,omitempty"`
+	Admin                    *bool     `json:"admin,omitempty"`
+	GroupAdmin               *bool     `json:"groupAdmin,omitempty"`
+	ProfileUpdatable         *bool     `json:"profileUpdatable,omitempty"`
+	InternalPasswordDisabled *bool     `json:"internalPasswordDisabled,omitempty"`
+	Groups                   *[]string `json:"groups,omitempty"`
+	LastLoggedIn             *string   `json:"lastLoggedIn,omitempty"`
+	LastLoggedInMillis       *int64    `json:"lastLoggedInMillis,omitempty"`
+	Realm                    *string   `json:"realm,omitempty"`
+	OfflineMode              *bool     `json:"offlineMode,omitempty"`
+	DisableUIAccess          *bool     `json:"disableUIAccess,omitempty"`
+	ProWithoutLicense        *bool     `json:"proWithoutLicense,omitempty"`
+	ExternalRealmLink        *string   `json:"externalRealmLink,omitempty"`
+	ExistsInDB               *bool     `json:"existsInDB,omitempty"`
+	HideUploads              *bool     `json:"hideUploads,omitempty"`
+	RequireProfileUnlock     *bool     `json:"requireProfileUnlock,omitempty"`
+	RequireProfilePassword   *bool     `json:"requireProfilePassword,omitempty"`
+	Locked                   *bool     `json:"locked,omitempty"`
+	CredentialsExpired       *bool     `json:"credentialsExpired,omitempty"`
+	NumberOfGroups           *int      `json:"numberOfGroups,omitempty"`
+	NumberOfPermissions      *int      `json:"numberOfPermissions,omitempty"`
 }
 
 func (u User) String() string {
@@ -66,30 +98,41 @@ func (d DeleteAPIKey) String() string {
 
 // GetAll returns a list of all users.
 //
-// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUsers
+// Docs: This endpoint is currently undocumented by JFrog
 func (s *UsersService) GetAll() (*[]User, *Response, error) {
-	u := fmt.Sprintf("/api/security/users")
+	u := fmt.Sprintf("/api/users")
 	v := new([]User)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
 }
 
-// Get returns the provided user.
+// GetAllSecurity returns a list of all users.
 //
-// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUserDetails
-func (s *UsersService) Get(user string) (*User, *Response, error) {
-	u := fmt.Sprintf("/api/security/users/%s", user)
-	v := new(User)
+// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUsers
+func (s *UsersService) GetAllSecurity() (*[]SecurityUser, *Response, error) {
+	u := fmt.Sprintf("/api/security/users")
+	v := new([]SecurityUser)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
 }
 
-// Create constructs a user with the provided details.
+// GetSecurity returns the provided user.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetUserDetails
+func (s *UsersService) GetSecurity(user string) (*SecurityUser, *Response, error) {
+	u := fmt.Sprintf("/api/security/users/%s", user)
+	v := new(SecurityUser)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v, resp, err
+}
+
+// CreateSecurity constructs a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-CreateorReplaceUser
-func (s *UsersService) Create(user *User) (*string, *Response, error) {
+func (s *UsersService) CreateSecurity(user *SecurityUser) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
@@ -97,10 +140,10 @@ func (s *UsersService) Create(user *User) (*string, *Response, error) {
 	return v, resp, err
 }
 
-// Update modifies a user with the provided details.
+// UpdateSecurity modifies a user with the provided details.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-UpdateUser
-func (s *UsersService) Update(user *User) (*string, *Response, error) {
+func (s *UsersService) UpdateSecurity(user *SecurityUser) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", *user.Name)
 	v := new(string)
 
@@ -108,10 +151,10 @@ func (s *UsersService) Update(user *User) (*string, *Response, error) {
 	return v, resp, err
 }
 
-// Delete removes the provided user.
+// DeleteSecurity removes the provided user.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteUser
-func (s *UsersService) Delete(user string) (*string, *Response, error) {
+func (s *UsersService) DeleteSecurity(user string) (*string, *Response, error) {
 	u := fmt.Sprintf("/api/security/users/%s", user)
 	v := new(string)
 
