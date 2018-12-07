@@ -7,7 +7,6 @@
 
 go-arty is a Go client library for accessing the [Artifactory](https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API) and [Xray](https://www.jfrog.com/confluence/display/XRAY/Xray+REST+API) API.
 
-
 ## Artifactory
 
 ### Usage
@@ -22,7 +21,7 @@ Construct a new Artifactory client, then use the various services on the client 
 client, _ := artifactory.NewClient("artifactory.company.com", nil)
 
 // list all users from the artifactory server
-users, _, err := client.Users.GetAll()
+users, _, err := client.Users.GetAllSecurity()
 ```
 
 ### Authentication
@@ -90,14 +89,14 @@ All structs in this library use pointer values for all non-repeated fields. This
 
 ```go
 // create a new user named "admin"
-user := &artifactory.User{
+user := &artifactory.SecurityUser{
 	Name:     artifactory.String("admin"),
 	Email:    artifactory.String("admin@company.com"),
 	Password: artifactory.String("secretPassword"),
 	Admin:    artifactory.Bool(true),
 }
 
-client.Users.Create(user)
+client.Users.CreateSecurity(user)
 ```
 
 Users who have worked with protocol buffers should find this pattern familiar.
