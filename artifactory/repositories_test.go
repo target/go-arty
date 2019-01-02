@@ -57,6 +57,7 @@ func Test_Repositories(t *testing.T) {
 					Type:        String("LOCAL"),
 					Description: String("Local repository for in-house libraries"),
 					URL:         String("http://localhost:8081/artifactory/libs-releases-local"),
+					PackageType: String("NuGet"),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/repositories.json")
@@ -149,10 +150,10 @@ func Test_Repositories(t *testing.T) {
 						BlackedOut:                   Bool(false),
 						PropertySets:                 &[]string{"ps1", "ps2"},
 					},
-					URL:      String("http://host:port/some-repo"),
-					Username: String("remote-repo-user"),
-					Password: String("pass"),
-					Proxy:    String("proxy1"),
+					URL:                               String("http://host:port/some-repo"),
+					Username:                          String("remote-repo-user"),
+					Password:                          String("pass"),
+					Proxy:                             String("proxy1"),
 					RemoteRepoChecksumPolicyType:      String("generate-if-absent"),
 					HardFail:                          Bool(false),
 					Offline:                           Bool(false),
@@ -201,10 +202,10 @@ func Test_Repositories(t *testing.T) {
 						IncludesPattern: String("**/*"),
 						ExcludesPattern: String(""),
 					},
-					Repositories:                                  &[]string{"local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"},
-					DebianTrivialLayout:                           Bool(false),
+					Repositories:        &[]string{"local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"},
+					DebianTrivialLayout: Bool(false),
 					ArtifactoryRequestsCanRetrieveRemoteArtifacts: Bool(false),
-					KeyPair: String("keypair1"),
+					KeyPair:                              String("keypair1"),
 					PomRepositoryReferencesCleanupPolicy: String("discard_active_reference"),
 					DefaultDeploymentRepo:                String("local-repo1"),
 				}

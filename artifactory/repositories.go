@@ -36,6 +36,7 @@ type Repository struct {
 	Type        *string `json:"type,omitempty"`
 	Description *string `json:"description,omitempty"`
 	URL         *string `json:"url,omitempty"`
+	PackageType *string `json:"packageType,omitempty"`
 }
 
 func (r Repository) String() string {

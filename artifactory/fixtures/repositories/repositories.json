@@ -1,14 +1,16 @@
 [
   {
-    "key" : "libs-releases-local",
-    "type" : "LOCAL",
-    "description" : "Local repository for in-house libraries",
-    "url" : "http://localhost:8081/artifactory/libs-releases-local"
+    "key": "libs-releases-local",
+    "type": "LOCAL",
+    "description": "Local repository for in-house libraries",
+    "url": "http://localhost:8081/artifactory/libs-releases-local",
+    "packageType": "NuGet"
   },
   {
-    "key" : "libs-snapshots-local",
-    "type" : "LOCAL",
-    "description" : "Local repository for in-house snapshots",
-    "url" : "http://localhost:8081/artifactory/libs-snapshots-local"
+    "key": "libs-snapshots-local",
+    "type": "LOCAL",
+    "description": "Local repository for in-house snapshots",
+    "url": "http://localhost:8081/artifactory/libs-snapshots-local",
+    "packageType": "Docker"
   }
 ]
