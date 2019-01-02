@@ -123,6 +123,6 @@ Found something that doesn't seem right or have a feature request? [Please open 
 
 ## Copyright and License
 
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE)
+[![license](https://img.shields.io/crates/l/gl.svg)](LICENSE)
 
 Copyright (c) 2018 Target Brands, Inc.

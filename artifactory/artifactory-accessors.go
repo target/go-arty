@@ -1367,6 +1367,14 @@ func (r *Repository) GetKey() string {
 	return *r.Key
 }
 
+// GetPackageType returns the PackageType field if it's non-nil, zero value otherwise.
+func (r *Repository) GetPackageType() string {
+	if r == nil || r.PackageType == nil {
+		return ""
+	}
+	return *r.PackageType
+}
+
 // GetType returns the Type field if it's non-nil, zero value otherwise.
 func (r *Repository) GetType() string {
 	if r == nil || r.Type == nil {
