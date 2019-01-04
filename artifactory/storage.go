@@ -69,7 +69,7 @@ type File struct {
 	LastModified      *Timestamp `json:"lastModified,omitempty"`
 	ModifiedBy        *string    `json:"modifiedBy,omitempty"`
 	LastUpdated       *Timestamp `json:"lastUpdated,omitempty"`
-	Size              *string    `json:"size,omitempty"`
+	Size              *int       `json:"size,omitempty"`
 	MimeType          *string    `json:"mimeType,omitempty"`
 	Checksums         *Checksums `json:"checksums,omitempty"`
 	OriginalChecksums *Checksums `json:"originalChecksums,omitempty"`
