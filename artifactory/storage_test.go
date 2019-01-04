@@ -81,7 +81,7 @@ func Test_Storage(t *testing.T) {
 					LastModified: &Timestamp{time.Date(2011, time.November, 11, 11, 11, 11, 0, time.UTC)},
 					ModifiedBy:   String("admin"),
 					LastUpdated:  &Timestamp{time.Date(2012, time.December, 12, 12, 12, 12, 0, time.UTC)},
-					Size:         String("1024"),
+					Size:         Int(1024),
 					MimeType:     String("application/json"),
 					Checksums: &Checksums{
 						MD5:    String("B45CFFE084DD3D20D928BEE85E7B0F21"),
