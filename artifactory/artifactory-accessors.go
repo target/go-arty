@@ -256,9 +256,9 @@ func (f *File) GetRepo() string {
 }
 
 // GetSize returns the Size field if it's non-nil, zero value otherwise.
-func (f *File) GetSize() string {
+func (f *File) GetSize() int {
 	if f == nil || f.Size == nil {
-		return ""
+		return 0
 	}
 	return *f.Size
 }
