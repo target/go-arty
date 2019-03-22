@@ -43,5 +43,6 @@
   "vcsGitProvider": "CUSTOM",
   "vcsGitDownloadUrl": "",
   "bypassHeadRequest" : false,
-  "clientTlsCertificate": ""
+  "clientTlsCertificate": "",
+  "xrayIndex" : false
 }

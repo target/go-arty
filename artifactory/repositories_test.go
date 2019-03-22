@@ -122,6 +122,7 @@ func Test_Repositories(t *testing.T) {
 					DockerAPIVersion:                String("V2"),
 					EnableFileListsIndexing:         Bool(false),
 					OptionalIndexCompressionFormats: &[]string{"bz2", "lzma", "xz"},
+					XrayIndex:                       Bool(false),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/local_repository.json")
@@ -181,6 +182,7 @@ func Test_Repositories(t *testing.T) {
 					VcsGitDownloadUrl:                 String(""),
 					BypassHeadRequest:                 Bool(false),
 					ClientTLSCertificate:              String(""),
+					XrayIndex:                         Bool(false),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/remote_repository.json")

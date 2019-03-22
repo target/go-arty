@@ -81,6 +81,7 @@ type LocalRepository struct {
 	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty"`
 	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty"`
 	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty"`
+	XrayIndex                       *bool     `json:"xrayIndex,omitempty"`
 }
 
 func (l LocalRepository) String() string {
@@ -124,6 +125,7 @@ type RemoteRepository struct {
 	VcsGitDownloadUrl                 *string `json:"VcsGitDownloadUrl,omitempty"`
 	BypassHeadRequest                 *bool   `json:"bypassHeadRequest,omitempty"`
 	ClientTLSCertificate              *string `json:"clientTlsCertificate,omitempty"`
+	XrayIndex                         *bool   `json:"xrayIndex,omitempty"`
 }
 
 func (r RemoteRepository) String() string {

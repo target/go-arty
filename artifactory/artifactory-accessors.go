@@ -975,6 +975,14 @@ func (l *LocalRepository) GetSnapshotVersionBehavior() string {
 	return *l.SnapshotVersionBehavior
 }
 
+// GetXrayIndex returns the XrayIndex field if it's non-nil, zero value otherwise.
+func (l *LocalRepository) GetXrayIndex() bool {
+	if l == nil || l.XrayIndex == nil {
+		return false
+	}
+	return *l.XrayIndex
+}
+
 // GetYumRootDepth returns the YumRootDepth field if it's non-nil, zero value otherwise.
 func (l *LocalRepository) GetYumRootDepth() int {
 	if l == nil || l.YumRootDepth == nil {
@@ -1285,6 +1293,14 @@ func (r *RemoteRepository) GetVcsType() string {
 		return ""
 	}
 	return *r.VcsType
+}
+
+// GetXrayIndex returns the XrayIndex field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetXrayIndex() bool {
+	if r == nil || r.XrayIndex == nil {
+		return false
+	}
+	return *r.XrayIndex
 }
 
 // GetFilesCount returns the FilesCount field if it's non-nil, zero value otherwise.
