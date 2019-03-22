@@ -22,5 +22,6 @@
   "yumRootDepth" : 0,
   "dockerApiVersion" : "V2",
   "enableFileListsIndexing" : "false",
-  "optionalIndexCompressionFormats" : ["bz2", "lzma", "xz"]
+  "optionalIndexCompressionFormats" : ["bz2", "lzma", "xz"],
+  "xrayIndex" : false
 }
