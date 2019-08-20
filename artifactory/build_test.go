@@ -93,7 +93,7 @@ func Test_Builds(t *testing.T) {
 				var expected Build
 				_ = json.Unmarshal(data, &expected)
 
-				g.Assert(build.String() == expected.String()).IsTrue()
+				g.Assert(build.String()).Equal(expected.String())
 			})
 
 			g.It("- should return no error with GetInfo()", func() {
