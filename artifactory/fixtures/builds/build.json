@@ -1,0 +1,39 @@
+{
+    "buildInfo": {
+      "properties": {
+        "buildInfo.env.TERM": "xterm-256color",
+        "buildInfo.env.LC_TERMINAL_VERSION": "3.3.0",
+        "buildInfo.env.COLORTERM": "truecolor"
+      },
+      "version": "1.1.1",
+      "name": "foo/bar",
+      "number": "0.1.0",
+      "buildAgent": {
+        "name": "GENERIC",
+        "version": "1.23.1"
+      },
+      "agent": {
+        "name": "jfrog-cli-go",
+        "version": "1.23.1"
+      },
+      "started": "2019-08-19T16:10:41.614-0500",
+      "durationMillis": 0,
+      "artifactoryPrincipal": "foo",
+      "modules": [
+        {
+          "properties": {
+          },
+          "id": "foo:bar:0.1.0",
+          "artifacts": [
+            {
+              "sha1": "088cb80eb3d651149c4ced1181ac9170d49d0069",
+              "sha256": "8b77d882fecbabea512c10176b1fd0e117cc33a096640e6ee553aaa9eb70daa6",
+              "md5": "f2d9a2e6a3b4f988b66151c7a9747403",
+              "name": "foo-0.1.0.tgz"
+            }
+          ]
+        }
+      ]
+    },
+    "uri": "https://artifactory.com/artifactory/api/build/foo/foo/0.1.0"
+  }

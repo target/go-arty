@@ -57,6 +57,7 @@ type Client struct {
 	Storage        *StorageService
 	System         *SystemService
 	Users          *UsersService
+	Build          *BuildService
 }
 
 type service struct {
