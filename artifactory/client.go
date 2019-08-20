@@ -48,6 +48,7 @@ type Client struct {
 	// Artifactory service for authentication.
 	Authentication *AuthenticationService
 	Artifacts      *ArtifactsService
+	Build          *BuildService
 	Docker         *DockerService
 	Groups         *GroupsService
 	Licenses       *LicensesService
@@ -57,7 +58,6 @@ type Client struct {
 	Storage        *StorageService
 	System         *SystemService
 	Users          *UsersService
-	Build          *BuildService
 }
 
 type service struct {
@@ -88,6 +88,7 @@ func NewClient(baseUrl string, httpClient *http.Client) (*Client, error) {
 
 	c.Authentication = &AuthenticationService{client: c}
 	c.Artifacts = &ArtifactsService{client: c}
+	c.Build = &BuildService{client: c}
 	c.Docker = &DockerService{client: c}
 	c.Groups = &GroupsService{client: c}
 	c.Licenses = &LicensesService{client: c}
