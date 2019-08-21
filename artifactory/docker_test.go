@@ -49,9 +49,9 @@ func Test_Docker(t *testing.T) {
 				TargetRepo:             String("docker"),
 				DockerRepository:       String("docker-dev"),
 				TargetDockerRepository: String("docker-test"),
-				Tag:       String("latest"),
-				TargetTag: String("latest"),
-				Copy:      Bool(true),
+				Tag:                    String("latest"),
+				TargetTag:              String("latest"),
+				Copy:                   Bool(true),
 			}
 
 			g.It("- should return valid string for Registry with String()", func() {
