@@ -17,10 +17,10 @@
 package artifactory
 
 import (
-	"strings"
 	"encoding/json"
 	"io/ioutil"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/franela/goblin"

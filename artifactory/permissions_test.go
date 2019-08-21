@@ -17,6 +17,8 @@
 package artifactory
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"net/http/httptest"
 	"testing"
 
@@ -65,15 +67,14 @@ func Test_Permissions(t *testing.T) {
 				}
 			})
 
-			// TODO: I hate the randomized order of maps
-			// g.It("- should return valid string for PermissionTarget with String()", func() {
-			// 	data, _ := ioutil.ReadFile("fixtures/permissions/permission.json")
-			//
-			// 	var expected PermissionTarget
-			// 	_ = json.Unmarshal(data, &expected)
-			//
-			// 	g.Assert(target.String() == expected.String()).IsTrue()
-			// })
+			g.It("- should return valid string for PermissionTarget with String()", func() {
+				data, _ := ioutil.ReadFile("fixtures/permissions/permission.json")
+
+				var expected PermissionTarget
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(target.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return no error with GetAll()", func() {
 				actual, resp, err := c.Permissions.GetAll()

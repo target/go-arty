@@ -15,6 +15,22 @@
 
 package artifactory
 
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (a *Agent) GetName() string {
+	if a == nil || a.Name == nil {
+		return ""
+	}
+	return *a.Name
+}
+
+// GetVersion returns the Version field if it's non-nil, zero value otherwise.
+func (a *Agent) GetVersion() string {
+	if a == nil || a.Version == nil {
+		return ""
+	}
+	return *a.Version
+}
+
 // GetAPIKey returns the APIKey field if it's non-nil, zero value otherwise.
 func (a *APIKey) GetAPIKey() string {
 	if a == nil || a.APIKey == nil {
@@ -93,6 +109,134 @@ func (b *BinariesSummary) GetOptimization() string {
 		return ""
 	}
 	return *b.Optimization
+}
+
+// GetBuildInfo returns the BuildInfo field.
+func (b *Build) GetBuildInfo() *BuildInfo {
+	if b == nil {
+		return nil
+	}
+	return b.BuildInfo
+}
+
+// GetURI returns the URI field if it's non-nil, zero value otherwise.
+func (b *Build) GetURI() string {
+	if b == nil || b.URI == nil {
+		return ""
+	}
+	return *b.URI
+}
+
+// GetMd5 returns the Md5 field if it's non-nil, zero value otherwise.
+func (b *BuildArtifacts) GetMd5() string {
+	if b == nil || b.Md5 == nil {
+		return ""
+	}
+	return *b.Md5
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (b *BuildArtifacts) GetName() string {
+	if b == nil || b.Name == nil {
+		return ""
+	}
+	return *b.Name
+}
+
+// GetSha1 returns the Sha1 field if it's non-nil, zero value otherwise.
+func (b *BuildArtifacts) GetSha1() string {
+	if b == nil || b.Sha1 == nil {
+		return ""
+	}
+	return *b.Sha1
+}
+
+// GetSha256 returns the Sha256 field if it's non-nil, zero value otherwise.
+func (b *BuildArtifacts) GetSha256() string {
+	if b == nil || b.Sha256 == nil {
+		return ""
+	}
+	return *b.Sha256
+}
+
+// GetAgent returns the Agent field.
+func (b *BuildInfo) GetAgent() *Agent {
+	if b == nil {
+		return nil
+	}
+	return b.Agent
+}
+
+// GetArtifactoryPrincipal returns the ArtifactoryPrincipal field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetArtifactoryPrincipal() string {
+	if b == nil || b.ArtifactoryPrincipal == nil {
+		return ""
+	}
+	return *b.ArtifactoryPrincipal
+}
+
+// GetBuildAgent returns the BuildAgent field.
+func (b *BuildInfo) GetBuildAgent() *Agent {
+	if b == nil {
+		return nil
+	}
+	return b.BuildAgent
+}
+
+// GetDurationMillis returns the DurationMillis field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetDurationMillis() int {
+	if b == nil || b.DurationMillis == nil {
+		return 0
+	}
+	return *b.DurationMillis
+}
+
+// GetModules returns the Modules field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetModules() []Modules {
+	if b == nil || b.Modules == nil {
+		return nil
+	}
+	return *b.Modules
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetName() string {
+	if b == nil || b.Name == nil {
+		return ""
+	}
+	return *b.Name
+}
+
+// GetNumber returns the Number field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetNumber() string {
+	if b == nil || b.Number == nil {
+		return ""
+	}
+	return *b.Number
+}
+
+// GetProperties returns the Properties field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetProperties() map[string]string {
+	if b == nil || b.Properties == nil {
+		return map[string]string{}
+	}
+	return *b.Properties
+}
+
+// GetStarted returns the Started field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetStarted() string {
+	if b == nil || b.Started == nil {
+		return ""
+	}
+	return *b.Started
+}
+
+// GetVersion returns the Version field if it's non-nil, zero value otherwise.
+func (b *BuildInfo) GetVersion() string {
+	if b == nil || b.Version == nil {
+		return ""
+	}
+	return *b.Version
 }
 
 // GetMD5 returns the MD5 field if it's non-nil, zero value otherwise.
@@ -989,6 +1133,30 @@ func (l *LocalRepository) GetYumRootDepth() int {
 		return 0
 	}
 	return *l.YumRootDepth
+}
+
+// GetArtifacts returns the Artifacts field if it's non-nil, zero value otherwise.
+func (m *Modules) GetArtifacts() []BuildArtifacts {
+	if m == nil || m.Artifacts == nil {
+		return nil
+	}
+	return *m.Artifacts
+}
+
+// GetID returns the ID field if it's non-nil, zero value otherwise.
+func (m *Modules) GetID() string {
+	if m == nil || m.ID == nil {
+		return ""
+	}
+	return *m.ID
+}
+
+// GetProperties returns the Properties field if it's non-nil, zero value otherwise.
+func (m *Modules) GetProperties() map[string]string {
+	if m == nil || m.Properties == nil {
+		return map[string]string{}
+	}
+	return *m.Properties
 }
 
 // GetExcludesPattern returns the ExcludesPattern field if it's non-nil, zero value otherwise.
