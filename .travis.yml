@@ -1,10 +1,7 @@
 sudo: false
 language: go
 go:
-  - "1.11.x"
-  - "1.10.x"
-  - "1.9.x"
-  - master
+  - "1.12.x"
 matrix:
   allow_failures:
     - go: master
@@ -18,9 +15,7 @@ script:
   - go test -v -race ./...
   - go vet ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go vet ./... produces a zero diff; clean up any changes afterwards.
 
-  # We've commented out this line as the behavior of go fmt changes too much between the versions we're currently testing
-  # Our hope is by leaving it here it will serve as a reminder
-  #- go fmt ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go fmt ./... produces a zero diff; clean up any changes afterwards.
+  - go fmt ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go fmt ./... produces a zero diff; clean up any changes afterwards.
 
   - go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code) # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
 

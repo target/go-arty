@@ -160,22 +160,21 @@ func Test_Storage(t *testing.T) {
 				g.Assert(actual.String() == expected.String()).IsTrue()
 			})
 
-			// TODO: I hate the randomized order of maps
-			// g.It("- should return valid string for EffectiveItemPermissions with String()", func() {
-			// 	actual := &EffectiveItemPermissions{
-			// 		URI: String("http://localhost:8081/artifactory/api/storage/local-repo1/file"),
-			// 		Principals: &Principals{
-			// 			Users:  &map[string][]string{"user1": []string{"r"}, "user2": []string{"r", "d", "w", "m", "n"}},
-			// 			Groups: &map[string][]string{"readers": []string{"r"}},
-			// 		},
-			// 	}
-			// 	data, _ := ioutil.ReadFile("fixtures/storage/effective_permission.json")
+			g.It("- should return valid string for EffectiveItemPermissions with String()", func() {
+				actual := &EffectiveItemPermissions{
+					URI: String("http://localhost:8081/artifactory/api/storage/local-repo1/file"),
+					Principals: &Principals{
+						Users:  &map[string][]string{"user1": []string{"r"}, "user2": []string{"r", "d", "w", "m", "n"}},
+						Groups: &map[string][]string{"readers": []string{"r"}},
+					},
+				}
+				data, _ := ioutil.ReadFile("fixtures/storage/effective_permission.json")
 
-			// 	var expected EffectiveItemPermissions
-			// 	_ = json.Unmarshal(data, &expected)
+				var expected EffectiveItemPermissions
+				_ = json.Unmarshal(data, &expected)
 
-			// 	g.Assert(actual.String() == expected.String()).IsTrue()
-			// })
+				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
 
 			g.It("- should return valid string for ItemLastModified with String()", func() {
 				actual := &ItemLastModified{
