@@ -15,7 +15,8 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
-      path: /go/src/github.com/target/go-arty
+      with:
+        path: /go/src/github.com/target/go-arty
 
     - name: Get dependencies
       run: |
