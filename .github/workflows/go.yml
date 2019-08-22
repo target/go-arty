@@ -22,8 +22,9 @@ jobs:
       run: |
         go get -v -t -d ./...
         if [ -f Gopkg.toml ]; then
-            mkdir /go/bin
-            export PATH=$PATH:/go/bin
+            mkdir /home/runner/work/go-arty/bin
+            export GOPATH=/home/runner/work/go-arty
+            export PATH=$PATH:/home/runner/work/go-arty/bin
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
