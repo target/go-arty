@@ -567,6 +567,14 @@ func (s *SummaryArtifactRequest) GetPaths() []string {
 	return *s.Paths
 }
 
+// GetCve returns the Cve field if it's non-nil, zero value otherwise.
+func (s *SummaryCve) GetCve() string {
+	if s == nil || s.Cve == nil {
+		return ""
+	}
+	return *s.Cve
+}
+
 // GetError returns the Error field if it's non-nil, zero value otherwise.
 func (s *SummaryError) GetError() string {
 	if s == nil || s.Error == nil {
@@ -629,6 +637,14 @@ func (s *SummaryIssue) GetCreated() string {
 		return ""
 	}
 	return *s.Created
+}
+
+// GetCves returns the Cves field if it's non-nil, zero value otherwise.
+func (s *SummaryIssue) GetCves() []SummaryCve {
+	if s == nil || s.Cves == nil {
+		return nil
+	}
+	return *s.Cves
 }
 
 // GetDescription returns the Description field if it's non-nil, zero value otherwise.
