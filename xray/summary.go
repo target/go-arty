@@ -45,15 +45,21 @@ type SummaryArtifact struct {
 	Licenses *[]SummaryLicense `json:"licenses,omitempty"`
 }
 
+// SummaryCve resprents the cves within the summary from Xray
+type SummaryCve struct {
+	Cve *string `json:"cve,omitempty"`
+}
+
 // SummaryIssue represents a issue within the summary in Xray.
 type SummaryIssue struct {
-	Created     *string   `json:"created,omitempty"`
-	Description *string   `json:"description,omitempty"`
-	ImpactPath  *[]string `json:"impact_path,omitempty"`
-	IssueType   *string   `json:"issue_type,omitempty"`
-	Provider    *string   `json:"provider,omitempty"`
-	Severity    *string   `json:"severity,omitempty"`
-	Summary     *string   `json:"summary,omitempty"`
+	Created     *string       `json:"created,omitempty"`
+	Description *string       `json:"description,omitempty"`
+	ImpactPath  *[]string     `json:"impact_path,omitempty"`
+	IssueType   *string       `json:"issue_type,omitempty"`
+	Provider    *string       `json:"provider,omitempty"`
+	Cves        *[]SummaryCve `json:"cves,omitempty"`
+	Severity    *string       `json:"severity,omitempty"`
+	Summary     *string       `json:"summary,omitempty"`
 }
 
 // SummaryGeneral represents the general information of a summary in Xray.
