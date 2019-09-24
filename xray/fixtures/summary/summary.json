@@ -15,6 +15,11 @@
           "issue_type": "security",
           "severity": "Major",
           "provider": "JFrog",
+          "cves": [
+            {
+              "cve": "CVE-2016-6251"
+            }
+          ],
           "created": "2016-10-26T11:15:51.17Z",
           "impact_path": [
             "xray-artifactory/maven-1000/com/atlassian/aui/auiplugin/0.0.5-9-0-snapshot-035-do-not-use/Jinja2-2.7.2"

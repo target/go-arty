@@ -64,8 +64,13 @@ func Test_Summary(t *testing.T) {
 									IssueType:   String("security"),
 									Severity:    String("Major"),
 									Provider:    String("JFrog"),
-									Created:     String("2016-10-26T11:15:51.17Z"),
-									ImpactPath:  &[]string{"xray-artifactory/maven-1000/com/atlassian/aui/auiplugin/0.0.5-9-0-snapshot-035-do-not-use/Jinja2-2.7.2"},
+									Cves: &[]SummaryCve{
+										SummaryCve{
+											Cve: String("CVE-2016-6251"),
+										},
+									},
+									Created:    String("2016-10-26T11:15:51.17Z"),
+									ImpactPath: &[]string{"xray-artifactory/maven-1000/com/atlassian/aui/auiplugin/0.0.5-9-0-snapshot-035-do-not-use/Jinja2-2.7.2"},
 								},
 							},
 							Licenses: &[]SummaryLicense{
