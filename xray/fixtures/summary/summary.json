@@ -13,11 +13,16 @@
           "summary": "FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories",
           "description": "this is the description of the issue",
           "issue_type": "security",
-          "severity": "Major",
+          "severity": "High",
           "provider": "JFrog",
           "cves": [
             {
-              "cve": "CVE-2016-6251"
+              "cve": "CVE-2016-6251",
+              "cwe": [
+                "CWE-119"
+              ],
+              "cvss_v2": "7.5/CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P",
+              "cvss_v3": "9.8/CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
             }
           ],
           "created": "2016-10-26T11:15:51.17Z",

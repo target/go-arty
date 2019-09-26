@@ -575,6 +575,30 @@ func (s *SummaryCve) GetCve() string {
 	return *s.Cve
 }
 
+// GetCvss2 returns the Cvss2 field if it's non-nil, zero value otherwise.
+func (s *SummaryCve) GetCvss2() string {
+	if s == nil || s.Cvss2 == nil {
+		return ""
+	}
+	return *s.Cvss2
+}
+
+// GetCvss3 returns the Cvss3 field if it's non-nil, zero value otherwise.
+func (s *SummaryCve) GetCvss3() string {
+	if s == nil || s.Cvss3 == nil {
+		return ""
+	}
+	return *s.Cvss3
+}
+
+// GetCwe returns the Cwe field if it's non-nil, zero value otherwise.
+func (s *SummaryCve) GetCwe() []string {
+	if s == nil || s.Cwe == nil {
+		return nil
+	}
+	return *s.Cwe
+}
+
 // GetError returns the Error field if it's non-nil, zero value otherwise.
 func (s *SummaryError) GetError() string {
 	if s == nil || s.Error == nil {

@@ -62,11 +62,14 @@ func Test_Summary(t *testing.T) {
 									Summary:     String("FileSystemBytecodeCache in Jinja2 2.7.2 does not properly create temporary directories"),
 									Description: String("this is the description of the issue"),
 									IssueType:   String("security"),
-									Severity:    String("Major"),
+									Severity:    String("High"),
 									Provider:    String("JFrog"),
 									Cves: &[]SummaryCve{
 										SummaryCve{
-											Cve: String("CVE-2016-6251"),
+											Cve:   String("CVE-2016-6251"),
+											Cwe:   &[]string{"CWE-119"},
+											Cvss2: String("7.5/CVSS:2.0/AV:N/AC:L/Au:N/C:P/I:P/A:P"),
+											Cvss3: String("9.8/CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"),
 										},
 									},
 									Created:    String("2016-10-26T11:15:51.17Z"),
