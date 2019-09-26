@@ -47,7 +47,10 @@ type SummaryArtifact struct {
 
 // SummaryCve resprents the cves within the summary from Xray
 type SummaryCve struct {
-	Cve *string `json:"cve,omitempty"`
+	Cve   *string   `json:"cve,omitempty"`
+	Cwe   *[]string `json:"cwe,omitempty"`
+	Cvss2 *string   `json:"cvss_v2,omitempty"`
+	Cvss3 *string   `json:"cvss_v3,omitempty"`
 }
 
 // SummaryIssue represents a issue within the summary in Xray.
