@@ -20,6 +20,7 @@ func FakeHandler() http.Handler {
 	e.GET("/api/security/permissions/:target", getPermission)
 	e.PUT("/api/security/permissions/:target", createPermission)
 	e.DELETE("/api/security/permissions/:target", deletePermission)
+	e.HEAD("/api/v2/security/permissions/:target", getExistence)
 
 	return e
 }
@@ -59,6 +60,19 @@ func deletePermission(c *gin.Context) {
 	}
 
 	c.JSON(200, fmt.Sprintf("Successfully deleted permission Target '%s'", target))
+}
+
+func getExistence(c *gin.Context) {
+	target := c.Param("target")
+
+	switch target {
+	case "valid":
+		c.Status(200)
+		return
+	default:
+		c.Status(404)
+		return
+	}
 }
 
 func loadFixture(file string) string {
