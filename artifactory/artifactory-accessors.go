@@ -1087,6 +1087,14 @@ func (l *LocalRepository) GetDockerAPIVersion() string {
 	return *l.DockerAPIVersion
 }
 
+// GetDownloadRedirect returns the DownloadRedirect field if it's non-nil, zero value otherwise.
+func (l *LocalRepository) GetDownloadRedirect() bool {
+	if l == nil || l.DownloadRedirect == nil {
+		return false
+	}
+	return *l.DownloadRedirect
+}
+
 // GetEnableFileListsIndexing returns the EnableFileListsIndexing field if it's non-nil, zero value otherwise.
 func (l *LocalRepository) GetEnableFileListsIndexing() bool {
 	if l == nil || l.EnableFileListsIndexing == nil {
@@ -1247,12 +1255,12 @@ func (r *RemoteRepository) GetBowerRegistryURL() string {
 	return *r.BowerRegistryURL
 }
 
-// GetBypassHeadRequest returns the BypassHeadRequest field if it's non-nil, zero value otherwise.
-func (r *RemoteRepository) GetBypassHeadRequest() bool {
-	if r == nil || r.BypassHeadRequest == nil {
+// GetBypassHeadRequests returns the BypassHeadRequests field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetBypassHeadRequests() bool {
+	if r == nil || r.BypassHeadRequests == nil {
 		return false
 	}
-	return *r.BypassHeadRequest
+	return *r.BypassHeadRequests
 }
 
 // GetClientTLSCertificate returns the ClientTLSCertificate field if it's non-nil, zero value otherwise.
@@ -1271,6 +1279,22 @@ func (r *RemoteRepository) GetComposerRegistryURL() string {
 	return *r.ComposerRegistryURL
 }
 
+// GetDownloadContextPath returns the DownloadContextPath field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetDownloadContextPath() string {
+	if r == nil || r.DownloadContextPath == nil {
+		return ""
+	}
+	return *r.DownloadContextPath
+}
+
+// GetDownloadRedirect returns the DownloadRedirect field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetDownloadRedirect() bool {
+	if r == nil || r.DownloadRedirect == nil {
+		return false
+	}
+	return *r.DownloadRedirect
+}
+
 // GetEnableCookieManagement returns the EnableCookieManagement field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetEnableCookieManagement() bool {
 	if r == nil || r.EnableCookieManagement == nil {
@@ -1279,12 +1303,36 @@ func (r *RemoteRepository) GetEnableCookieManagement() bool {
 	return *r.EnableCookieManagement
 }
 
+// GetExternalDependenciesEnabled returns the ExternalDependenciesEnabled field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetExternalDependenciesEnabled() bool {
+	if r == nil || r.ExternalDependenciesEnabled == nil {
+		return false
+	}
+	return *r.ExternalDependenciesEnabled
+}
+
+// GetExternalDependenciesPatterns returns the ExternalDependenciesPatterns field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetExternalDependenciesPatterns() []string {
+	if r == nil || r.ExternalDependenciesPatterns == nil {
+		return nil
+	}
+	return *r.ExternalDependenciesPatterns
+}
+
 // GetFailedRetrievalCachePeriodSecs returns the FailedRetrievalCachePeriodSecs field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetFailedRetrievalCachePeriodSecs() int {
 	if r == nil || r.FailedRetrievalCachePeriodSecs == nil {
 		return 0
 	}
 	return *r.FailedRetrievalCachePeriodSecs
+}
+
+// GetFeedContextPath returns the FeedContextPath field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetFeedContextPath() string {
+	if r == nil || r.FeedContextPath == nil {
+		return ""
+	}
+	return *r.FeedContextPath
 }
 
 // GetFetchJarsEagerly returns the FetchJarsEagerly field if it's non-nil, zero value otherwise.
@@ -1437,6 +1485,14 @@ func (r *RemoteRepository) GetUsername() string {
 		return ""
 	}
 	return *r.Username
+}
+
+// GetV3FeedUrl returns the V3FeedUrl field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetV3FeedUrl() string {
+	if r == nil || r.V3FeedUrl == nil {
+		return ""
+	}
+	return *r.V3FeedUrl
 }
 
 // GetVcsGitDownloadUrl returns the VcsGitDownloadUrl field if it's non-nil, zero value otherwise.
@@ -1917,6 +1973,38 @@ func (v *VirtualRepository) GetDefaultDeploymentRepo() string {
 		return ""
 	}
 	return *v.DefaultDeploymentRepo
+}
+
+// GetExternalDependenciesEnabled returns the ExternalDependenciesEnabled field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetExternalDependenciesEnabled() bool {
+	if v == nil || v.ExternalDependenciesEnabled == nil {
+		return false
+	}
+	return *v.ExternalDependenciesEnabled
+}
+
+// GetExternalDependenciesPatterns returns the ExternalDependenciesPatterns field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetExternalDependenciesPatterns() []string {
+	if v == nil || v.ExternalDependenciesPatterns == nil {
+		return nil
+	}
+	return *v.ExternalDependenciesPatterns
+}
+
+// GetExternalDependenciesRemoteRepo returns the ExternalDependenciesRemoteRepo field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetExternalDependenciesRemoteRepo() string {
+	if v == nil || v.ExternalDependenciesRemoteRepo == nil {
+		return ""
+	}
+	return *v.ExternalDependenciesRemoteRepo
+}
+
+// GetForceMavenAuthentication returns the ForceMavenAuthentication field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetForceMavenAuthentication() bool {
+	if v == nil || v.ForceMavenAuthentication == nil {
+		return false
+	}
+	return *v.ForceMavenAuthentication
 }
 
 // GetKeyPair returns the KeyPair field if it's non-nil, zero value otherwise.

@@ -23,5 +23,6 @@
   "dockerApiVersion" : "V2",
   "enableFileListsIndexing" : "false",
   "optionalIndexCompressionFormats" : ["bz2", "lzma", "xz"],
-  "xrayIndex" : false
+  "xrayIndex" : false,
+  "downloadRedirect" : false
 }

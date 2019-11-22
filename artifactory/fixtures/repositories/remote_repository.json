@@ -42,7 +42,13 @@
   "vcsType": "GIT",
   "vcsGitProvider": "CUSTOM",
   "vcsGitDownloadUrl": "",
-  "bypassHeadRequest" : false,
+  "bypassHeadRequests" : false,
   "clientTlsCertificate": "",
+  "externalDependenciesEnabled": false,
+  "externalDependenciesPatterns": [ "**/*microsoft*/**", "**/*github*/**" ],
+  "downloadRedirect" : "false",
+  "feedContextPath":"api/v2",
+  "downloadContextPath":"api/v2/package",
+  "v3FeedUrl":"https://api.nuget.org/v3/index.json",
   "xrayIndex" : false
 }
