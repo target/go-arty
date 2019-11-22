@@ -217,6 +217,7 @@ func Test_Repositories(t *testing.T) {
 					KeyPair:                              String("keypair1"),
 					PomRepositoryReferencesCleanupPolicy: String("discard_active_reference"),
 					DefaultDeploymentRepo:                String("local-repo1"),
+					ForceMavenAuthentication:             Bool(false),
 					ExternalDependenciesEnabled:          Bool(false),
 					ExternalDependenciesPatterns:         &[]string{"**/*microsoft*/**", "**/*github*/**"},
 					ExternalDependenciesRemoteRepo:       String(""),
