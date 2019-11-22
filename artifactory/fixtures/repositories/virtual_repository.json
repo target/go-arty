@@ -14,6 +14,6 @@
   "defaultDeploymentRepo": "local-repo1",
   "forceMavenAuthentication" : false,
   "externalDependenciesEnabled": false,
-  "externalDependenciesPatterns": [ "**/*microsoft*/**", "**/*github*/**" ],
+  "externalDependenciesPatterns": ["**/*microsoft*/**", "**/*github*/**"],
   "externalDependenciesRemoteRepo": ""
 }

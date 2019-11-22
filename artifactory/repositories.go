@@ -154,7 +154,7 @@ type VirtualRepository struct {
 	ForceMavenAuthentication                      *bool     `json:"forceMavenAuthentication,omitempty"`
 	ExternalDependenciesEnabled                   *bool     `json:"externalDependenciesEnabled,omitempty"`
 	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty"`
-	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesPatterns,omitempty"`
+	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty"`
 }
 
 func (v VirtualRepository) String() string {
