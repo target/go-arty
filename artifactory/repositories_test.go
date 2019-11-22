@@ -123,6 +123,7 @@ func Test_Repositories(t *testing.T) {
 					EnableFileListsIndexing:         Bool(false),
 					OptionalIndexCompressionFormats: &[]string{"bz2", "lzma", "xz"},
 					XrayIndex:                       Bool(false),
+					DownloadRedirect:                Bool(false),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/local_repository.json")
@@ -180,8 +181,14 @@ func Test_Repositories(t *testing.T) {
 					VcsType:                           String("GIT"),
 					VcsGitProvider:                    String("CUSTOM"),
 					VcsGitDownloadUrl:                 String(""),
-					BypassHeadRequest:                 Bool(false),
+					BypassHeadRequests:                Bool(false),
 					ClientTLSCertificate:              String(""),
+					ExternalDependenciesEnabled:       Bool(false),
+					ExternalDependenciesPatterns:      &[]string{"**/*microsoft*/**", "**/*github*/**"},
+					DownloadRedirect:                  Bool(false),
+					DownloadContextPath:               String("api/v2/package"),
+					V3FeedUrl:                         String("https://api.nuget.org/v3/index.json"),
+					FeedContextPath:                   String("api/v2"),
 					XrayIndex:                         Bool(false),
 				}
 
@@ -210,6 +217,9 @@ func Test_Repositories(t *testing.T) {
 					KeyPair:                              String("keypair1"),
 					PomRepositoryReferencesCleanupPolicy: String("discard_active_reference"),
 					DefaultDeploymentRepo:                String("local-repo1"),
+					ExternalDependenciesEnabled:          Bool(false),
+					ExternalDependenciesPatterns:         &[]string{"**/*microsoft*/**", "**/*github*/**"},
+					ExternalDependenciesRemoteRepo:       String(""),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/virtual_repository.json")
