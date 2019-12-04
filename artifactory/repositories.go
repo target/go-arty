@@ -133,11 +133,11 @@ type RemoteRepository struct {
 	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty"`
 	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty"`
 	XrayIndex                         *bool                   `json:"xrayIndex,omitempty"`
-	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
+	ContentSynchronisation            *contentSynchronisation `json:"contentSynchronisation,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
-type ContentSynchronisation struct {
+type contentSynchronisation struct {
 	Enabled    *bool `json:"enabled,omitempty"`
 	Properties *struct {
 		Enabled *bool `json:"enabled,omitempty"`

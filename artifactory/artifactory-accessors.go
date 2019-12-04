@@ -1279,6 +1279,14 @@ func (r *RemoteRepository) GetComposerRegistryURL() string {
 	return *r.ComposerRegistryURL
 }
 
+// GetContentSynchronisation returns the ContentSynchronisation field.
+func (r *RemoteRepository) GetContentSynchronisation() *contentSynchronisation {
+	if r == nil {
+		return nil
+	}
+	return r.ContentSynchronisation
+}
+
 // GetDownloadContextPath returns the DownloadContextPath field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetDownloadContextPath() string {
 	if r == nil || r.DownloadContextPath == nil {
