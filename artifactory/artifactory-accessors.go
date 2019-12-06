@@ -1167,6 +1167,30 @@ func (m *Modules) GetProperties() map[string]string {
 	return *m.Properties
 }
 
+// GetCronExp returns the CronExp field if it's non-nil, zero value otherwise.
+func (m *MultiPushReplication) GetCronExp() string {
+	if m == nil || m.CronExp == nil {
+		return ""
+	}
+	return *m.CronExp
+}
+
+// GetEnableEventReplication returns the EnableEventReplication field if it's non-nil, zero value otherwise.
+func (m *MultiPushReplication) GetEnableEventReplication() bool {
+	if m == nil || m.EnableEventReplication == nil {
+		return false
+	}
+	return *m.EnableEventReplication
+}
+
+// GetReplications returns the Replications field if it's non-nil, zero value otherwise.
+func (m *MultiPushReplication) GetReplications() []Replication {
+	if m == nil || m.Replications == nil {
+		return nil
+	}
+	return *m.Replications
+}
+
 // GetExcludesPattern returns the ExcludesPattern field if it's non-nil, zero value otherwise.
 func (p *PermissionTarget) GetExcludesPattern() string {
 	if p == nil || p.ExcludesPattern == nil {
@@ -1525,6 +1549,110 @@ func (r *RemoteRepository) GetXrayIndex() bool {
 		return false
 	}
 	return *r.XrayIndex
+}
+
+// GetCheckBinaryExistenceInFilestore returns the CheckBinaryExistenceInFilestore field if it's non-nil, zero value otherwise.
+func (r *Replication) GetCheckBinaryExistenceInFilestore() bool {
+	if r == nil || r.CheckBinaryExistenceInFilestore == nil {
+		return false
+	}
+	return *r.CheckBinaryExistenceInFilestore
+}
+
+// GetCronExp returns the CronExp field if it's non-nil, zero value otherwise.
+func (r *Replication) GetCronExp() string {
+	if r == nil || r.CronExp == nil {
+		return ""
+	}
+	return *r.CronExp
+}
+
+// GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
+func (r *Replication) GetEnabled() bool {
+	if r == nil || r.Enabled == nil {
+		return false
+	}
+	return *r.Enabled
+}
+
+// GetEnableEventReplication returns the EnableEventReplication field if it's non-nil, zero value otherwise.
+func (r *Replication) GetEnableEventReplication() bool {
+	if r == nil || r.EnableEventReplication == nil {
+		return false
+	}
+	return *r.EnableEventReplication
+}
+
+// GetPassword returns the Password field if it's non-nil, zero value otherwise.
+func (r *Replication) GetPassword() string {
+	if r == nil || r.Password == nil {
+		return ""
+	}
+	return *r.Password
+}
+
+// GetPathPrefix returns the PathPrefix field if it's non-nil, zero value otherwise.
+func (r *Replication) GetPathPrefix() string {
+	if r == nil || r.PathPrefix == nil {
+		return ""
+	}
+	return *r.PathPrefix
+}
+
+// GetRepoKey returns the RepoKey field if it's non-nil, zero value otherwise.
+func (r *Replication) GetRepoKey() string {
+	if r == nil || r.RepoKey == nil {
+		return ""
+	}
+	return *r.RepoKey
+}
+
+// GetSocketTimeoutMillis returns the SocketTimeoutMillis field if it's non-nil, zero value otherwise.
+func (r *Replication) GetSocketTimeoutMillis() int {
+	if r == nil || r.SocketTimeoutMillis == nil {
+		return 0
+	}
+	return *r.SocketTimeoutMillis
+}
+
+// GetSyncDeletes returns the SyncDeletes field if it's non-nil, zero value otherwise.
+func (r *Replication) GetSyncDeletes() bool {
+	if r == nil || r.SyncDeletes == nil {
+		return false
+	}
+	return *r.SyncDeletes
+}
+
+// GetSyncProperties returns the SyncProperties field if it's non-nil, zero value otherwise.
+func (r *Replication) GetSyncProperties() bool {
+	if r == nil || r.SyncProperties == nil {
+		return false
+	}
+	return *r.SyncProperties
+}
+
+// GetSyncStatistics returns the SyncStatistics field if it's non-nil, zero value otherwise.
+func (r *Replication) GetSyncStatistics() bool {
+	if r == nil || r.SyncStatistics == nil {
+		return false
+	}
+	return *r.SyncStatistics
+}
+
+// GetUrl returns the Url field if it's non-nil, zero value otherwise.
+func (r *Replication) GetUrl() string {
+	if r == nil || r.Url == nil {
+		return ""
+	}
+	return *r.Url
+}
+
+// GetUsername returns the Username field if it's non-nil, zero value otherwise.
+func (r *Replication) GetUsername() string {
+	if r == nil || r.Username == nil {
+		return ""
+	}
+	return *r.Username
 }
 
 // GetFilesCount returns the FilesCount field if it's non-nil, zero value otherwise.

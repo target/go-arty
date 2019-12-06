@@ -1,0 +1,18 @@
+[
+  {
+    "username" : "replication-user",
+    "password" : "pass",
+    "url" : "http://host:port/target-repo",
+    "socketTimeoutMillis" : 15000,
+    "cronExp" : "0 0 12 * * ?",
+    "repoKey" : "local-repo1",
+    "replicationKey" : "local-repo1_https10a1b2c3d4e",
+    "enableEventReplication" : true,
+    "enabled" : true,
+    "syncDeletes" : true,
+    "syncProperties" : true,
+    "syncStatistics" : false,
+    "pathPrefix" : "path/to/replicate",
+    "checkBinaryExistenceInFilestore" : false
+  }
+]
