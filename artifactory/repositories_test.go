@@ -190,17 +190,17 @@ func Test_Repositories(t *testing.T) {
 					V3FeedUrl:                         String("https://api.nuget.org/v3/index.json"),
 					FeedContextPath:                   String("api/v2"),
 					XrayIndex:                         Bool(false),
-					ContentSynchronisation:            &contentSynchronisation{
-						Enabled:    Bool(true),
-						Properties: &struct{
+					ContentSynchronisation: &contentSynchronisation{
+						Enabled: Bool(true),
+						Properties: &struct {
 							Enabled *bool `json:"enabled,omitempty"`
 						}{Enabled: Bool(true)},
-						Statistics: &struct{
+						Statistics: &struct {
 							Enabled *bool `json:"enabled,omitempty"`
 						}{Enabled: Bool(true)},
-						Source:     &struct{
+						Source: &struct {
 							OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty"`
-						}{OriginAbsenceDetection: Bool(true) },
+						}{OriginAbsenceDetection: Bool(true)},
 					},
 				}
 
