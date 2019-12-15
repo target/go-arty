@@ -62,7 +62,7 @@ func Test_Replications(t *testing.T) {
 
 			remoteReplication := &Replication{
 				Enabled:                         Bool(true),
-				CronExp:                         String("0 0 12 * * ?", ),
+				CronExp:                         String("0 0 12 * * ?"),
 				SyncDeletes:                     Bool(true),
 				SyncProperties:                  Bool(true),
 				PathPrefix:                      String(""),
@@ -74,7 +74,7 @@ func Test_Replications(t *testing.T) {
 			multiPushReplication := &MultiPushReplication{
 				CronExp:                String("0 0 12 * * ?"),
 				EnableEventReplication: Bool(true),
-				Replications:           &[]Replication{
+				Replications: &[]Replication{
 					*localReplication,
 					*replication,
 				},

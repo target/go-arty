@@ -17,19 +17,19 @@ type ReplicationsService service
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Replication+Configuration+JSON
 type Replication struct {
-	Username *string `json:"username,omitempty"`
-	Password *string `json:"password,omitempty"`
-	Url *string `json:"url,omitempty"`
-	SocketTimeoutMillis *int `json:"socketTimeoutMillis,omitempty"`
-	CronExp *string `json:"cronExp,omitempty"`
-	RepoKey *string `json:"repoKey,omitempty"`
-	EnableEventReplication *bool `json:"enableEventReplication,omitempty"`
-	Enabled *bool `json:"enabled,omitempty"`
-	SyncDeletes *bool `json:"syncDeletes,omitempty"`
-	SyncProperties *bool `json:"syncProperties,omitempty"`
-	SyncStatistics *bool `json:"syncStatistics,omitempty"`
-	PathPrefix *string `json:"pathPrefix,omitempty"`
-	CheckBinaryExistenceInFilestore *bool `json:"checkBinaryExistenceInFilestore,omitempty"`
+	Username                        *string `json:"username,omitempty"`
+	Password                        *string `json:"password,omitempty"`
+	Url                             *string `json:"url,omitempty"`
+	SocketTimeoutMillis             *int    `json:"socketTimeoutMillis,omitempty"`
+	CronExp                         *string `json:"cronExp,omitempty"`
+	RepoKey                         *string `json:"repoKey,omitempty"`
+	EnableEventReplication          *bool   `json:"enableEventReplication,omitempty"`
+	Enabled                         *bool   `json:"enabled,omitempty"`
+	SyncDeletes                     *bool   `json:"syncDeletes,omitempty"`
+	SyncProperties                  *bool   `json:"syncProperties,omitempty"`
+	SyncStatistics                  *bool   `json:"syncStatistics,omitempty"`
+	PathPrefix                      *string `json:"pathPrefix,omitempty"`
+	CheckBinaryExistenceInFilestore *bool   `json:"checkBinaryExistenceInFilestore,omitempty"`
 }
 
 func (r Replication) String() string {
@@ -38,9 +38,9 @@ func (r Replication) String() string {
 
 // MultiPushReplication represents a Local Multi-push replication in Artifactory
 type MultiPushReplication struct {
-	CronExp *string `json:"cronExp,omitempty"`
-	EnableEventReplication *bool `json:"enableEventReplication,omitempty"`
-	Replications *[]Replication `json:"replications,omitempty"`
+	CronExp                *string        `json:"cronExp,omitempty"`
+	EnableEventReplication *bool          `json:"enableEventReplication,omitempty"`
+	Replications           *[]Replication `json:"replications,omitempty"`
 }
 
 func (r MultiPushReplication) String() string {
