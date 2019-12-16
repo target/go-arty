@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http/httptest"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -101,7 +102,11 @@ func Test_Artifacts(t *testing.T) {
 				g.Assert(actual == nil).IsTrue()
 				g.Assert(resp == nil).IsTrue()
 				g.Assert(err != nil).IsTrue()
-				g.Assert(err.Error()).Equal("open this/is/a/bad/path.txt: no such file or directory")
+				if runtime.GOOS == "windows" {
+					g.Assert(err.Error()).Equal("open this/is/a/bad/path.txt: The system cannot find the path specified.")
+				} else {
+					g.Assert(err.Error()).Equal("open this/is/a/bad/path.txt: no such file or directory")
+				}
 			})
 
 			g.It("- should return no error with Upload() using multiple properties", func() {
