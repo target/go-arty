@@ -39,7 +39,6 @@ func (r Replication) String() string {
 // Replications represents a replication returned by the undocumented replications endpoint.
 //
 // Docs: This struct is currently undocumented by JFrog
-
 type Replications struct {
 	*Replication
 	ReplicationType *string `json:"replicationType,omitempty"`

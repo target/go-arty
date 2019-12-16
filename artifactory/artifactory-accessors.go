@@ -1655,6 +1655,14 @@ func (r *Replication) GetUsername() string {
 	return *r.Username
 }
 
+// GetReplicationType returns the ReplicationType field if it's non-nil, zero value otherwise.
+func (r *Replications) GetReplicationType() string {
+	if r == nil || r.ReplicationType == nil {
+		return ""
+	}
+	return *r.ReplicationType
+}
+
 // GetFilesCount returns the FilesCount field if it's non-nil, zero value otherwise.
 func (r *RepositoriesSummary) GetFilesCount() int {
 	if r == nil || r.FilesCount == nil {
