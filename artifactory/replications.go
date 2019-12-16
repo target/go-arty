@@ -36,6 +36,19 @@ func (r Replication) String() string {
 	return Stringify(r)
 }
 
+// Replications represents a replication returned by the undocumented replications endpoint.
+//
+// Docs: This struct is currently undocumented by JFrog
+
+type Replications struct {
+	*Replication
+	ReplicationType *string `json:"replicationType,omitempty"`
+}
+
+func (r Replications) String() string {
+	return Stringify(r)
+}
+
 // MultiPushReplication represents a Local Multi-push replication in Artifactory
 type MultiPushReplication struct {
 	CronExp                *string        `json:"cronExp,omitempty"`
@@ -45,6 +58,17 @@ type MultiPushReplication struct {
 
 func (r MultiPushReplication) String() string {
 	return Stringify(r)
+}
+
+// GetAll returns a list of all replications.
+//
+// Docs: This endpoint is currently undocumented by JFrog
+func (r *ReplicationsService) GetAll() (*[]Replications, *Response, error) {
+	u := fmt.Sprintf("api/replications")
+	v := new([]Replications)
+
+	resp, err := r.client.Call("GET", u, nil, v)
+	return v, resp, err
 }
 
 // Get returns replications for the provided repository.

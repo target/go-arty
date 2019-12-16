@@ -1,0 +1,26 @@
+[
+  {
+    "replicationType" : "PUSH",
+    "enabled" : true,
+    "cronExp" : "0 0 12 * * ?",
+    "syncDeletes" : true,
+    "syncProperties" : true,
+    "pathPrefix" : "path/to/replicate",
+    "repoKey" : "local-repo1",
+    "enableEventReplication" : true,
+    "checkBinaryExistenceInFilestore" : false,
+    "url" : "http://host:port/target-repo",
+    "syncStatistics" : false
+  },
+  {
+    "replicationType" : "PULL",
+    "enabled" : true,
+    "cronExp" : "0 0 12 * * ?",
+    "syncDeletes" : true,
+    "syncProperties" : true,
+    "repoKey" : "remote-repo1",
+    "enableEventReplication" : true,
+    "checkBinaryExistenceInFilestore" : false,
+    "syncStatistics" : false
+  }
+]

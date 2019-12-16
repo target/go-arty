@@ -44,6 +44,22 @@ func Test_Replications(t *testing.T) {
 				CheckBinaryExistenceInFilestore: Bool(false),
 			}
 
+			replications := &Replications{
+				ReplicationType: String("PUSH"),
+				Replication: &Replication{
+					Enabled:                         Bool(true),
+					CronExp:                         String("0 0 12 * * ?"),
+					SyncDeletes:                     Bool(true),
+					SyncProperties:                  Bool(true),
+					PathPrefix:                      String("path/to/replicate"),
+					RepoKey:                         String("local-repo1"),
+					EnableEventReplication:          Bool(true),
+					CheckBinaryExistenceInFilestore: Bool(false),
+					Url:                             String("http://host:port/target-repo"),
+					SyncStatistics:                  Bool(false),
+				},
+			}
+
 			localReplication := &Replication{
 				Username:                        String("replication-user"),
 				Password:                        String("pass"),
@@ -80,6 +96,19 @@ func Test_Replications(t *testing.T) {
 				},
 			}
 
+			g.It("- should return valid string for replications with String()", func() {
+				actual := []Replications{
+					*replications,
+				}
+
+				data, _ := ioutil.ReadFile("fixtures/replications/replications.json")
+
+				var expected []Replications
+				_ = json.Unmarshal(data, &expected)
+
+				g.Assert(actual[0].String() == expected[0].String()).IsTrue()
+			})
+
 			g.It("- should return valid string for Local (push) replication with String()", func() {
 				actual := []Replication{
 					*localReplication,
@@ -102,6 +131,13 @@ func Test_Replications(t *testing.T) {
 				_ = json.Unmarshal(data, &expected)
 
 				g.Assert(actual.String() == expected.String()).IsTrue()
+			})
+
+			g.It("- should return no error with GetAll()", func() {
+				actual, resp, err := c.Replications.GetAll()
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
 			})
 
 			g.It("- should return no error with Get() on local replication", func() {

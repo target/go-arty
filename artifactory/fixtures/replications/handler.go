@@ -16,6 +16,7 @@ func FakeHandler() http.Handler {
 
 	e := gin.New()
 
+	e.GET("/api/replications", getReplications)
 	e.GET("/api/replications/:repository", getReplication)
 	e.DELETE("/api/replications/:repository", deleteReplication)
 	e.PUT("/api/replications/:repository", createReplication)
@@ -24,6 +25,10 @@ func FakeHandler() http.Handler {
 	e.POST("/api/replications/:repository/:multiRepository", updateReplication)
 
 	return e
+}
+
+func getReplications(c *gin.Context) {
+	c.String(200, loadFixture("fixtures/replications/replications.json"))
 }
 
 func getReplication(c *gin.Context) {
