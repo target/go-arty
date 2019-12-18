@@ -63,7 +63,7 @@ func (r MultiPushReplication) String() string {
 //
 // Docs: This endpoint is currently undocumented by JFrog
 func (r *ReplicationsService) GetAll() (*[]Replications, *Response, error) {
-	u := fmt.Sprintf("api/replications")
+	u := fmt.Sprintf("/api/replications")
 	v := new([]Replications)
 
 	resp, err := r.client.Call("GET", u, nil, v)
