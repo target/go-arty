@@ -95,44 +95,59 @@ func (l LocalRepository) String() string {
 type RemoteRepository struct {
 	*GenericRepository
 
-	URL                               *string   `json:"url,omitempty"`
-	Username                          *string   `json:"username,omitempty"`
-	Password                          *string   `json:"password,omitempty"`
-	Proxy                             *string   `json:"proxy,omitempty"`
-	RemoteRepoChecksumPolicyType      *string   `json:"remoteRepoChecksumPolicyType,omitempty"`
-	HardFail                          *bool     `json:"hardFail,omitempty"`
-	Offline                           *bool     `json:"offline,omitempty"`
-	StoreArtifactsLocally             *bool     `json:"storeArtifactsLocally,omitempty"`
-	SocketTimeoutMillis               *int      `json:"socketTimeoutMillis,omitempty"`
-	LocalAddress                      *string   `json:"localAddress,omitempty"`
-	RetrievalCachePeriodSecs          *int      `json:"retrievalCachePeriodSecs,omitempty"`
-	FailedRetrievalCachePeriodSecs    *int      `json:"failedRetrievalCachePeriodSecs,omitempty"`
-	MissedRetrievalCachePeriodSecs    *int      `json:"missedRetrievalCachePeriodSecs,omitempty"`
-	UnusedArtifactsCleanupEnabled     *bool     `json:"unusedArtifactsCleanupEnabled,omitempty"`
-	UnusedArtifactsCleanupPeriodHours *int      `json:"unusedArtifactsCleanupPeriodHours,omitempty"`
-	AssumedOfflinePeriodSecs          *int      `json:"assumedOfflinePeriodSecs,omitempty"`
-	FetchJarsEagerly                  *bool     `json:"fetchJarsEagerly,omitempty"`
-	FetchSourcesEagerly               *bool     `json:"fetchSourcesEagerly,omitempty"`
-	ShareConfiguration                *bool     `json:"shareConfiguration,omitempty"`
-	SynchronizeProperties             *bool     `json:"synchronizeProperties,omitempty"`
-	BlockMismatchingMimeTypes         *bool     `json:"blockMismatchingMimeTypes,omitempty"`
-	AllowAnyHostAuth                  *bool     `json:"allowAnyHostAuth,omitempty"`
-	EnableCookieManagement            *bool     `json:"enableCookieManagement,omitempty"`
-	BowerRegistryURL                  *string   `json:"bowerRegistryUrl,omitempty"`
-	ComposerRegistryURL               *string   `json:"composerRegistryUrl,omitempty"`
-	PyPIRegistryURL                   *string   `json:"pyPIRegistryUrl,omitempty"`
-	VcsType                           *string   `json:"vcsType,omitempty"`
-	VcsGitProvider                    *string   `json:"vcsGitProvider,omitempty"`
-	VcsGitDownloadUrl                 *string   `json:"VcsGitDownloadUrl,omitempty"`
-	BypassHeadRequests                *bool     `json:"bypassHeadRequests,omitempty"`
-	ClientTLSCertificate              *string   `json:"clientTlsCertificate,omitempty"`
-	ExternalDependenciesEnabled       *bool     `json:"externalDependenciesEnabled,omitempty"`
-	ExternalDependenciesPatterns      *[]string `json:"externalDependenciesPatterns,omitempty"`
-	DownloadRedirect                  *bool     `json:"downloadRedirect,omitempty"`
-	FeedContextPath                   *string   `json:"feedContextPath,omitempty"`
-	DownloadContextPath               *string   `json:"downloadContextPath,omitempty"`
-	V3FeedUrl                         *string   `json:"v3FeedUrl,omitempty"`
-	XrayIndex                         *bool     `json:"xrayIndex,omitempty"`
+	URL                               *string                 `json:"url,omitempty"`
+	Username                          *string                 `json:"username,omitempty"`
+	Password                          *string                 `json:"password,omitempty"`
+	Proxy                             *string                 `json:"proxy,omitempty"`
+	RemoteRepoChecksumPolicyType      *string                 `json:"remoteRepoChecksumPolicyType,omitempty"`
+	HardFail                          *bool                   `json:"hardFail,omitempty"`
+	Offline                           *bool                   `json:"offline,omitempty"`
+	StoreArtifactsLocally             *bool                   `json:"storeArtifactsLocally,omitempty"`
+	SocketTimeoutMillis               *int                    `json:"socketTimeoutMillis,omitempty"`
+	LocalAddress                      *string                 `json:"localAddress,omitempty"`
+	RetrievalCachePeriodSecs          *int                    `json:"retrievalCachePeriodSecs,omitempty"`
+	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty"`
+	MissedRetrievalCachePeriodSecs    *int                    `json:"missedRetrievalCachePeriodSecs,omitempty"`
+	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty"`
+	UnusedArtifactsCleanupPeriodHours *int                    `json:"unusedArtifactsCleanupPeriodHours,omitempty"`
+	AssumedOfflinePeriodSecs          *int                    `json:"assumedOfflinePeriodSecs,omitempty"`
+	FetchJarsEagerly                  *bool                   `json:"fetchJarsEagerly,omitempty"`
+	FetchSourcesEagerly               *bool                   `json:"fetchSourcesEagerly,omitempty"`
+	ShareConfiguration                *bool                   `json:"shareConfiguration,omitempty"`
+	SynchronizeProperties             *bool                   `json:"synchronizeProperties,omitempty"`
+	BlockMismatchingMimeTypes         *bool                   `json:"blockMismatchingMimeTypes,omitempty"`
+	AllowAnyHostAuth                  *bool                   `json:"allowAnyHostAuth,omitempty"`
+	EnableCookieManagement            *bool                   `json:"enableCookieManagement,omitempty"`
+	BowerRegistryURL                  *string                 `json:"bowerRegistryUrl,omitempty"`
+	ComposerRegistryURL               *string                 `json:"composerRegistryUrl,omitempty"`
+	PyPIRegistryURL                   *string                 `json:"pyPIRegistryUrl,omitempty"`
+	VcsType                           *string                 `json:"vcsType,omitempty"`
+	VcsGitProvider                    *string                 `json:"vcsGitProvider,omitempty"`
+	VcsGitDownloadUrl                 *string                 `json:"VcsGitDownloadUrl,omitempty"`
+	BypassHeadRequests                *bool                   `json:"bypassHeadRequests,omitempty"`
+	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty"`
+	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty"`
+	ExternalDependenciesPatterns      *[]string               `json:"externalDependenciesPatterns,omitempty"`
+	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty"`
+	FeedContextPath                   *string                 `json:"feedContextPath,omitempty"`
+	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty"`
+	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty"`
+	XrayIndex                         *bool                   `json:"xrayIndex,omitempty"`
+	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
+}
+
+// ContentSynchronisation represents smart remote repository configuration
+type ContentSynchronisation struct {
+	Enabled    *bool `json:"enabled,omitempty"`
+	Properties *struct {
+		Enabled *bool `json:"enabled,omitempty"`
+	} `json:"properties,omitempty"`
+	Statistics *struct {
+		Enabled *bool `json:"enabled,omitempty"`
+	} `json:"statistics,omitempty"`
+	Source *struct {
+		OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty"`
+	} `json:"source,omitempty"`
 }
 
 func (r RemoteRepository) String() string {

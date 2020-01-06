@@ -50,5 +50,17 @@
   "feedContextPath":"api/v2",
   "downloadContextPath":"api/v2/package",
   "v3FeedUrl":"https://api.nuget.org/v3/index.json",
-  "xrayIndex" : false
+  "xrayIndex" : false,
+  "contentSynchronisation" : {
+    "enabled" : true,
+    "properties" : {
+      "enabled" : true
+    },
+    "statistics" : {
+      "enabled" : true
+    },
+    "source" : {
+      "originAbsenceDetection" : true
+    }
+  }
 }

@@ -279,6 +279,14 @@ func (c *Child) GetURI() string {
 	return *c.URI
 }
 
+// GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
+func (c *ContentSynchronisation) GetEnabled() bool {
+	if c == nil || c.Enabled == nil {
+		return false
+	}
+	return *c.Enabled
+}
+
 // GetInfo returns the Info field if it's non-nil, zero value otherwise.
 func (d *DeleteAPIKey) GetInfo() string {
 	if d == nil || d.Info == nil {
@@ -1301,6 +1309,14 @@ func (r *RemoteRepository) GetComposerRegistryURL() string {
 		return ""
 	}
 	return *r.ComposerRegistryURL
+}
+
+// GetContentSynchronisation returns the ContentSynchronisation field.
+func (r *RemoteRepository) GetContentSynchronisation() *ContentSynchronisation {
+	if r == nil {
+		return nil
+	}
+	return r.ContentSynchronisation
 }
 
 // GetDownloadContextPath returns the DownloadContextPath field if it's non-nil, zero value otherwise.
