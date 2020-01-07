@@ -88,7 +88,7 @@ func Test_Artifacts(t *testing.T) {
 			})
 
 			g.It("- should return no error with Upload() using 1 property", func() {
-				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value"}})
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder/fixtures/artifacts/foo.txt", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(resp.Request.URL.Path).Equal("/local-repo1/folder/fixtures/artifacts/foo.txt;key=value")
@@ -105,7 +105,7 @@ func Test_Artifacts(t *testing.T) {
 			})
 
 			g.It("- should return no error with Upload() using multiple properties", func() {
-				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}})
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder/fixtures/artifacts/foo.txt", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(resp.Request.URL.Path).Equal("/local-repo1/folder/fixtures/artifacts/foo.txt;key=value,value2,value3")
@@ -113,7 +113,7 @@ func Test_Artifacts(t *testing.T) {
 			})
 
 			g.It("- should return no error with Upload() using multiple property keys", func() {
-				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}, "key2": []string{"anothervalue"}})
+				actual, resp, err := c.Artifacts.Upload("local-repo1", "folder/fixtures/artifacts/foo.txt", "fixtures/artifacts/foo.txt", map[string][]string{"key": []string{"value", "value2", "value3"}, "key2": []string{"anothervalue"}})
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(strings.Contains(resp.Request.URL.Path, "key=value,value2,value3")).IsTrue()
