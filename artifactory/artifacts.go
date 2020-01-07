@@ -61,7 +61,7 @@ func (s *ArtifactsService) Download(repo, path string) (*[]byte, *Response, erro
 // Upload deploys the provided artifact to the provided repository.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-DeployArtifact
-func (s *ArtifactsService) Upload(repo, path, file string, properties map[string][]string) (*string, *Response, error) {
+func (s *ArtifactsService) Upload(repo, path, source string, properties map[string][]string) (*string, *Response, error) {
 	var propertyString string
 	var index int
 	for k, v := range properties {
@@ -77,10 +77,10 @@ func (s *ArtifactsService) Upload(repo, path, file string, properties map[string
 		}
 	}
 
-	u := fmt.Sprintf("/%s/%s/%s;%s", repo, path, file, propertyString)
+	u := fmt.Sprintf("/%s/%s;%s", repo, path, propertyString)
 	v := new(string)
 
-	data, err := os.Open(file)
+	data, err := os.Open(source)
 	if err != nil {
 		return nil, nil, err
 	}
