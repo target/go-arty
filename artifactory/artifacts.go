@@ -77,7 +77,7 @@ func (s *ArtifactsService) Upload(repo, path, file string, properties map[string
 		}
 	}
 
-	u := fmt.Sprintf("/%s/%s/%s;%s", repo, path, file, propertyString)
+	u := fmt.Sprintf("/%s/%s;%s", repo, path, propertyString)
 	v := new(string)
 
 	data, err := os.Open(file)
