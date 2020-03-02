@@ -54,6 +54,7 @@ type Client struct {
 	Licenses       *LicensesService
 	Permissions    *PermissionsService
 	PermissionsV2  *PermissionsServiceV2
+	Replications   *ReplicationsService
 	Repositories   *RepositoriesService
 	Search         *SearchService
 	Storage        *StorageService
@@ -95,6 +96,7 @@ func NewClient(baseUrl string, httpClient *http.Client) (*Client, error) {
 	c.Licenses = &LicensesService{client: c}
 	c.Permissions = &PermissionsService{client: c}
 	c.PermissionsV2 = &PermissionsServiceV2{client: c}
+	c.Replications = &ReplicationsService{client: c}
 	c.Repositories = &RepositoriesService{client: c}
 	c.Search = &SearchService{client: c}
 	c.Storage = &StorageService{client: c}
