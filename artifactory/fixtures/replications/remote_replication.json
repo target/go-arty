@@ -1,0 +1,11 @@
+{
+  "enabled" : true,
+  "cronExp" : "0 0 12 * * ?",
+  "syncDeletes" : true,
+  "syncProperties" : true,
+  "pathPrefix" : "",
+  "repoKey" : "remote-repo1",
+  "replicationKey" : "remote-repo_",
+  "enableEventReplication" : true,
+  "checkBinaryExistenceInFilestore" : false
+}
