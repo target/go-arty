@@ -133,6 +133,8 @@ type RemoteRepository struct {
 	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty"`
 	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty"`
 	XrayIndex                         *bool                   `json:"xrayIndex,omitempty"`
+	ListRemoteFolderItems             *bool                   `json:"listRemoteFolderItems,omitempty"`
+	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty"`
 	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
 }
 

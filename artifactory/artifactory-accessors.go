@@ -1343,6 +1343,14 @@ func (r *RemoteRepository) GetEnableCookieManagement() bool {
 	return *r.EnableCookieManagement
 }
 
+// GetEnableTokenAuthentication returns the EnableTokenAuthentication field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetEnableTokenAuthentication() bool {
+	if r == nil || r.EnableTokenAuthentication == nil {
+		return false
+	}
+	return *r.EnableTokenAuthentication
+}
+
 // GetExternalDependenciesEnabled returns the ExternalDependenciesEnabled field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetExternalDependenciesEnabled() bool {
 	if r == nil || r.ExternalDependenciesEnabled == nil {
@@ -1397,6 +1405,14 @@ func (r *RemoteRepository) GetHardFail() bool {
 		return false
 	}
 	return *r.HardFail
+}
+
+// GetListRemoteFolderItems returns the ListRemoteFolderItems field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetListRemoteFolderItems() bool {
+	if r == nil || r.ListRemoteFolderItems == nil {
+		return false
+	}
+	return *r.ListRemoteFolderItems
 }
 
 // GetLocalAddress returns the LocalAddress field if it's non-nil, zero value otherwise.

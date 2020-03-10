@@ -51,6 +51,8 @@
   "downloadContextPath":"api/v2/package",
   "v3FeedUrl":"https://api.nuget.org/v3/index.json",
   "xrayIndex" : false,
+  "listRemoteFolderItems" : true,
+  "enableTokenAuthentication" : false,
   "contentSynchronisation" : {
     "enabled" : true,
     "properties" : {
