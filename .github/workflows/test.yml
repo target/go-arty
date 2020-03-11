@@ -1,0 +1,31 @@
+# name of the action
+name: test
+
+# trigger on pull_request or push events
+on:
+  pull_request:
+  push:
+
+# pipeline to execute
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v1
+
+    - name: install
+      run: |
+        go get github.com/mattn/goveralls
+
+    - name: test
+      run: |
+        go test -covermode=atomic -coverprofile=coverage.out ./...
+
+    - name: coverage
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: coverage.out

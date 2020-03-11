@@ -159,7 +159,7 @@ func Test_client(t *testing.T) {
 			options := options{ShowAll: true, Page: 1}
 			_, err := addOptions("!@*&^%%", options)
 			g.Assert(err != nil).IsTrue()
-			g.Assert(err.Error()).Equal("parse !@*&^%%: invalid URL escape \"%%\"")
+			g.Assert(err.Error()).Equal("parse \"!@*&^%%\": invalid URL escape \"%%\"")
 		})
 
 		g.It("- call addOptions - nil options passed", func() {

@@ -1,0 +1,28 @@
+# name of the action
+name: validate
+
+# trigger on pull_request or push events
+on:
+  pull_request:
+  push:
+
+# pipeline to execute
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container:
+      image: golang:latest
+    steps:
+    - name: clone
+      uses: actions/checkout@v1
+
+    - name: validate
+      run: |
+        # Check that go mod tidy produces a zero diff; clean up any changes afterwards.
+        go mod tidy && git diff --exit-code; code=$?; git checkout -- .; (exit $code)
+        # Check that go vet ./... produces a zero diff; clean up any changes afterwards.
+        go vet ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code)
+        # Check that go fmt ./... produces a zero diff; clean up any changes afterwards.
+        go fmt ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code)
+        # Check that go generate ./... produces a zero diff; clean up any changes afterwards.
+        go generate -x ./... && git diff --exit-code; code=$?; git checkout -- .; (exit $code)
