@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 
@@ -101,7 +102,7 @@ func Test_Artifacts(t *testing.T) {
 				g.Assert(actual == nil).IsTrue()
 				g.Assert(resp == nil).IsTrue()
 				g.Assert(err != nil).IsTrue()
-				g.Assert(err.Error()).Equal("open this/is/a/bad/path.txt: no such file or directory")
+				g.Assert(os.IsNotExist(err)).IsTrue()
 			})
 
 			g.It("- should return no error with Upload() using multiple properties", func() {
