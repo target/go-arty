@@ -190,6 +190,8 @@ func Test_Repositories(t *testing.T) {
 					V3FeedUrl:                         String("https://api.nuget.org/v3/index.json"),
 					FeedContextPath:                   String("api/v2"),
 					XrayIndex:                         Bool(false),
+					ListRemoteFolderItems:             Bool(true),
+					EnableTokenAuthentication:         Bool(false),
 					ContentSynchronisation: &ContentSynchronisation{
 						Enabled: Bool(true),
 						Properties: &struct {
