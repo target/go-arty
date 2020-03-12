@@ -20,6 +20,10 @@ jobs:
       run: |
         go get github.com/mattn/goveralls
 
+    - name: exclude
+      run: |
+        rm -f artifactory/artifactory-accessors.go xray/xray-accessors.go # exclude generated code
+
     - name: test
       run: |
         go test -covermode=atomic -coverprofile=coverage.out ./...
