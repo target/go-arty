@@ -120,6 +120,7 @@ func Test_Repositories(t *testing.T) {
 					CalculateYumMetadata:            Bool(false),
 					YumRootDepth:                    Int(0),
 					DockerAPIVersion:                String("V2"),
+					BlockPushingSchema1:             Bool(true),
 					EnableFileListsIndexing:         Bool(false),
 					OptionalIndexCompressionFormats: &[]string{"bz2", "lzma", "xz"},
 					XrayIndex:                       Bool(false),
@@ -204,6 +205,7 @@ func Test_Repositories(t *testing.T) {
 							OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty"`
 						}{OriginAbsenceDetection: Bool(true)},
 					},
+					BlockPushingSchema1: Bool(true),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/remote_repository.json")
@@ -235,6 +237,7 @@ func Test_Repositories(t *testing.T) {
 					ExternalDependenciesEnabled:          Bool(false),
 					ExternalDependenciesPatterns:         &[]string{"**/*microsoft*/**", "**/*github*/**"},
 					ExternalDependenciesRemoteRepo:       String(""),
+					ResolveDockerTagsByTimestamp:         Bool(false),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/virtual_repository.json")

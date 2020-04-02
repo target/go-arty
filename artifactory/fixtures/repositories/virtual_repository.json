@@ -15,5 +15,6 @@
   "forceMavenAuthentication" : false,
   "externalDependenciesEnabled": false,
   "externalDependenciesPatterns": ["**/*microsoft*/**", "**/*github*/**"],
-  "externalDependenciesRemoteRepo": ""
+  "externalDependenciesRemoteRepo": "",
+  "resolveDockerTagsByTimestamp": false
 }

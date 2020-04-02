@@ -21,6 +21,7 @@
   "calculateYumMetadata" : false,
   "yumRootDepth" : 0,
   "dockerApiVersion" : "V2",
+  "blockPushingSchema1" : true,
   "enableFileListsIndexing" : "false",
   "optionalIndexCompressionFormats" : ["bz2", "lzma", "xz"],
   "xrayIndex" : false,
