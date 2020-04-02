@@ -1063,6 +1063,14 @@ func (l *LocalRepository) GetArchiveBrowsingEnabled() bool {
 	return *l.ArchiveBrowsingEnabled
 }
 
+// GetBlockPushingSchema1 returns the BlockPushingSchema1 field if it's non-nil, zero value otherwise.
+func (l *LocalRepository) GetBlockPushingSchema1() bool {
+	if l == nil || l.BlockPushingSchema1 == nil {
+		return false
+	}
+	return *l.BlockPushingSchema1
+}
+
 // GetCalculateYumMetadata returns the CalculateYumMetadata field if it's non-nil, zero value otherwise.
 func (l *LocalRepository) GetCalculateYumMetadata() bool {
 	if l == nil || l.CalculateYumMetadata == nil {
@@ -1277,6 +1285,14 @@ func (r *RemoteRepository) GetBlockMismatchingMimeTypes() bool {
 		return false
 	}
 	return *r.BlockMismatchingMimeTypes
+}
+
+// GetBlockPushingSchema1 returns the BlockPushingSchema1 field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetBlockPushingSchema1() bool {
+	if r == nil || r.BlockPushingSchema1 == nil {
+		return false
+	}
+	return *r.BlockPushingSchema1
 }
 
 // GetBowerRegistryURL returns the BowerRegistryURL field if it's non-nil, zero value otherwise.
@@ -2197,4 +2213,12 @@ func (v *VirtualRepository) GetRepositories() []string {
 		return nil
 	}
 	return *v.Repositories
+}
+
+// GetResolveDockerTagsByTimestamp returns the ResolveDockerTagsByTimestamp field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetResolveDockerTagsByTimestamp() bool {
+	if v == nil || v.ResolveDockerTagsByTimestamp == nil {
+		return false
+	}
+	return *v.ResolveDockerTagsByTimestamp
 }
