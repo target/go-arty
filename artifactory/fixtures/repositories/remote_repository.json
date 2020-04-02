@@ -64,5 +64,6 @@
     "source" : {
       "originAbsenceDetection" : true
     }
-  }
+  },
+  "blockPushingSchema1" : true
 }

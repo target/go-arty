@@ -79,6 +79,7 @@ type LocalRepository struct {
 	CalculateYumMetadata            *bool     `json:"calculateYumMetadata,omitempty"`
 	YumRootDepth                    *int      `json:"yumRootDepth,omitempty"`
 	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty"`
+	BlockPushingSchema1             *bool     `json:"blockPushingSchema1,omitempty"`
 	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty"`
 	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty"`
 	XrayIndex                       *bool     `json:"xrayIndex,omitempty"`
@@ -136,6 +137,7 @@ type RemoteRepository struct {
 	ListRemoteFolderItems             *bool                   `json:"listRemoteFolderItems,omitempty"`
 	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty"`
 	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
+	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
@@ -172,6 +174,7 @@ type VirtualRepository struct {
 	ExternalDependenciesEnabled                   *bool     `json:"externalDependenciesEnabled,omitempty"`
 	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty"`
 	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty"`
+	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty"`
 }
 
 func (v VirtualRepository) String() string {
