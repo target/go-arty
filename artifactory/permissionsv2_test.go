@@ -46,26 +46,25 @@ func Test_PermissionsV2(t *testing.T) {
 			users["bob"] = []string{"read", "write", "manage"}
 			users["alice"] = []string{"write", "annotate", "read"}
 
-
 			groups["dev-leads"] = []string{"manage", "read", "annotate"}
 			groups["readers"] = []string{"read"}
 
 			target = &PermissionTargetV2{
-				Name:          String("java-developers"),
-				Repo:          &PermissionDetails{
+				Name: String("java-developers"),
+				Repo: &PermissionDetails{
 					IncludePatterns: &[]string{"**"},
 					ExcludePatterns: &[]string{""},
 					Repositories:    &[]string{"local-rep1", "local-rep2", "remote-rep1", "virtual-rep2"},
-					Actions:         &Actions{
+					Actions: &Actions{
 						Users:  &users,
 						Groups: &groups,
 					},
 				},
-				Build:         &PermissionDetails{
+				Build: &PermissionDetails{
 					IncludePatterns: &[]string{""},
 					ExcludePatterns: &[]string{""},
 					Repositories:    &[]string{"artifactory-build-info"},
-					Actions:         &Actions{
+					Actions: &Actions{
 						Users:  &users,
 						Groups: &groups,
 					},
@@ -74,7 +73,7 @@ func Test_PermissionsV2(t *testing.T) {
 					IncludePatterns: &[]string{"**"},
 					ExcludePatterns: &[]string{""},
 					Repositories:    &[]string{"release-bundles"},
-					Actions:         &Actions{
+					Actions: &Actions{
 						Users:  &users,
 						Groups: &groups,
 					},
@@ -128,7 +127,7 @@ func Test_PermissionsV2(t *testing.T) {
 			g.It("- should return no error with get", func() {
 				actual, resp, err := c.PermissionsV2.Get("java-developers")
 				g.Assert(resp.StatusCode).Equal(200)
-				g.Assert(actual != nil).IsTrue()
+				g.Assert(actual != nil).Equal(true)
 				g.Assert(err).Equal(nil)
 			})
 

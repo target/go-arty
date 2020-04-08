@@ -84,9 +84,9 @@ func (s *PermissionsServiceV2) Update(target *PermissionTargetV2) (*string, *Res
 // Get returns the provided permission target.
 //
 // Docs: https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API+V2#ArtifactoryRESTAPIV2-GetPermissionTargetDetails
-func (s *PermissionsServiceV2) Get(target string) (*string, *Response, error) {
+func (s *PermissionsServiceV2) Get(target string) (*PermissionTargetV2, *Response, error) {
 	u := fmt.Sprintf("/api/v2/security/permissions/%s", target)
-	v := new(string)
+	v := new(PermissionTargetV2)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 	return v, resp, err
