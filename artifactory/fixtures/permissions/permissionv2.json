@@ -1,0 +1,48 @@
+{
+  "name": "java-developers",
+  "repo": {
+    "include-patterns": ["**"],
+    "exclude-patterns": [""],
+    "repositories": ["local-rep1", "local-rep2", "remote-rep1", "virtual-rep2"],
+    "actions": {
+      "users": {
+        "bob": ["read", "write", "manage"],
+        "alice": ["write", "annotate", "read"]
+      },
+      "groups": {
+        "dev-leads": ["manage", "read", "annotate"],
+        "readers": ["read"]
+      }
+    }
+  },
+  "build": {
+    "include-patterns": [""],
+    "exclude-patterns": [""],
+    "repositories": ["artifactory-build-info"],
+    "actions": {
+      "users": {
+        "bob": ["read", "write", "manage"],
+        "alice": ["write", "annotate", "read"]
+      },
+      "groups": {
+        "dev-leads": ["manage", "read", "annotate"],
+        "readers": ["read"]
+      }
+    }
+  },
+  "releaseBundle": {
+    "include-patterns": ["**"],
+    "exclude-patterns": [""],
+    "repositories": ["release-bundles"],
+    "actions": {
+      "users": {
+        "bob": ["read", "write", "manage"],
+        "alice": ["write", "annotate", "read"]
+      },
+      "groups": {
+        "dev-leads": ["manage", "read", "annotate"],
+        "readers": ["read"]
+      }
+    }
+  }
+}

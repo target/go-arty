@@ -41,3 +41,53 @@ func (s *PermissionsServiceV2) Exists(target string) (bool, error) {
 
 	return true, nil
 }
+
+// PermissionDetails represents the information about the repo, build, or releasebundle within the permission target.
+type PermissionDetails struct {
+	IncludePatterns *[]string `json:"include-patterns,omitempty"`
+	ExcludePatterns *[]string `json:"exclude-patterns,omitempty"`
+	Repositories    *[]string `json:"repositories,omitempty"`
+	Actions         *Actions  `json:"actions,omitempty"`
+}
+
+// Actions represents user and group permissions.
+type Actions struct {
+	Users  *map[string][]string `json:"users,omitempty"`
+	Groups *map[string][]string `json:"groups,omitempty"`
+}
+
+// PermissionTargetV2 represents a v2 permission target.
+//
+// Docs: https://www.jfrog.com/confluence/display/JFROG/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.PermissionTargetV2+json
+type PermissionTargetV2 struct {
+	Name          *string            `json:"name,omitempty"`
+	Repo          *PermissionDetails `json:"repo,omitempty"`
+	Build         *PermissionDetails `json:"build,omitempty"`
+	ReleaseBundle *PermissionDetails `json:"releaseBundle,omitempty"`
+}
+
+func (p PermissionTargetV2) String() string {
+	return Stringify(p)
+}
+
+// Update creates a new permission target or replaces an existing permission target.
+//
+// Docs: https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API+V2#ArtifactoryRESTAPIV2-UpdatePermissionTarget
+func (s *PermissionsServiceV2) Update(target *PermissionTargetV2) (*string, *Response, error) {
+	u := fmt.Sprintf("/api/v2/security/permissions/%s", *target.Name)
+	v := new(string)
+
+	resp, err := s.client.Call("PUT", u, target, v)
+	return v, resp, err
+}
+
+// Get returns the provided permission target.
+//
+// Docs: https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API+V2#ArtifactoryRESTAPIV2-GetPermissionTargetDetails
+func (s *PermissionsServiceV2) Get(target string) (*PermissionTargetV2, *Response, error) {
+	u := fmt.Sprintf("/api/v2/security/permissions/%s", target)
+	v := new(PermissionTargetV2)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v, resp, err
+}

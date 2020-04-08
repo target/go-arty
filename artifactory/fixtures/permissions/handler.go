@@ -18,7 +18,9 @@ func FakeHandler() http.Handler {
 
 	e.GET("/api/security/permissions", getPermissions)
 	e.GET("/api/security/permissions/:target", getPermission)
+	e.GET("/api/v2/security/permissions/:target", getV2Permission)
 	e.PUT("/api/security/permissions/:target", createPermission)
+	e.PUT("/api/v2/security/permissions/:target", updatePermission)
 	e.DELETE("/api/security/permissions/:target", deletePermission)
 	e.HEAD("/api/v2/security/permissions/:target", getExistence)
 
@@ -71,6 +73,32 @@ func getExistence(c *gin.Context) {
 		return
 	default:
 		c.Status(404)
+		return
+	}
+}
+
+func updatePermission(c *gin.Context) {
+	target := c.Param("target")
+
+	switch target {
+	case "valid":
+		c.Status(201)
+		return
+	case "invalid":
+		c.JSON(400, loadFixture("fixtures/permissions/invalid.json"))
+		return
+	}
+}
+
+func getV2Permission(c *gin.Context) {
+	target := c.Param("target")
+
+	switch target {
+	case "java-developers":
+		c.JSON(200, loadFixture("fixtures/permissions/permissionv2.json"))
+		return
+	default:
+		c.JSON(404, loadFixture("fixtures/permissions/non-existent.json"))
 		return
 	}
 }
