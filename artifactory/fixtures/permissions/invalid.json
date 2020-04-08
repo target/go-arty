@@ -1,0 +1,6 @@
+[
+  {
+    "status": 400,
+    "message": "Permission target contains a reference to a non-existing repository 'foobarstar'."
+  }
+]

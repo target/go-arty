@@ -1207,6 +1207,38 @@ func (m *MultiPushReplication) GetReplications() []Replication {
 	return *m.Replications
 }
 
+// GetActions returns the Actions field.
+func (p *PermissionDetails) GetActions() *Actions {
+	if p == nil {
+		return nil
+	}
+	return p.Actions
+}
+
+// GetExcludePatterns returns the ExcludePatterns field if it's non-nil, zero value otherwise.
+func (p *PermissionDetails) GetExcludePatterns() []string {
+	if p == nil || p.ExcludePatterns == nil {
+		return nil
+	}
+	return *p.ExcludePatterns
+}
+
+// GetIncludePatterns returns the IncludePatterns field if it's non-nil, zero value otherwise.
+func (p *PermissionDetails) GetIncludePatterns() []string {
+	if p == nil || p.IncludePatterns == nil {
+		return nil
+	}
+	return *p.IncludePatterns
+}
+
+// GetRepositories returns the Repositories field if it's non-nil, zero value otherwise.
+func (p *PermissionDetails) GetRepositories() []string {
+	if p == nil || p.Repositories == nil {
+		return nil
+	}
+	return *p.Repositories
+}
+
 // GetExcludesPattern returns the ExcludesPattern field if it's non-nil, zero value otherwise.
 func (p *PermissionTarget) GetExcludesPattern() string {
 	if p == nil || p.ExcludesPattern == nil {
@@ -1253,6 +1285,38 @@ func (p *PermissionTarget) GetURI() string {
 		return ""
 	}
 	return *p.URI
+}
+
+// GetBuild returns the Build field.
+func (p *PermissionTargetV2) GetBuild() *PermissionDetails {
+	if p == nil {
+		return nil
+	}
+	return p.Build
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (p *PermissionTargetV2) GetName() string {
+	if p == nil || p.Name == nil {
+		return ""
+	}
+	return *p.Name
+}
+
+// GetReleaseBundle returns the ReleaseBundle field.
+func (p *PermissionTargetV2) GetReleaseBundle() *PermissionDetails {
+	if p == nil {
+		return nil
+	}
+	return p.ReleaseBundle
+}
+
+// GetRepo returns the Repo field.
+func (p *PermissionTargetV2) GetRepo() *PermissionDetails {
+	if p == nil {
+		return nil
+	}
+	return p.Repo
 }
 
 // GetRepositories returns the Repositories field if it's non-nil, zero value otherwise.
