@@ -847,6 +847,14 @@ func (g *Group) GetURI() string {
 	return *g.URI
 }
 
+// GetUserNames returns the UserNames field if it's non-nil, zero value otherwise.
+func (g *Group) GetUserNames() []string {
+	if g == nil || g.UserNames == nil {
+		return nil
+	}
+	return *g.UserNames
+}
+
 // GetExpired returns the Expired field if it's non-nil, zero value otherwise.
 func (h *HALicense) GetExpired() bool {
 	if h == nil || h.Expired == nil {

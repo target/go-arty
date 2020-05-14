@@ -30,13 +30,14 @@ type GroupsService service
 //
 // Doc: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.Group+json
 type Group struct {
-	Name            *string `json:"name,omitempty"`
-	URI             *string `json:"uri,omitempty"`
-	Description     *string `json:"description,omitempty"`
-	AutoJoin        *bool   `json:"autoJoin,omitempty"`
-	AdminPrivileges *bool   `json:"adminPrivileges,omitempty"`
-	Realm           *string `json:"realm,omitempty"`
-	RealmAttributes *string `json:"realmAttributes,omitempty"`
+	Name            *string   `json:"name,omitempty"`
+	URI             *string   `json:"uri,omitempty"`
+	Description     *string   `json:"description,omitempty"`
+	AutoJoin        *bool     `json:"autoJoin,omitempty"`
+	AdminPrivileges *bool     `json:"adminPrivileges,omitempty"`
+	Realm           *string   `json:"realm,omitempty"`
+	RealmAttributes *string   `json:"realmAttributes,omitempty"`
+	UserNames       *[]string `json:"userNames,omitempty"`
 }
 
 func (g Group) String() string {
@@ -59,6 +60,17 @@ func (s *GroupsService) GetAll() (*[]Group, *Response, error) {
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetGroupDetails
 func (s *GroupsService) Get(group string) (*Group, *Response, error) {
 	u := fmt.Sprintf("/api/security/groups/%s", group)
+	v := new(Group)
+
+	resp, err := s.client.Call("GET", u, nil, v)
+	return v, resp, err
+}
+
+// GetIncludeUsers returns the provided group including its user membership (Artifactory >= 6.13)
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetGroupDetails
+func (s *GroupsService) GetIncludeUsers(group string) (*Group, *Response, error) {
+	u := fmt.Sprintf("/api/security/groups/%s?includeUsers=true", group)
 	v := new(Group)
 
 	resp, err := s.client.Call("GET", u, nil, v)

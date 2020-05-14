@@ -54,6 +54,7 @@ func Test_Groups(t *testing.T) {
 					AdminPrivileges: Bool(false),
 					Realm:           String("ldap"),
 					RealmAttributes: String("Realm attributes for use by LDAP"),
+					UserNames:       &[]string{"user1", "user2", "user3"},
 				}
 			})
 
@@ -75,6 +76,13 @@ func Test_Groups(t *testing.T) {
 
 			g.It("- should return no error with Get()", func() {
 				actual, resp, err := c.Groups.Get("dev-leads")
+				g.Assert(actual != nil).IsTrue()
+				g.Assert(resp != nil).IsTrue()
+				g.Assert(err == nil).IsTrue()
+			})
+
+			g.It("- should return no error with GetIncludeUsers()", func() {
+				actual, resp, err := c.Groups.GetIncludeUsers("dev-leads")
 				g.Assert(actual != nil).IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
