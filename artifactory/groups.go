@@ -30,13 +30,14 @@ type GroupsService service
 //
 // Doc: https://www.jfrog.com/confluence/display/RTF/Security+Configuration+JSON#SecurityConfigurationJSON-application/vnd.org.jfrog.artifactory.security.Group+json
 type Group struct {
-	Name            *string `json:"name,omitempty"`
-	URI             *string `json:"uri,omitempty"`
-	Description     *string `json:"description,omitempty"`
-	AutoJoin        *bool   `json:"autoJoin,omitempty"`
-	AdminPrivileges *bool   `json:"adminPrivileges,omitempty"`
-	Realm           *string `json:"realm,omitempty"`
-	RealmAttributes *string `json:"realmAttributes,omitempty"`
+	Name            *string   `json:"name,omitempty"`
+	URI             *string   `json:"uri,omitempty"`
+	Description     *string   `json:"description,omitempty"`
+	AutoJoin        *bool     `json:"autoJoin,omitempty"`
+	AdminPrivileges *bool     `json:"adminPrivileges,omitempty"`
+	Realm           *string   `json:"realm,omitempty"`
+	RealmAttributes *string   `json:"realmAttributes,omitempty"`
+	UserNames       *[]string `json:"userNames,omitempty"`
 }
 
 func (g Group) String() string {
@@ -54,11 +55,23 @@ func (s *GroupsService) GetAll() (*[]Group, *Response, error) {
 	return v, resp, err
 }
 
+// GetGroupRequest represents the possible inputs for a Get Group request.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetGroupDetails
+type GetGroupRequest struct {
+	Name         *string
+	IncludeUsers *bool
+}
+
 // Get returns the provided group.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetGroupDetails
-func (s *GroupsService) Get(group string) (*Group, *Response, error) {
-	u := fmt.Sprintf("/api/security/groups/%s", group)
+func (s *GroupsService) Get(groupRequest *GetGroupRequest) (*Group, *Response, error) {
+	u := fmt.Sprintf("/api/security/groups/%s", *groupRequest.Name)
+	if groupRequest.IncludeUsers != nil {
+		u = u + fmt.Sprintf("?includeUsers=%t", *groupRequest.IncludeUsers)
+	}
+
 	v := new(Group)
 
 	resp, err := s.client.Call("GET", u, nil, v)
