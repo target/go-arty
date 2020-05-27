@@ -17,19 +17,19 @@ type ReplicationsService service
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Replication+Configuration+JSON
 type Replication struct {
-	Username                        *string `json:"username,omitempty"`
-	Password                        *string `json:"password,omitempty"`
-	Url                             *string `json:"url,omitempty"`
-	SocketTimeoutMillis             *int    `json:"socketTimeoutMillis,omitempty"`
-	CronExp                         *string `json:"cronExp,omitempty"`
-	RepoKey                         *string `json:"repoKey,omitempty"`
-	EnableEventReplication          *bool   `json:"enableEventReplication,omitempty"`
-	Enabled                         *bool   `json:"enabled,omitempty"`
-	SyncDeletes                     *bool   `json:"syncDeletes,omitempty"`
-	SyncProperties                  *bool   `json:"syncProperties,omitempty"`
-	SyncStatistics                  *bool   `json:"syncStatistics,omitempty"`
-	PathPrefix                      *string `json:"pathPrefix,omitempty"`
-	CheckBinaryExistenceInFilestore *bool   `json:"checkBinaryExistenceInFilestore,omitempty"`
+	Username                        *string `json:"username,omitempty" xml:"username,omitempty"`
+	Password                        *string `json:"password,omitempty" xml:"password,omitempty"`
+	Url                             *string `json:"url,omitempty" xml:"url,omitempty"`
+	SocketTimeoutMillis             *int    `json:"socketTimeoutMillis,omitempty" xml:"socketTimeoutMillis,omitempty"`
+	CronExp                         *string `json:"cronExp,omitempty" xml:"cronExp,omitempty"`
+	RepoKey                         *string `json:"repoKey,omitempty" xml:"repoKey,omitempty"`
+	EnableEventReplication          *bool   `json:"enableEventReplication,omitempty" xml:"enableEventReplication,omitempty"`
+	Enabled                         *bool   `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	SyncDeletes                     *bool   `json:"syncDeletes,omitempty" xml:"syncDeletes,omitempty"`
+	SyncProperties                  *bool   `json:"syncProperties,omitempty" xml:"syncProperties,omitempty"`
+	SyncStatistics                  *bool   `json:"syncStatistics,omitempty" xml:"syncStatistics,omitempty"`
+	PathPrefix                      *string `json:"pathPrefix,omitempty" xml:"pathPrefix,omitempty"`
+	CheckBinaryExistenceInFilestore *bool   `json:"checkBinaryExistenceInFilestore,omitempty" xml:"checkBinaryExistenceInFilestore,omitempty"`
 }
 
 func (r Replication) String() string {
