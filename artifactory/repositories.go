@@ -179,7 +179,7 @@ type VirtualRepository struct {
 	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
 	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty" xml:"externalDependencies>remoteRepo,omitempty"`
 	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty" xml:"resolveDockerTagsByTimestamp,omitempty"`
-	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty" xml:"virtualRetrievalCachePeriodSecs,omitempty"`
+	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty" xml:"virtualCacheConfig>virtualRetrievalCachePeriodSecs,omitempty"`
 	DebianDefaultArchitectures                    *string   `json:"debianDefaultArchitectures,omitempty" xml:"debianDefaultArchitectures,omitempty"`
 }
 

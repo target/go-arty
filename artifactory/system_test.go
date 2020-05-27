@@ -422,6 +422,7 @@ func Test_System(t *testing.T) {
 							SocketTimeoutMillis:       Int(15000),
 							EnableCookieManagement:    Bool(false),
 							EnableTokenAuthentication: Bool(true),
+							PropagateQueryParams:      Bool(false),
 						},
 					},
 					VirtualRepositories: &[]VirtualRepository{
@@ -447,6 +448,7 @@ func Test_System(t *testing.T) {
 							PomRepositoryReferencesCleanupPolicy:          String("discard_active_reference"),
 							DefaultDeploymentRepo:                         String("example-repo-local"),
 							ForceMavenAuthentication:                      Bool(false),
+							VirtualRetrievalCachePeriodSecs:               Int(600),
 						},
 					},
 					LocalReplications: &[]Replication{
