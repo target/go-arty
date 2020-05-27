@@ -84,6 +84,7 @@ func Test_Repositories(t *testing.T) {
 					SuppressPomConsistencyChecks: Bool(true),
 					BlackedOut:                   Bool(false),
 					PropertySets:                 &[]string{"artifactory"},
+					ForceNugetAuthentication:     Bool(false),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/generic_repository.json")
@@ -111,6 +112,7 @@ func Test_Repositories(t *testing.T) {
 						SuppressPomConsistencyChecks: Bool(false),
 						BlackedOut:                   Bool(false),
 						PropertySets:                 &[]string{"ps1", "ps2"},
+						ForceNugetAuthentication:     Bool(false),
 					},
 					DebianTrivialLayout:             Bool(false),
 					ChecksumPolicyType:              String("client-checksums"),
@@ -152,6 +154,7 @@ func Test_Repositories(t *testing.T) {
 						SuppressPomConsistencyChecks: Bool(false),
 						BlackedOut:                   Bool(false),
 						PropertySets:                 &[]string{"ps1", "ps2"},
+						ForceNugetAuthentication:     Bool(false),
 					},
 					URL:                               String("http://host:port/some-repo"),
 					Username:                          String("remote-repo-user"),
@@ -179,6 +182,7 @@ func Test_Repositories(t *testing.T) {
 					BowerRegistryURL:                  String("https://registry.bower.io"),
 					ComposerRegistryURL:               String("https://packagist.org"),
 					PyPIRegistryURL:                   String("https://pypi.org"),
+					PyPIRepositorySuffix:              String("simple"),
 					VcsType:                           String("GIT"),
 					VcsGitProvider:                    String("CUSTOM"),
 					VcsGitDownloadUrl:                 String(""),
@@ -205,7 +209,9 @@ func Test_Repositories(t *testing.T) {
 							OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty" xml:"originAbsenceDetection,omitempty"`
 						}{OriginAbsenceDetection: Bool(true)},
 					},
-					BlockPushingSchema1: Bool(true),
+					BlockPushingSchema1:  Bool(true),
+					QueryParams:          String("param1=val1"),
+					PropagateQueryParams: Bool(true),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/remote_repository.json")
@@ -219,13 +225,14 @@ func Test_Repositories(t *testing.T) {
 			g.It("- should return valid string for VirtualRepository with String()", func() {
 				actual := &VirtualRepository{
 					GenericRepository: &GenericRepository{
-						Key:             String("virtual-repo1"),
-						RClass:          String("virtual"),
-						PackageType:     String("generic"),
-						Description:     String("The virtual repository public description"),
-						Notes:           String("Some internal notes"),
-						IncludesPattern: String("**/*"),
-						ExcludesPattern: String(""),
+						Key:                      String("virtual-repo1"),
+						RClass:                   String("virtual"),
+						PackageType:              String("generic"),
+						Description:              String("The virtual repository public description"),
+						Notes:                    String("Some internal notes"),
+						IncludesPattern:          String("**/*"),
+						ExcludesPattern:          String(""),
+						ForceNugetAuthentication: Bool(false),
 					},
 					Repositories:        &[]string{"local-repo1", "local-repo2", "remote-repo1", "virtual-repo2"},
 					DebianTrivialLayout: Bool(false),
@@ -238,6 +245,8 @@ func Test_Repositories(t *testing.T) {
 					ExternalDependenciesPatterns:         &[]string{"**/*microsoft*/**", "**/*github*/**"},
 					ExternalDependenciesRemoteRepo:       String(""),
 					ResolveDockerTagsByTimestamp:         Bool(false),
+					DebianDefaultArchitectures:           String("i386,amd64"),
+					VirtualRetrievalCachePeriodSecs:      Int(600),
 				}
 
 				data, _ := ioutil.ReadFile("fixtures/repositories/virtual_repository.json")

@@ -1055,6 +1055,14 @@ func (g *GenericRepository) GetExcludesPattern() string {
 	return *g.ExcludesPattern
 }
 
+// GetForceNugetAuthentication returns the ForceNugetAuthentication field if it's non-nil, zero value otherwise.
+func (g *GenericRepository) GetForceNugetAuthentication() bool {
+	if g == nil || g.ForceNugetAuthentication == nil {
+		return false
+	}
+	return *g.ForceNugetAuthentication
+}
+
 // GetHandleReleases returns the HandleReleases field if it's non-nil, zero value otherwise.
 func (g *GenericRepository) GetHandleReleases() bool {
 	if g == nil || g.HandleReleases == nil {
@@ -2751,6 +2759,14 @@ func (r *RemoteRepository) GetPassword() string {
 	return *r.Password
 }
 
+// GetPropagateQueryParams returns the PropagateQueryParams field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetPropagateQueryParams() bool {
+	if r == nil || r.PropagateQueryParams == nil {
+		return false
+	}
+	return *r.PropagateQueryParams
+}
+
 // GetProxy returns the Proxy field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetProxy() string {
 	if r == nil || r.Proxy == nil {
@@ -2765,6 +2781,22 @@ func (r *RemoteRepository) GetPyPIRegistryURL() string {
 		return ""
 	}
 	return *r.PyPIRegistryURL
+}
+
+// GetPyPIRepositorySuffix returns the PyPIRepositorySuffix field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetPyPIRepositorySuffix() string {
+	if r == nil || r.PyPIRepositorySuffix == nil {
+		return ""
+	}
+	return *r.PyPIRepositorySuffix
+}
+
+// GetQueryParams returns the QueryParams field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetQueryParams() string {
+	if r == nil || r.QueryParams == nil {
+		return ""
+	}
+	return *r.QueryParams
 }
 
 // GetRemoteRepoChecksumPolicyType returns the RemoteRepoChecksumPolicyType field if it's non-nil, zero value otherwise.
@@ -3871,6 +3903,14 @@ func (v *VirtualRepository) GetArtifactoryRequestsCanRetrieveRemoteArtifacts() b
 	return *v.ArtifactoryRequestsCanRetrieveRemoteArtifacts
 }
 
+// GetDebianDefaultArchitectures returns the DebianDefaultArchitectures field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetDebianDefaultArchitectures() string {
+	if v == nil || v.DebianDefaultArchitectures == nil {
+		return ""
+	}
+	return *v.DebianDefaultArchitectures
+}
+
 // GetDebianTrivialLayout returns the DebianTrivialLayout field if it's non-nil, zero value otherwise.
 func (v *VirtualRepository) GetDebianTrivialLayout() bool {
 	if v == nil || v.DebianTrivialLayout == nil {
@@ -3949,6 +3989,14 @@ func (v *VirtualRepository) GetResolveDockerTagsByTimestamp() bool {
 		return false
 	}
 	return *v.ResolveDockerTagsByTimestamp
+}
+
+// GetVirtualRetrievalCachePeriodSecs returns the VirtualRetrievalCachePeriodSecs field if it's non-nil, zero value otherwise.
+func (v *VirtualRepository) GetVirtualRetrievalCachePeriodSecs() int {
+	if v == nil || v.VirtualRetrievalCachePeriodSecs == nil {
+		return 0
+	}
+	return *v.VirtualRetrievalCachePeriodSecs
 }
 
 // GetAllowBlockedArtifactsDownload returns the AllowBlockedArtifactsDownload field if it's non-nil, zero value otherwise.

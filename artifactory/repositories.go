@@ -59,6 +59,7 @@ type GenericRepository struct {
 	SuppressPomConsistencyChecks *bool     `json:"suppressPomConsistencyChecks,omitempty" xml:"suppressPomConsistencyChecks,omitempty"`
 	BlackedOut                   *bool     `json:"blackedOut,omitempty" xml:"blackedOut,omitempty"`
 	PropertySets                 *[]string `json:"propertySets,omitempty" xml:"propertySets>propertySetRef,omitempty"`
+	ForceNugetAuthentication     *bool     `json:"forceNugetAuthentication,omitempty" xml:"forceNugetAuthentication,omitempty"`
 }
 
 func (g GenericRepository) String() string {
@@ -122,9 +123,10 @@ type RemoteRepository struct {
 	BowerRegistryURL                  *string                 `json:"bowerRegistryUrl,omitempty" xml:"bowerRegistryUrl,omitempty"`
 	ComposerRegistryURL               *string                 `json:"composerRegistryUrl,omitempty" xml:"composerRegistryUrl,omitempty"`
 	PyPIRegistryURL                   *string                 `json:"pyPIRegistryUrl,omitempty" xml:"pypi>pyPIRegistryUrl,omitempty"`
+	PyPIRepositorySuffix              *string                 `json:"pyPIRepositorySuffix,omitempty" xml:"pyPIRepositorySuffix,omitempty"`
 	VcsType                           *string                 `json:"vcsType,omitempty" xml:"vcs>type,omitempty"`
 	VcsGitProvider                    *string                 `json:"vcsGitProvider,omitempty" xml:"vcs>git>provider,omitempty"`
-	VcsGitDownloadUrl                 *string                 `json:"VcsGitDownloadUrl,omitempty" xml:"vcs>git>downloadUrl,omitempty"`
+	VcsGitDownloadUrl                 *string                 `json:"vcsGitDownloadUrl,omitempty" xml:"vcs>git>downloadUrl,omitempty"`
 	BypassHeadRequests                *bool                   `json:"bypassHeadRequests,omitempty" xml:"bypassHeadRequests,omitempty"`
 	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty" xml:"clientTlsCertificate,omitempty"`
 	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty" xml:"externalDependencies>enabled,omitempty"`
@@ -138,6 +140,8 @@ type RemoteRepository struct {
 	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty" xml:"enableTokenAuthentication,omitempty"`
 	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty" xml:"contentSynchronisation,omitempty"`
 	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty" xml:"blockPushingSchema1,omitempty"`
+	QueryParams                       *string                 `json:"queryParams,omitempty" xml:"queryParams,omitempty"`
+	PropagateQueryParams              *bool                   `json:"propagateQueryParams,omitempty" xml:"propagateQueryParams,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
@@ -175,6 +179,8 @@ type VirtualRepository struct {
 	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
 	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty" xml:"externalDependencies>remoteRepo,omitempty"`
 	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty" xml:"resolveDockerTagsByTimestamp,omitempty"`
+	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty" xml:"virtualRetrievalCachePeriodSecs,omitempty"`
+	DebianDefaultArchitectures                    *string   `json:"debianDefaultArchitectures,omitempty" xml:"debianDefaultArchitectures,omitempty"`
 }
 
 func (v VirtualRepository) String() string {

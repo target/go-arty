@@ -39,6 +39,7 @@
   "bowerRegistryUrl": "https://registry.bower.io",
   "composerRegistryUrl": "https://packagist.org",
   "pyPIRegistryUrl": "https://pypi.org",
+  "pyPIRepositorySuffix" : "simple",
   "vcsType": "GIT",
   "vcsGitProvider": "CUSTOM",
   "vcsGitDownloadUrl": "",
@@ -65,5 +66,8 @@
       "originAbsenceDetection" : true
     }
   },
-  "blockPushingSchema1" : true
+  "blockPushingSchema1" : true,
+  "forceNugetAuthentication" : false,
+  "queryParams" : "param1=val1",
+  "propagateQueryParams" : true
 }
