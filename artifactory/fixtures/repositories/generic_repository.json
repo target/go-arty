@@ -12,5 +12,7 @@
   "maxUniqueSnapshots" : 0,
   "suppressPomConsistencyChecks" : true,
   "blackedOut" : false,
-  "propertySets" : [ "artifactory" ]
+  "propertySets" : [ "artifactory" ],
+  "blockPushingSchema1" : true,
+  "forceNugetAuthentication" : false
 }

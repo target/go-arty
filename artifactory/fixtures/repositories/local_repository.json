@@ -25,5 +25,6 @@
   "enableFileListsIndexing" : "false",
   "optionalIndexCompressionFormats" : ["bz2", "lzma", "xz"],
   "xrayIndex" : false,
-  "downloadRedirect" : false
+  "downloadRedirect" : false,
+  "forceNugetAuthentication" : false
 }

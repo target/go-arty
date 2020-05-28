@@ -59,6 +59,7 @@ type GenericRepository struct {
 	SuppressPomConsistencyChecks *bool     `json:"suppressPomConsistencyChecks,omitempty"`
 	BlackedOut                   *bool     `json:"blackedOut,omitempty"`
 	PropertySets                 *[]string `json:"propertySets,omitempty"`
+	ForceNugetAuthentication     *bool     `json:"forceNugetAuthentication,omitempty"`
 }
 
 func (g GenericRepository) String() string {
@@ -122,6 +123,7 @@ type RemoteRepository struct {
 	BowerRegistryURL                  *string                 `json:"bowerRegistryUrl,omitempty"`
 	ComposerRegistryURL               *string                 `json:"composerRegistryUrl,omitempty"`
 	PyPIRegistryURL                   *string                 `json:"pyPIRegistryUrl,omitempty"`
+	PyPIRepositorySuffix              *string                 `json:"pyPIRepositorySuffix,omitempty"`
 	VcsType                           *string                 `json:"vcsType,omitempty"`
 	VcsGitProvider                    *string                 `json:"vcsGitProvider,omitempty"`
 	VcsGitDownloadUrl                 *string                 `json:"VcsGitDownloadUrl,omitempty"`
@@ -138,6 +140,8 @@ type RemoteRepository struct {
 	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty"`
 	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
 	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty"`
+	QueryParams                       *string                 `json:"queryParams,omitempty"`
+	PropagateQueryParams              *bool                   `json:"propagateQueryParams,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
@@ -175,6 +179,8 @@ type VirtualRepository struct {
 	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty"`
 	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty"`
 	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty"`
+	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty"`
+	DebianDefaultArchitectures                    *string   `json:"debianDefaultArchitectures,omitempty"`
 }
 
 func (v VirtualRepository) String() string {
