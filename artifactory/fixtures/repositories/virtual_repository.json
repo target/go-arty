@@ -16,5 +16,9 @@
   "externalDependenciesEnabled": false,
   "externalDependenciesPatterns": ["**/*microsoft*/**", "**/*github*/**"],
   "externalDependenciesRemoteRepo": "",
-  "resolveDockerTagsByTimestamp": false
+  "resolveDockerTagsByTimestamp": false,
+  "blockPushingSchema1": true,
+  "forceNugetAuthentication": false,
+  "virtualRetrievalCachePeriodSecs": 600,
+  "debianDefaultArchitectures": "i386,amd64"
 }
