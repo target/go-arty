@@ -75,11 +75,12 @@ type GlobalConfigCommon struct {
 
 // GlobalConfigRequest represents elements of the Global Configuration Descriptor
 // that can be updated in a PATCH request.
-// Limitations:
-// 1) Repository and repository replication configuration is omitted as the
+// Notes:
+// 1) Fields whose types implement the MarshalYAML() method have an additional Reset
+//    (bool) field which when set to true will YAML encode their value to null,
+//    thus resetting their configuration to Artifactory's default values.
+// 3) Repository and repository replication configuration is omitted as the
 //    Repositories service methods should be used instead.
-// 2) It isn't possible to reset config values to their defaults using nil values due
-//    to the inclusion of the `omitempty` yaml tag on fields.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
 type GlobalConfigRequest struct {
@@ -93,7 +94,7 @@ type GlobalConfigRequest struct {
 		HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
 		CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
 		SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
-		OauthSettings                    *OauthSettings                    `yaml:"oauthSettings,omitempty"`
+		OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
 		AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
 		BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
 		BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
@@ -117,19 +118,19 @@ type GlobalConfigResponse struct {
 	*GlobalConfigCommon
 	Revision *int `xml:"revision,omitempty"`
 	Security *struct {
-		AnonAccessEnabled                *bool                 `xml:"anonAccessEnabled,omitempty"`
-		HideUnauthorizedResources        *bool                 `xml:"hideUnauthorizedResources,omitempty"`
-		UserLockPolicy                   *UserLockPolicy       `xml:"userLockPolicy,omitempty"`
-		PasswordSettings                 *PasswordSettings     `xml:"passwordSettings,omitempty"`
-		LdapSettings                     *[]LdapSetting        `xml:"ldapSettings>ldapSetting,omitempty"`
-		LdapGroupSettings                *[]LdapGroupSetting   `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
-		HttpSsoSettings                  *HttpSsoSettings      `xml:"httpSsoSettings,omitempty"`
-		CrowdSettings                    *CrowdSettings        `xml:"crowdSettings,omitempty"`
-		SamlSettings                     *SamlSettings         `xml:"samlSettings,omitempty"`
-		OauthSettings                    *OauthSettings        `xml:"oauthSettings,omitempty"`
-		AccessClientSettings             *AccessClientSettings `xml:"accessClientSettings,omitempty"`
-		BuildGlobalBasicReadAllowed      *bool                 `xml:"buildGlobalBasicReadAllowed,omitempty"`
-		BuildGlobalBasicReadForAnonymous *bool                 `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
+		AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
+		HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
+		UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
+		PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
+		LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
+		LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
+		HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
+		CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
+		SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
+		OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
+		AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
+		BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
+		BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
 	} `xml:"security,omitempty"`
 	Backups             *[]Backup              `xml:"backups>backup,omitempty"`
 	LocalRepositories   *[]LocalRepository     `xml:"localRepositories>localRepository,omitempty"`
@@ -192,7 +193,9 @@ type XrayConfig struct {
 // Descriptor. This is undocumented in YAML Configuration File.
 //
 type BintrayConfig struct {
-	FileUploadLimit *int `yaml:"fileUploadLimit,omitempty" xml:"fileUploadLimit,omitempty"`
+	UserName        *string `yaml:"userName,omitempty" xml:"userName,omitempty"`
+	ApiKey          *string `yaml:"apiKey,omitempty" xml:"apiKey,omitempty"`
+	FileUploadLimit *int    `yaml:"fileUploadLimit,omitempty" xml:"fileUploadLimit,omitempty"`
 }
 
 // Proxy represents a Proxy setting in Artifactory General Configuration.
@@ -271,6 +274,15 @@ type PasswordSettings struct {
 	EncryptionPolicy *string           `yaml:"encryptionPolicy,omitempty" xml:"encryptionPolicy,omitempty"`
 	ExpirationPolicy *ExpirationPolicy `yaml:"expirationPolicy,omitempty" xml:"expirationPolicy,omitempty"`
 	ResetPolicy      *ResetPolicy      `yaml:"resetPolicy,omitempty" xml:"resetPolicy,omitempty"`
+	Reset            *bool             `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (p PasswordSettings) MarshalYAML() (interface{}, error) {
+	if p.Reset != nil && *p.Reset {
+		return nil, nil
+	}
+	return p, nil
 }
 
 // ExpirationPolicy represents the Password Expiration Policy settings in Artifactory Security Configuration.
@@ -280,6 +292,15 @@ type ExpirationPolicy struct {
 	Enabled        *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	PasswordMaxAge *int  `yaml:"passwordMaxAge,omitempty" xml:"passwordMaxAge,omitempty"`
 	NotifyByEmail  *bool `yaml:"notifyByEmail,omitempty" xml:"notifyByEmail,omitempty"`
+	Reset          *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (e ExpirationPolicy) MarshalYAML() (interface{}, error) {
+	if e.Reset != nil && *e.Reset {
+		return nil, nil
+	}
+	return e, nil
 }
 
 // ResetPolicy represents the Password Reset Protection policy settings in Artifactory Security Configuration.
@@ -289,6 +310,14 @@ type ResetPolicy struct {
 	Enabled               *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	MaxAttemptsPerAddress *int  `yaml:"maxAttemptsPerAddress,omitempty" xml:"maxAttemptsPerAddress,omitempty"`
 	TimeToBlockInMinutes  *int  `yaml:"timeToBlockInMinutes,omitempty" xml:"timeToBlockInMinutes,omitempty"`
+	Reset                 *bool `yaml:"-" xml:"-"`
+}
+
+func (r ResetPolicy) MarshalYAML() (interface{}, error) {
+	if r.Reset != nil && *r.Reset {
+		return nil, nil
+	}
+	return r, nil
 }
 
 // UserLockPolicy represents the User Lock Policy settings in Artifactory Security Configuration.
@@ -297,6 +326,15 @@ type ResetPolicy struct {
 type UserLockPolicy struct {
 	Enabled       *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	LoginAttempts *int  `yaml:"loginAttempts,omitempty" xml:"loginAttempts,omitempty"`
+	Reset         *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (u UserLockPolicy) MarshalYAML() (interface{}, error) {
+	if u.Reset != nil && *u.Reset {
+		return nil, nil
+	}
+	return u, nil
 }
 
 // SigningKeysSetting represents the GPG Signing settings in Artifactory Security Configuration.
@@ -359,6 +397,15 @@ type AccessClientSettings struct {
 //
 type BuildGlobalBasicReadAllowed struct {
 	Enabled *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
+	Reset   *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (b BuildGlobalBasicReadAllowed) MarshalYAML() (interface{}, error) {
+	if b.Reset != nil && *b.Reset {
+		return nil, nil
+	}
+	return b, nil
 }
 
 // BuildGlobalBasicReadForAnonymous represents the Build Global Anonymous Read Information permission
@@ -366,6 +413,15 @@ type BuildGlobalBasicReadAllowed struct {
 //
 type BuildGlobalBasicReadForAnonymous struct {
 	Enabled *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
+	Reset   *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (b BuildGlobalBasicReadForAnonymous) MarshalYAML() (interface{}, error) {
+	if b.Reset != nil && *b.Reset {
+		return nil, nil
+	}
+	return b, nil
 }
 
 // CrowdSettings represents the Crowd settings in Artifactory Security Configuration.
@@ -379,6 +435,15 @@ type CrowdSettings struct {
 	EnableIntegration         *bool   `yaml:"enableIntegration,omitempty" xml:"enableIntegration,omitempty"`
 	NoAutoUserCreation        *bool   `yaml:"noAutoUserCreation,omitempty" xml:"noAutoUserCreation,omitempty"`
 	UseDefaultProxy           *bool   `yaml:"useDefaultProxy,omitempty" xml:"useDefaultProxy,omitempty"`
+	Reset                     *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (c CrowdSettings) MarshalYAML() (interface{}, error) {
+	if c.Reset != nil && *c.Reset {
+		return nil, nil
+	}
+	return c, nil
 }
 
 // SamlSettings represents the SAML settings in Artifactory Security Configuration.
@@ -396,16 +461,44 @@ type SamlSettings struct {
 	AllowUserToAccessProfile *bool   `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
 	AutoRedirect             *bool   `yaml:"autoRedirect,omitempty" xml:"autoRedirect,omitempty"`
 	SyncGroups               *bool   `yaml:"syncGroups,omitempty" xml:"syncGroups,omitempty"`
+	Reset                    *bool   `yaml:"-" xml:"-"`
 }
 
-// OauthSettings represents the OAuth settings in Artifactory Security Configuration.
+// MarshalYAML implements the Marshaller interface.
+func (s SamlSettings) MarshalYAML() (interface{}, error) {
+	if s.Reset != nil && *s.Reset {
+		return nil, nil
+	}
+	return s, nil
+}
+
+// OauthSettingsRequest represents the OAuth settings in a PATCH request to update Artifactory Security Configuration.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
-type OauthSettings struct {
-	AllowUserToAccessProfile *bool                   `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
-	EnableIntegration        *bool                   `yaml:"enableIntegration,omitempty" xml:"enableIntegration,omitempty"`
-	PersistUsers             *bool                   `yaml:"persistUsers,omitempty" xml:"persistUsers,omitempty"`
-	OauthProvidersSettings   *[]OauthProviderSetting `yaml:"oauthProvidersSettings,omitempty" xml:"oauthProvidersSettings>oauthProvidersSettings,omitempty"`
+type OauthSettingsRequest struct {
+	AllowUserToAccessProfile *bool                             `yaml:"allowUserToAccessProfile,omitempty"`
+	EnableIntegration        *bool                             `yaml:"enableIntegration,omitempty"`
+	PersistUsers             *bool                             `yaml:"persistUsers,omitempty"`
+	OauthProvidersSettings   *map[string]*OauthProviderSetting `yaml:"oauthProvidersSettings,omitempty"`
+	Reset                    *bool                             `yaml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (o OauthSettingsRequest) MarshalYAML() (interface{}, error) {
+	if o.Reset != nil && *o.Reset {
+		return nil, nil
+	}
+	return o, nil
+}
+
+// OauthSettingsResponse represents the OAuth settings in a response to a GET request for Artifactory Security Configuration.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
+type OauthSettingsResponse struct {
+	AllowUserToAccessProfile *bool                   `xml:"allowUserToAccessProfile,omitempty"`
+	EnableIntegration        *bool                   `xml:"enableIntegration,omitempty"`
+	PersistUsers             *bool                   `xml:"persistUsers,omitempty"`
+	OauthProvidersSettings   *[]OauthProviderSetting `xml:"oauthProvidersSettings>oauthProvidersSettings,omitempty"`
 }
 
 // OauthProviderSetting represents the Oauth Provider settings in Artifactory Security Configuration.
@@ -432,6 +525,15 @@ type HttpSsoSettings struct {
 	AllowUserToAccessProfile  *bool   `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
 	NoAutoUserCreation        *bool   `yaml:"noAutoUserCreation,omitempty" xml:"noAutoUserCreation,omitempty"`
 	SyncLdapGroups            *bool   `yaml:"syncLdapGroups,omitempty" xml:"syncLdapGroups,omitempty"`
+	Reset                     *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (h HttpSsoSettings) MarshalYAML() (interface{}, error) {
+	if h.Reset != nil && *h.Reset {
+		return nil, nil
+	}
+	return h, nil
 }
 
 // Backup represents the Backup settings in Artifactory Services Configuration.
@@ -457,6 +559,15 @@ type Indexer struct {
 	Enabled              *bool     `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	CronExp              *string   `yaml:"cronExp,omitempty" xml:"cronExp,omitempty"`
 	IncludedRepositories *[]string `yaml:"includedRepositories,omitempty" xml:"includedRepositories,omitempty"`
+	Reset                *bool     `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (i Indexer) MarshalYAML() (interface{}, error) {
+	if i.Reset != nil && *i.Reset {
+		return nil, nil
+	}
+	return i, nil
 }
 
 // RepoLayout represents a Repository Layout setting in Artifactory.
@@ -477,6 +588,15 @@ type RepoLayout struct {
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Servicesconfiguration(Backups,MavenIndexer)
 type GcConfig struct {
 	CronExp *string `yaml:"cronExp,omitempty" xml:"cronExp,omitempty"`
+	Reset   *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (g GcConfig) MarshalYAML() (interface{}, error) {
+	if g.Reset != nil && *g.Reset {
+		return nil, nil
+	}
+	return g, nil
 }
 
 // CleanupConfig represents the Cleanup Unused Cached Artifacts setting in Artifactory Maintenance Configuration.
@@ -484,6 +604,15 @@ type GcConfig struct {
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Servicesconfiguration(Backups,MavenIndexer)
 type CleanupConfig struct {
 	CronExp *string `yaml:"cronExp,omitempty" xml:"cronExp,omitempty"`
+	Reset   *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (c CleanupConfig) MarshalYAML() (interface{}, error) {
+	if c.Reset != nil && *c.Reset {
+		return nil, nil
+	}
+	return c, nil
 }
 
 // VirtualCacheCleanupConfig represents the Cleanup Virtual Repositories
@@ -492,6 +621,15 @@ type CleanupConfig struct {
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Servicesconfiguration(Backups,MavenIndexer)
 type VirtualCacheCleanupConfig struct {
 	CronExp *string `yaml:"cronExp,omitempty" xml:"cronExp,omitempty"`
+	Reset   *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (v VirtualCacheCleanupConfig) MarshalYAML() (interface{}, error) {
+	if v.Reset != nil && *v.Reset {
+		return nil, nil
+	}
+	return v, nil
 }
 
 // QuotaConfig represents the Storage Quota settings in Artifactory Maintenance Configuration.
@@ -501,6 +639,15 @@ type QuotaConfig struct {
 	DiskSpaceLimitPercentage   *int  `yaml:"diskSpaceLimitPercentage,omitempty" xml:"diskSpaceLimitPercentage,omitempty"`
 	DiskSpaceWarningPercentage *int  `yaml:"diskSpaceWarningPercentage,omitempty" xml:"diskSpaceWarningPercentage,omitempty"`
 	Enabled                    *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
+	Reset                      *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (q QuotaConfig) MarshalYAML() (interface{}, error) {
+	if q.Reset != nil && *q.Reset {
+		return nil, nil
+	}
+	return q, nil
 }
 
 // SystemMessageConfig represents Custom Message settings in Artifactory General Configuration.
@@ -512,6 +659,15 @@ type SystemMessageConfig struct {
 	Title          *string `yaml:"title,omitempty" xml:"title,omitempty"`
 	TitleColor     *string `yaml:"titleColor,omitempty" xml:"titleColor,omitempty"`
 	ShowOnAllPages *bool   `yaml:"showOnAllPages,omitempty" xml:"showOnAllPages,omitempty"`
+	Reset          *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (s SystemMessageConfig) MarshalYAML() (interface{}, error) {
+	if s.Reset != nil && *s.Reset {
+		return nil, nil
+	}
+	return s, nil
 }
 
 // FolderDownloadConfig represents Folder Download settings in Artifactory General Configuration.
@@ -523,6 +679,15 @@ type FolderDownloadConfig struct {
 	MaxDownloadSizeMb     *int  `yaml:"maxDownloadSizeMb,omitempty" xml:"maxDownloadSizeMb,omitempty"`
 	MaxFiles              *int  `yaml:"maxFiles,omitempty" xml:"maxFiles,omitempty"`
 	EnabledForAnonymous   *bool `yaml:"enabledForAnonymous,omitempty" xml:"enabledForAnonymous,omitempty"`
+	Reset                 *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (f FolderDownloadConfig) MarshalYAML() (interface{}, error) {
+	if f.Reset != nil && *f.Reset {
+		return nil, nil
+	}
+	return f, nil
 }
 
 // TrashcanConfig represents Trash Can settings in Artifactory General Configuration.
@@ -531,6 +696,15 @@ type FolderDownloadConfig struct {
 type TrashcanConfig struct {
 	Enabled             *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	RetentionPeriodDays *int  `yaml:"retentionPeriodDays,omitempty" xml:"retentionPeriodDays,omitempty"`
+	Reset               *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (t TrashcanConfig) MarshalYAML() (interface{}, error) {
+	if t.Reset != nil && *t.Reset {
+		return nil, nil
+	}
+	return t, nil
 }
 
 // ReplicationsConfig represents Global Replication Blocking
@@ -540,6 +714,15 @@ type TrashcanConfig struct {
 type ReplicationsConfig struct {
 	BlockPullReplications *bool `yaml:"blockPullReplications,omitempty" xml:"blockPullReplications,omitempty"`
 	BlockPushReplications *bool `yaml:"blockPushReplications,omitempty" xml:"blockPushReplications,omitempty"`
+	Reset                 *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (r ReplicationsConfig) MarshalYAML() (interface{}, error) {
+	if r.Reset != nil && *r.Reset {
+		return nil, nil
+	}
+	return r, nil
 }
 
 // BintrayApplication represents Bintray Oauth applications configuration.
@@ -562,27 +745,63 @@ type SumoLogicConfig struct {
 	Proxy    *string `yaml:"proxy,omitempty" xml:"proxyRef,omitempty"`
 	ClientId *string `yaml:"clientId,omitempty" xml:"clientId,omitempty"`
 	Secret   *string `yaml:"secret,omitempty" xml:"secret,omitempty"`
+	Reset    *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (s SumoLogicConfig) MarshalYAML() (interface{}, error) {
+	if s.Reset != nil && *s.Reset {
+		return nil, nil
+	}
+	return s, nil
 }
 
 // ReleaseBundlesConfig represents Release Bundle settings in Artifactory's
 // Configuration Descriptor. This is undocumented in YAML Configuration File.
 //
 type ReleaseBundlesConfig struct {
-	IncompleteCleanupPeriodHours *int `yaml:"incompleteCleanupPeriodHours,omitempty" xml:"incompleteCleanupPeriodHours,omitempty"`
+	IncompleteCleanupPeriodHours *int  `yaml:"incompleteCleanupPeriodHours,omitempty" xml:"incompleteCleanupPeriodHours,omitempty"`
+	Reset                        *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (r ReleaseBundlesConfig) MarshalYAML() (interface{}, error) {
+	if r.Reset != nil && *r.Reset {
+		return nil, nil
+	}
+	return r, nil
 }
 
 // SignedUrlConfig represents Signed URL settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
 //
 type SignedUrlConfig struct {
-	MaxValidForSeconds *int `yaml:"maxValidForSeconds,omitempty" xml:"maxValidForSeconds,omitempty"`
+	MaxValidForSeconds *int  `yaml:"maxValidForSeconds,omitempty" xml:"maxValidForSeconds,omitempty"`
+	Reset              *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (s SignedUrlConfig) MarshalYAML() (interface{}, error) {
+	if s.Reset != nil && *s.Reset {
+		return nil, nil
+	}
+	return s, nil
 }
 
 // DownloadRedirectConfig represents Download Redirect settings in Artifactory's
 // Configuration Descriptor. This is undocumented in YAML Configuration File.
 //
 type DownloadRedirectConfig struct {
-	FileMinimumSize *int `yaml:"fileMinimumSize,omitempty" xml:"fileMinimumSize,omitempty"`
+	FileMinimumSize *int  `yaml:"fileMinimumSize,omitempty" xml:"fileMinimumSize,omitempty"`
+	Reset           *bool `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (d DownloadRedirectConfig) MarshalYAML() (interface{}, error) {
+	if d.Reset != nil && *d.Reset {
+		return nil, nil
+	}
+	return d, nil
 }
 
 // Ping returns a simple status response.

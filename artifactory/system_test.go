@@ -182,19 +182,19 @@ func Test_System(t *testing.T) {
 					},
 					Revision: Int(1311),
 					Security: &struct {
-						AnonAccessEnabled                *bool                 `xml:"anonAccessEnabled,omitempty"`
-						HideUnauthorizedResources        *bool                 `xml:"hideUnauthorizedResources,omitempty"`
-						UserLockPolicy                   *UserLockPolicy       `xml:"userLockPolicy,omitempty"`
-						PasswordSettings                 *PasswordSettings     `xml:"passwordSettings,omitempty"`
-						LdapSettings                     *[]LdapSetting        `xml:"ldapSettings>ldapSetting,omitempty"`
-						LdapGroupSettings                *[]LdapGroupSetting   `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
-						HttpSsoSettings                  *HttpSsoSettings      `xml:"httpSsoSettings,omitempty"`
-						CrowdSettings                    *CrowdSettings        `xml:"crowdSettings,omitempty"`
-						SamlSettings                     *SamlSettings         `xml:"samlSettings,omitempty"`
-						OauthSettings                    *OauthSettings        `xml:"oauthSettings,omitempty"`
-						AccessClientSettings             *AccessClientSettings `xml:"accessClientSettings,omitempty"`
-						BuildGlobalBasicReadAllowed      *bool                 `xml:"buildGlobalBasicReadAllowed,omitempty"`
-						BuildGlobalBasicReadForAnonymous *bool                 `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
+						AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
+						HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
+						UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
+						PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
+						LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
+						LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
+						HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
+						CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
+						SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
+						OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
+						AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
+						BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
+						BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
 					}{
 						AnonAccessEnabled:         Bool(false),
 						HideUnauthorizedResources: Bool(false),
@@ -282,7 +282,7 @@ func Test_System(t *testing.T) {
 							AutoRedirect:             Bool(true),
 							SyncGroups:               Bool(true),
 						},
-						OauthSettings: &OauthSettings{
+						OauthSettings: &OauthSettingsResponse{
 							EnableIntegration:        Bool(true),
 							AllowUserToAccessProfile: Bool(false),
 							PersistUsers:             Bool(false),
@@ -586,7 +586,22 @@ func Test_System(t *testing.T) {
 					GlobalConfigCommon: GlobalConfigCommon{
 						ServerName: String("server1"),
 					},
-					Security: nil,
+					Security: &struct {
+						AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
+						UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
+						PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
+						LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
+						LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
+						HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
+						CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
+						SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
+						OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
+						AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
+						BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
+						BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
+					}{
+						HttpSsoSettings: &HttpSsoSettings{Reset: Bool(true)},
+					},
 					Backups: &map[string]*Backup{
 						"backup-daily": {
 							Key:                    String("backup-daily"),

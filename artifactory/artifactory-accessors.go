@@ -295,12 +295,28 @@ func (b *BintrayApplication) GetSecret() string {
 	return *b.Secret
 }
 
+// GetApiKey returns the ApiKey field if it's non-nil, zero value otherwise.
+func (b *BintrayConfig) GetApiKey() string {
+	if b == nil || b.ApiKey == nil {
+		return ""
+	}
+	return *b.ApiKey
+}
+
 // GetFileUploadLimit returns the FileUploadLimit field if it's non-nil, zero value otherwise.
 func (b *BintrayConfig) GetFileUploadLimit() int {
 	if b == nil || b.FileUploadLimit == nil {
 		return 0
 	}
 	return *b.FileUploadLimit
+}
+
+// GetUserName returns the UserName field if it's non-nil, zero value otherwise.
+func (b *BintrayConfig) GetUserName() string {
+	if b == nil || b.UserName == nil {
+		return ""
+	}
+	return *b.UserName
 }
 
 // GetBuildInfo returns the BuildInfo field.
@@ -359,12 +375,28 @@ func (b *BuildGlobalBasicReadAllowed) GetEnabled() bool {
 	return *b.Enabled
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (b *BuildGlobalBasicReadAllowed) GetReset() bool {
+	if b == nil || b.Reset == nil {
+		return false
+	}
+	return *b.Reset
+}
+
 // GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
 func (b *BuildGlobalBasicReadForAnonymous) GetEnabled() bool {
 	if b == nil || b.Enabled == nil {
 		return false
 	}
 	return *b.Enabled
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (b *BuildGlobalBasicReadForAnonymous) GetReset() bool {
+	if b == nil || b.Reset == nil {
+		return false
+	}
+	return *b.Reset
 }
 
 // GetAgent returns the Agent field.
@@ -495,6 +527,14 @@ func (c *CleanupConfig) GetCronExp() string {
 	return *c.CronExp
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (c *CleanupConfig) GetReset() bool {
+	if c == nil || c.Reset == nil {
+		return false
+	}
+	return *c.Reset
+}
+
 // GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
 func (c *ContentSynchronisation) GetEnabled() bool {
 	if c == nil || c.Enabled == nil {
@@ -533,6 +573,14 @@ func (c *CrowdSettings) GetPassword() string {
 		return ""
 	}
 	return *c.Password
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (c *CrowdSettings) GetReset() bool {
+	if c == nil || c.Reset == nil {
+		return false
+	}
+	return *c.Reset
 }
 
 // GetServerUrl returns the ServerUrl field if it's non-nil, zero value otherwise.
@@ -575,6 +623,14 @@ func (d *DownloadRedirectConfig) GetFileMinimumSize() int {
 	return *d.FileMinimumSize
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (d *DownloadRedirectConfig) GetReset() bool {
+	if d == nil || d.Reset == nil {
+		return false
+	}
+	return *d.Reset
+}
+
 // GetPrincipals returns the Principals field.
 func (e *EffectiveItemPermissions) GetPrincipals() *Principals {
 	if e == nil {
@@ -613,6 +669,14 @@ func (e *ExpirationPolicy) GetPasswordMaxAge() int {
 		return 0
 	}
 	return *e.PasswordMaxAge
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (e *ExpirationPolicy) GetReset() bool {
+	if e == nil || e.Reset == nil {
+		return false
+	}
+	return *e.Reset
 }
 
 // GetChecksums returns the Checksums field.
@@ -975,6 +1039,14 @@ func (f *FolderDownloadConfig) GetMaxFiles() int {
 	return *f.MaxFiles
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (f *FolderDownloadConfig) GetReset() bool {
+	if f == nil || f.Reset == nil {
+		return false
+	}
+	return *f.Reset
+}
+
 // GetArtifactID returns the ArtifactID field if it's non-nil, zero value otherwise.
 func (g *GAVCRequest) GetArtifactID() string {
 	if g == nil || g.ArtifactID == nil {
@@ -1029,6 +1101,14 @@ func (g *GcConfig) GetCronExp() string {
 		return ""
 	}
 	return *g.CronExp
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (g *GcConfig) GetReset() bool {
+	if g == nil || g.Reset == nil {
+		return false
+	}
+	return *g.Reset
 }
 
 // GetBlackedOut returns the BlackedOut field if it's non-nil, zero value otherwise.
@@ -1607,6 +1687,14 @@ func (h *HttpSsoSettings) GetRemoteUserRequestVariable() string {
 	return *h.RemoteUserRequestVariable
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (h *HttpSsoSettings) GetReset() bool {
+	if h == nil || h.Reset == nil {
+		return false
+	}
+	return *h.Reset
+}
+
 // GetSyncLdapGroups returns the SyncLdapGroups field if it's non-nil, zero value otherwise.
 func (h *HttpSsoSettings) GetSyncLdapGroups() bool {
 	if h == nil || h.SyncLdapGroups == nil {
@@ -1685,6 +1773,14 @@ func (i *Indexer) GetIncludedRepositories() []string {
 		return nil
 	}
 	return *i.IncludedRepositories
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (i *Indexer) GetReset() bool {
+	if i == nil || i.Reset == nil {
+		return false
+	}
+	return *i.Reset
 }
 
 // GetLastModified returns the LastModified field if it's non-nil, zero value otherwise.
@@ -2208,7 +2304,7 @@ func (o *OauthProviderSetting) GetTokenUrl() string {
 }
 
 // GetAllowUserToAccessProfile returns the AllowUserToAccessProfile field if it's non-nil, zero value otherwise.
-func (o *OauthSettings) GetAllowUserToAccessProfile() bool {
+func (o *OauthSettingsRequest) GetAllowUserToAccessProfile() bool {
 	if o == nil || o.AllowUserToAccessProfile == nil {
 		return false
 	}
@@ -2216,7 +2312,39 @@ func (o *OauthSettings) GetAllowUserToAccessProfile() bool {
 }
 
 // GetEnableIntegration returns the EnableIntegration field if it's non-nil, zero value otherwise.
-func (o *OauthSettings) GetEnableIntegration() bool {
+func (o *OauthSettingsRequest) GetEnableIntegration() bool {
+	if o == nil || o.EnableIntegration == nil {
+		return false
+	}
+	return *o.EnableIntegration
+}
+
+// GetPersistUsers returns the PersistUsers field if it's non-nil, zero value otherwise.
+func (o *OauthSettingsRequest) GetPersistUsers() bool {
+	if o == nil || o.PersistUsers == nil {
+		return false
+	}
+	return *o.PersistUsers
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (o *OauthSettingsRequest) GetReset() bool {
+	if o == nil || o.Reset == nil {
+		return false
+	}
+	return *o.Reset
+}
+
+// GetAllowUserToAccessProfile returns the AllowUserToAccessProfile field if it's non-nil, zero value otherwise.
+func (o *OauthSettingsResponse) GetAllowUserToAccessProfile() bool {
+	if o == nil || o.AllowUserToAccessProfile == nil {
+		return false
+	}
+	return *o.AllowUserToAccessProfile
+}
+
+// GetEnableIntegration returns the EnableIntegration field if it's non-nil, zero value otherwise.
+func (o *OauthSettingsResponse) GetEnableIntegration() bool {
 	if o == nil || o.EnableIntegration == nil {
 		return false
 	}
@@ -2224,7 +2352,7 @@ func (o *OauthSettings) GetEnableIntegration() bool {
 }
 
 // GetOauthProvidersSettings returns the OauthProvidersSettings field if it's non-nil, zero value otherwise.
-func (o *OauthSettings) GetOauthProvidersSettings() []OauthProviderSetting {
+func (o *OauthSettingsResponse) GetOauthProvidersSettings() []OauthProviderSetting {
 	if o == nil || o.OauthProvidersSettings == nil {
 		return nil
 	}
@@ -2232,7 +2360,7 @@ func (o *OauthSettings) GetOauthProvidersSettings() []OauthProviderSetting {
 }
 
 // GetPersistUsers returns the PersistUsers field if it's non-nil, zero value otherwise.
-func (o *OauthSettings) GetPersistUsers() bool {
+func (o *OauthSettingsResponse) GetPersistUsers() bool {
 	if o == nil || o.PersistUsers == nil {
 		return false
 	}
@@ -2253,6 +2381,14 @@ func (p *PasswordSettings) GetExpirationPolicy() *ExpirationPolicy {
 		return nil
 	}
 	return p.ExpirationPolicy
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (p *PasswordSettings) GetReset() bool {
+	if p == nil || p.Reset == nil {
+		return false
+	}
+	return *p.Reset
 }
 
 // GetResetPolicy returns the ResetPolicy field.
@@ -2495,6 +2631,14 @@ func (q *QuotaConfig) GetEnabled() bool {
 	return *q.Enabled
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (q *QuotaConfig) GetReset() bool {
+	if q == nil || q.Reset == nil {
+		return false
+	}
+	return *q.Reset
+}
+
 // GetRepositories returns the Repositories field if it's non-nil, zero value otherwise.
 func (r *Registry) GetRepositories() []string {
 	if r == nil || r.Repositories == nil {
@@ -2509,6 +2653,14 @@ func (r *ReleaseBundlesConfig) GetIncompleteCleanupPeriodHours() int {
 		return 0
 	}
 	return *r.IncompleteCleanupPeriodHours
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (r *ReleaseBundlesConfig) GetReset() bool {
+	if r == nil || r.Reset == nil {
+		return false
+	}
+	return *r.Reset
 }
 
 // GetAllowAnyHostAuth returns the AllowAnyHostAuth field if it's non-nil, zero value otherwise.
@@ -2999,6 +3151,14 @@ func (r *ReplicationsConfig) GetBlockPushReplications() bool {
 	return *r.BlockPushReplications
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (r *ReplicationsConfig) GetReset() bool {
+	if r == nil || r.Reset == nil {
+		return false
+	}
+	return *r.Reset
+}
+
 // GetArtifactPathPattern returns the ArtifactPathPattern field if it's non-nil, zero value otherwise.
 func (r *RepoLayout) GetArtifactPathPattern() string {
 	if r == nil || r.ArtifactPathPattern == nil {
@@ -3165,6 +3325,14 @@ func (r *ResetPolicy) GetMaxAttemptsPerAddress() int {
 		return 0
 	}
 	return *r.MaxAttemptsPerAddress
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (r *ResetPolicy) GetReset() bool {
+	if r == nil || r.Reset == nil {
+		return false
+	}
+	return *r.Reset
 }
 
 // GetTimeToBlockInMinutes returns the TimeToBlockInMinutes field if it's non-nil, zero value otherwise.
@@ -3375,6 +3543,14 @@ func (s *SamlSettings) GetNoAutoUserCreation() bool {
 	return *s.NoAutoUserCreation
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (s *SamlSettings) GetReset() bool {
+	if s == nil || s.Reset == nil {
+		return false
+	}
+	return *s.Reset
+}
+
 // GetServiceProviderName returns the ServiceProviderName field if it's non-nil, zero value otherwise.
 func (s *SamlSettings) GetServiceProviderName() string {
 	if s == nil || s.ServiceProviderName == nil {
@@ -3479,6 +3655,14 @@ func (s *SignedUrlConfig) GetMaxValidForSeconds() int {
 	return *s.MaxValidForSeconds
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (s *SignedUrlConfig) GetReset() bool {
+	if s == nil || s.Reset == nil {
+		return false
+	}
+	return *s.Reset
+}
+
 // GetKeyStorePassword returns the KeyStorePassword field if it's non-nil, zero value otherwise.
 func (s *SigningKeysSettings) GetKeyStorePassword() string {
 	if s == nil || s.KeyStorePassword == nil {
@@ -3543,6 +3727,14 @@ func (s *SumoLogicConfig) GetProxy() string {
 	return *s.Proxy
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (s *SumoLogicConfig) GetReset() bool {
+	if s == nil || s.Reset == nil {
+		return false
+	}
+	return *s.Reset
+}
+
 // GetSecret returns the Secret field if it's non-nil, zero value otherwise.
 func (s *SumoLogicConfig) GetSecret() string {
 	if s == nil || s.Secret == nil {
@@ -3565,6 +3757,14 @@ func (s *SystemMessageConfig) GetMessage() string {
 		return ""
 	}
 	return *s.Message
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (s *SystemMessageConfig) GetReset() bool {
+	if s == nil || s.Reset == nil {
+		return false
+	}
+	return *s.Reset
 }
 
 // GetShowOnAllPages returns the ShowOnAllPages field if it's non-nil, zero value otherwise.
@@ -3613,6 +3813,14 @@ func (t *TrashcanConfig) GetEnabled() bool {
 		return false
 	}
 	return *t.Enabled
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (t *TrashcanConfig) GetReset() bool {
+	if t == nil || t.Reset == nil {
+		return false
+	}
+	return *t.Reset
 }
 
 // GetRetentionPeriodDays returns the RetentionPeriodDays field if it's non-nil, zero value otherwise.
@@ -3815,6 +4023,14 @@ func (u *UserLockPolicy) GetLoginAttempts() int {
 	return *u.LoginAttempts
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (u *UserLockPolicy) GetReset() bool {
+	if u == nil || u.Reset == nil {
+		return false
+	}
+	return *u.Reset
+}
+
 // GetAddons returns the Addons field if it's non-nil, zero value otherwise.
 func (v *Versions) GetAddons() []string {
 	if v == nil || v.Addons == nil {
@@ -3845,6 +4061,14 @@ func (v *VirtualCacheCleanupConfig) GetCronExp() string {
 		return ""
 	}
 	return *v.CronExp
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (v *VirtualCacheCleanupConfig) GetReset() bool {
+	if v == nil || v.Reset == nil {
+		return false
+	}
+	return *v.Reset
 }
 
 // GetArtifactoryRequestsCanRetrieveRemoteArtifacts returns the ArtifactoryRequestsCanRetrieveRemoteArtifacts field if it's non-nil, zero value otherwise.
