@@ -41,7 +41,13 @@ func getSystemVersion(c *gin.Context) {
 }
 
 func updateSystemConfig(c *gin.Context) {
-	c.String(200, fmt.Sprint("17 changes to config merged successfully"))
+	req, _ := ioutil.ReadAll(c.Request.Body)
+
+	if loadFixture("fixtures/system/patch.yaml") == string(req) {
+		c.String(200, fmt.Sprint("11 changes to config merged successfully"))
+	} else {
+		c.JSON(400, loadFixture("fixtures/system/invalid.json"))
+	}
 }
 
 func loadFixture(file string) string {

@@ -78,27 +78,14 @@ type GlobalConfigCommon struct {
 // Notes:
 // 1) Fields whose types implement the MarshalYAML() method have an additional Reset
 //    (bool) field which when set to true will YAML encode their value to null,
-//    thus resetting their configuration to Artifactory's default values.
-// 3) Repository and repository replication configuration is omitted as the
+//    thus resetting their values to Artifactory's defaults.
+// 2) Repository and repository replication configuration is omitted as the
 //    Repositories service methods should be used instead.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
 type GlobalConfigRequest struct {
-	GlobalConfigCommon `yaml:",inline"`
-	Security           *struct {
-		AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
-		UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
-		PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
-		LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
-		LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
-		HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
-		CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
-		SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
-		OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
-		AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
-		BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
-		BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
-	} `yaml:"security,omitempty"`
+	GlobalConfigCommon  `yaml:",inline"`
+	Security            *SecurityRequest                `yaml:"security,omitempty"`
 	Backups             *map[string]*Backup             `yaml:"backups,omitempty"`
 	Proxies             *map[string]*Proxy              `yaml:"proxies,omitempty"`
 	ReverseProxies      *map[string]*ReverseProxy       `yaml:"reverseProxies,omitempty"`
@@ -116,22 +103,8 @@ func (g GlobalConfigRequest) String() string {
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
 type GlobalConfigResponse struct {
 	*GlobalConfigCommon
-	Revision *int `xml:"revision,omitempty"`
-	Security *struct {
-		AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
-		HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
-		UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
-		PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
-		LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
-		LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
-		HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
-		CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
-		SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
-		OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
-		AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
-		BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
-		BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
-	} `xml:"security,omitempty"`
+	Revision            *int                   `xml:"revision,omitempty"`
+	Security            *SecurityResponse      `xml:"security,omitempty"`
 	Backups             *[]Backup              `xml:"backups>backup,omitempty"`
 	LocalRepositories   *[]LocalRepository     `xml:"localRepositories>localRepository,omitempty"`
 	RemoteRepositories  *[]RemoteRepository    `xml:"remoteRepositories>remoteRepository,omitempty"`
@@ -235,6 +208,21 @@ type ReverseProxy struct {
 	ArtifactoryPort          *int    `yaml:"artifactoryPort,omitempty" xml:"artifactoryPort,omitempty"`
 }
 
+// PropertySetRequest represents a Property Set in a PATCH request to update Artifactory General Configuration.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
+type PropertySetRequest struct {
+	Properties *[]struct {
+		Name             *string `yaml:"name,omitempty"`
+		PredefinedValues *map[string]struct {
+			DefaultValue *bool `yaml:"defaultValue,omitempty"`
+		} `yaml:"predefinedValues,omitempty"`
+		ClosedPredefinedValues *bool `yaml:"closedPredefinedValues,omitempty"`
+		MultipleChoice         *bool `yaml:"multipleChoice,omitempty"`
+	} `yaml:"properties,omitempty"`
+	Visible *bool `yaml:"visible,omitempty"`
+}
+
 // PropertySetResponse represents a Property Set in a response to a GET request for Artifactory General Configuration.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
@@ -252,19 +240,41 @@ type PropertySetResponse struct {
 	Visible *bool `xml:"visible,omitempty"`
 }
 
-// PropertySetRequest represents a Property Set in a PATCH request to update Artifactory General Configuration.
+// SecurityRequest represents Security settings in a PATCH request to update Artifactory Security Configuration.
 //
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
-type PropertySetRequest struct {
-	Properties *[]struct {
-		Name             *string `yaml:"name,omitempty"`
-		PredefinedValues *map[string]struct {
-			DefaultValue *bool `yaml:"defaultValue,omitempty"`
-		} `yaml:"predefinedValues,omitempty"`
-		ClosedPredefinedValues *bool `yaml:"closedPredefinedValues,omitempty"`
-		MultipleChoice         *bool `yaml:"multipleChoice,omitempty"`
-	} `yaml:"properties,omitempty"`
-	Visible *bool `yaml:"visible,omitempty"`
+// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
+type SecurityRequest struct {
+	AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
+	UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
+	PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
+	LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
+	LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
+	HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
+	CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
+	SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
+	OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
+	AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
+	BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
+	BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
+}
+
+// SecurityResponse represents Security settings in a response to a GET request for Artifactory Security Configuration.
+//
+// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
+type SecurityResponse struct {
+	AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
+	HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
+	UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
+	PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
+	LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
+	LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
+	HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
+	CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
+	SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
+	OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
+	AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
+	BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
+	BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
 }
 
 // PasswordSettings represents the Password settings in Artifactory Security Configuration.
@@ -883,11 +893,7 @@ func (s *SystemService) UpdateConfiguration(config GlobalConfigRequest) (*string
 	// Set Content-Type header for YAML
 	req.Header.Add("Content-Type", "application/yaml")
 
-	v := new(string)
+	v := new(bytes.Buffer)
 	resp, err := s.client.Do(req, v)
-	if err != nil {
-		return v, resp, err
-	}
-
-	return v, resp, err
+	return String(v.String()), resp, err
 }

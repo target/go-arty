@@ -181,21 +181,7 @@ func Test_System(t *testing.T) {
 						},
 					},
 					Revision: Int(1311),
-					Security: &struct {
-						AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
-						HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
-						UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
-						PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
-						LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
-						LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
-						HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
-						CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
-						SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
-						OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
-						AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
-						BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
-						BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
-					}{
+					Security: &SecurityResponse{
 						AnonAccessEnabled:         Bool(false),
 						HideUnauthorizedResources: Bool(false),
 						UserLockPolicy: &UserLockPolicy{
@@ -586,34 +572,13 @@ func Test_System(t *testing.T) {
 					GlobalConfigCommon: GlobalConfigCommon{
 						ServerName: String("server1"),
 					},
-					Security: &struct {
-						AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
-						UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
-						PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
-						LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
-						LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
-						HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
-						CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
-						SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
-						OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
-						AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
-						BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
-						BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
-					}{
-						HttpSsoSettings: &HttpSsoSettings{Reset: Bool(true)},
+					Security: &SecurityRequest{
+						HttpSsoSettings: &HttpSsoSettings{
+							Reset: Bool(true),
+						},
 					},
 					Backups: &map[string]*Backup{
-						"backup-daily": {
-							Key:                    String("backup-daily"),
-							Enabled:                Bool(true),
-							CronExp:                String("0 0 2 ? * MON-FRI"),
-							RetentionPeriodHours:   Int(0),
-							CreateArchive:          Bool(false),
-							ExcludedRepositories:   &[]string{"example-repo-local"},
-							SendMailOnError:        Bool(true),
-							ExcludeNewRepositories: Bool(false),
-							Precalculate:           Bool(false),
-						},
+						"backup-daily": nil,
 						"backup-weekly": {
 							Key:                    String("backup-weekly"),
 							Enabled:                Bool(false),
@@ -632,8 +597,10 @@ func Test_System(t *testing.T) {
 					RepoLayouts:         nil,
 					BintrayApplications: nil,
 				}
+
 				actual, resp, err := c.System.UpdateConfiguration(config)
 				g.Assert(actual != nil).IsTrue()
+				g.Assert(*actual == "11 changes to config merged successfully").IsTrue()
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 			})

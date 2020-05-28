@@ -1423,6 +1423,14 @@ func (g *GlobalConfigCommon) GetXrayConfig() *XrayConfig {
 	return g.XrayConfig
 }
 
+// GetSecurity returns the Security field.
+func (g *GlobalConfigRequest) GetSecurity() *SecurityRequest {
+	if g == nil {
+		return nil
+	}
+	return g.Security
+}
+
 // GetBackups returns the Backups field if it's non-nil, zero value otherwise.
 func (g *GlobalConfigResponse) GetBackups() []Backup {
 	if g == nil || g.Backups == nil {
@@ -1509,6 +1517,14 @@ func (g *GlobalConfigResponse) GetRevision() int {
 		return 0
 	}
 	return *g.Revision
+}
+
+// GetSecurity returns the Security field.
+func (g *GlobalConfigResponse) GetSecurity() *SecurityResponse {
+	if g == nil {
+		return nil
+	}
+	return g.Security
 }
 
 // GetVirtualRepositories returns the VirtualRepositories field if it's non-nil, zero value otherwise.
@@ -3565,6 +3581,190 @@ func (s *SamlSettings) GetSyncGroups() bool {
 		return false
 	}
 	return *s.SyncGroups
+}
+
+// GetAccessClientSettings returns the AccessClientSettings field.
+func (s *SecurityRequest) GetAccessClientSettings() *AccessClientSettings {
+	if s == nil {
+		return nil
+	}
+	return s.AccessClientSettings
+}
+
+// GetAnonAccessEnabled returns the AnonAccessEnabled field if it's non-nil, zero value otherwise.
+func (s *SecurityRequest) GetAnonAccessEnabled() bool {
+	if s == nil || s.AnonAccessEnabled == nil {
+		return false
+	}
+	return *s.AnonAccessEnabled
+}
+
+// GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field.
+func (s *SecurityRequest) GetBuildGlobalBasicReadAllowed() *BuildGlobalBasicReadAllowed {
+	if s == nil {
+		return nil
+	}
+	return s.BuildGlobalBasicReadAllowed
+}
+
+// GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field.
+func (s *SecurityRequest) GetBuildGlobalBasicReadForAnonymous() *BuildGlobalBasicReadForAnonymous {
+	if s == nil {
+		return nil
+	}
+	return s.BuildGlobalBasicReadForAnonymous
+}
+
+// GetCrowdSettings returns the CrowdSettings field.
+func (s *SecurityRequest) GetCrowdSettings() *CrowdSettings {
+	if s == nil {
+		return nil
+	}
+	return s.CrowdSettings
+}
+
+// GetHttpSsoSettings returns the HttpSsoSettings field.
+func (s *SecurityRequest) GetHttpSsoSettings() *HttpSsoSettings {
+	if s == nil {
+		return nil
+	}
+	return s.HttpSsoSettings
+}
+
+// GetOauthSettings returns the OauthSettings field.
+func (s *SecurityRequest) GetOauthSettings() *OauthSettingsRequest {
+	if s == nil {
+		return nil
+	}
+	return s.OauthSettings
+}
+
+// GetPasswordSettings returns the PasswordSettings field.
+func (s *SecurityRequest) GetPasswordSettings() *PasswordSettings {
+	if s == nil {
+		return nil
+	}
+	return s.PasswordSettings
+}
+
+// GetSamlSettings returns the SamlSettings field.
+func (s *SecurityRequest) GetSamlSettings() *SamlSettings {
+	if s == nil {
+		return nil
+	}
+	return s.SamlSettings
+}
+
+// GetUserLockPolicy returns the UserLockPolicy field.
+func (s *SecurityRequest) GetUserLockPolicy() *UserLockPolicy {
+	if s == nil {
+		return nil
+	}
+	return s.UserLockPolicy
+}
+
+// GetAccessClientSettings returns the AccessClientSettings field.
+func (s *SecurityResponse) GetAccessClientSettings() *AccessClientSettings {
+	if s == nil {
+		return nil
+	}
+	return s.AccessClientSettings
+}
+
+// GetAnonAccessEnabled returns the AnonAccessEnabled field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetAnonAccessEnabled() bool {
+	if s == nil || s.AnonAccessEnabled == nil {
+		return false
+	}
+	return *s.AnonAccessEnabled
+}
+
+// GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetBuildGlobalBasicReadAllowed() bool {
+	if s == nil || s.BuildGlobalBasicReadAllowed == nil {
+		return false
+	}
+	return *s.BuildGlobalBasicReadAllowed
+}
+
+// GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetBuildGlobalBasicReadForAnonymous() bool {
+	if s == nil || s.BuildGlobalBasicReadForAnonymous == nil {
+		return false
+	}
+	return *s.BuildGlobalBasicReadForAnonymous
+}
+
+// GetCrowdSettings returns the CrowdSettings field.
+func (s *SecurityResponse) GetCrowdSettings() *CrowdSettings {
+	if s == nil {
+		return nil
+	}
+	return s.CrowdSettings
+}
+
+// GetHideUnauthorizedResources returns the HideUnauthorizedResources field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetHideUnauthorizedResources() bool {
+	if s == nil || s.HideUnauthorizedResources == nil {
+		return false
+	}
+	return *s.HideUnauthorizedResources
+}
+
+// GetHttpSsoSettings returns the HttpSsoSettings field.
+func (s *SecurityResponse) GetHttpSsoSettings() *HttpSsoSettings {
+	if s == nil {
+		return nil
+	}
+	return s.HttpSsoSettings
+}
+
+// GetLdapGroupSettings returns the LdapGroupSettings field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetLdapGroupSettings() []LdapGroupSetting {
+	if s == nil || s.LdapGroupSettings == nil {
+		return nil
+	}
+	return *s.LdapGroupSettings
+}
+
+// GetLdapSettings returns the LdapSettings field if it's non-nil, zero value otherwise.
+func (s *SecurityResponse) GetLdapSettings() []LdapSetting {
+	if s == nil || s.LdapSettings == nil {
+		return nil
+	}
+	return *s.LdapSettings
+}
+
+// GetOauthSettings returns the OauthSettings field.
+func (s *SecurityResponse) GetOauthSettings() *OauthSettingsResponse {
+	if s == nil {
+		return nil
+	}
+	return s.OauthSettings
+}
+
+// GetPasswordSettings returns the PasswordSettings field.
+func (s *SecurityResponse) GetPasswordSettings() *PasswordSettings {
+	if s == nil {
+		return nil
+	}
+	return s.PasswordSettings
+}
+
+// GetSamlSettings returns the SamlSettings field.
+func (s *SecurityResponse) GetSamlSettings() *SamlSettings {
+	if s == nil {
+		return nil
+	}
+	return s.SamlSettings
+}
+
+// GetUserLockPolicy returns the UserLockPolicy field.
+func (s *SecurityResponse) GetUserLockPolicy() *UserLockPolicy {
+	if s == nil {
+		return nil
+	}
+	return s.UserLockPolicy
 }
 
 // GetAdmin returns the Admin field if it's non-nil, zero value otherwise.
