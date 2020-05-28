@@ -88,8 +88,8 @@ type GlobalConfigRequest struct {
 		AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
 		UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
 		PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
-		LdapSettings                     *map[string]LdapSetting           `yaml:"ldapSettings,omitempty"`
-		LdapGroupSettings                *map[string]LdapGroupSetting      `yaml:"ldapGroupSettings,omitempty"`
+		LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
+		LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
 		HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
 		CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
 		SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
@@ -98,12 +98,12 @@ type GlobalConfigRequest struct {
 		BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
 		BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
 	} `yaml:"security,omitempty"`
-	Backups             *map[string]Backup             `yaml:"backups,omitempty"`
-	Proxies             *map[string]Proxy              `yaml:"proxies,omitempty"`
-	ReverseProxies      *map[string]ReverseProxy       `yaml:"reverseProxies,omitempty"`
-	PropertySets        *map[string]PropertySetRequest `yaml:"propertySets,omitempty"`
-	RepoLayouts         *map[string]RepoLayout         `yaml:"repoLayouts,omitempty"`
-	BintrayApplications *map[string]BintrayApplication `yaml:"bintrayApplications,omitempty"`
+	Backups             *map[string]*Backup             `yaml:"backups,omitempty"`
+	Proxies             *map[string]*Proxy              `yaml:"proxies,omitempty"`
+	ReverseProxies      *map[string]*ReverseProxy       `yaml:"reverseProxies,omitempty"`
+	PropertySets        *map[string]*PropertySetRequest `yaml:"propertySets,omitempty"`
+	RepoLayouts         *map[string]*RepoLayout         `yaml:"repoLayouts,omitempty"`
+	BintrayApplications *map[string]*BintrayApplication `yaml:"bintrayApplications,omitempty"`
 }
 
 func (g GlobalConfigRequest) String() string {

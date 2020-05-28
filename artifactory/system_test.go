@@ -587,7 +587,7 @@ func Test_System(t *testing.T) {
 						ServerName: String("server1"),
 					},
 					Security: nil,
-					Backups: &map[string]Backup{
+					Backups: &map[string]*Backup{
 						"backup-daily": {
 							Key:                    String("backup-daily"),
 							Enabled:                Bool(true),

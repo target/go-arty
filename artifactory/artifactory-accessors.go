@@ -1344,54 +1344,6 @@ func (g *GlobalConfigCommon) GetXrayConfig() *XrayConfig {
 }
 
 // GetBackups returns the Backups field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetBackups() map[string]Backup {
-	if g == nil || g.Backups == nil {
-		return map[string]Backup{}
-	}
-	return *g.Backups
-}
-
-// GetBintrayApplications returns the BintrayApplications field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetBintrayApplications() map[string]BintrayApplication {
-	if g == nil || g.BintrayApplications == nil {
-		return map[string]BintrayApplication{}
-	}
-	return *g.BintrayApplications
-}
-
-// GetPropertySets returns the PropertySets field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetPropertySets() map[string]PropertySetRequest {
-	if g == nil || g.PropertySets == nil {
-		return map[string]PropertySetRequest{}
-	}
-	return *g.PropertySets
-}
-
-// GetProxies returns the Proxies field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetProxies() map[string]Proxy {
-	if g == nil || g.Proxies == nil {
-		return map[string]Proxy{}
-	}
-	return *g.Proxies
-}
-
-// GetRepoLayouts returns the RepoLayouts field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetRepoLayouts() map[string]RepoLayout {
-	if g == nil || g.RepoLayouts == nil {
-		return map[string]RepoLayout{}
-	}
-	return *g.RepoLayouts
-}
-
-// GetReverseProxies returns the ReverseProxies field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigRequest) GetReverseProxies() map[string]ReverseProxy {
-	if g == nil || g.ReverseProxies == nil {
-		return map[string]ReverseProxy{}
-	}
-	return *g.ReverseProxies
-}
-
-// GetBackups returns the Backups field if it's non-nil, zero value otherwise.
 func (g *GlobalConfigResponse) GetBackups() []Backup {
 	if g == nil || g.Backups == nil {
 		return nil
