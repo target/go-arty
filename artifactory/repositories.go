@@ -84,7 +84,7 @@ type LocalRepository struct {
 	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty" xml:"enableFileListsIndexing,omitempty"`
 	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty" xml:"optionalIndexCompressionFormats>debianFormat,omitempty"`
 	XrayIndex                       *bool     `json:"xrayIndex,omitempty" xml:"xray>enabled,omitempty"`
-	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"downloadRedirect,omitempty"`
+	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"downloadRedirect>enabled,omitempty"`
 }
 
 func (l LocalRepository) String() string {
@@ -131,7 +131,7 @@ type RemoteRepository struct {
 	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty" xml:"clientTlsCertificate,omitempty"`
 	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty" xml:"externalDependencies>enabled,omitempty"`
 	ExternalDependenciesPatterns      *[]string               `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
-	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty" xml:"downloadRedirect,omitempty"`
+	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty" xml:"downloadRedirect>enabled,omitempty"`
 	FeedContextPath                   *string                 `json:"feedContextPath,omitempty" xml:"nuget>feedContextPath,omitempty"`
 	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty" xml:"nuget>downloadContextPath,omitempty"`
 	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty" xml:"nuget>v3FeedUrl,omitempty"`
