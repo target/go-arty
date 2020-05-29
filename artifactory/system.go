@@ -144,6 +144,15 @@ type MailServer struct {
 	SubjectPrefix  *string `yaml:"subjectPrefix,omitempty" xml:"subjectPrefix,omitempty"`
 	Ssl            *bool   `yaml:"ssl,omitempty" xml:"ssl,omitempty"`
 	Tls            *bool   `yaml:"tls,omitempty" xml:"tls,omitempty"`
+	Reset          *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (m MailServer) MarshalYAML() (interface{}, error) {
+	if m.Reset != nil && *m.Reset {
+		return nil, nil
+	}
+	return m, nil
 }
 
 // XrayConfig represents Xray related settings in Artifactory's Configuration
@@ -353,6 +362,15 @@ func (u UserLockPolicy) MarshalYAML() (interface{}, error) {
 type SigningKeysSettings struct {
 	Passphrase       *string `yaml:"passphrase,omitempty" xml:"passphrase,omitempty"`
 	KeyStorePassword *string `yaml:"keyStorePassword,omitempty" xml:"keyStorePassword,omitempty"`
+	Reset            *bool   `yaml:"-" xml:"-"`
+}
+
+// MarshalYAML implements the Marshaller interface.
+func (s SigningKeysSettings) MarshalYAML() (interface{}, error) {
+	if s.Reset != nil && *s.Reset {
+		return nil, nil
+	}
+	return s, nil
 }
 
 // LdapSetting represents the LDAP settings in Artifactory Security Configuration.

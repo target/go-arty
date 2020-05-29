@@ -2167,6 +2167,14 @@ func (m *MailServer) GetPort() int {
 	return *m.Port
 }
 
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (m *MailServer) GetReset() bool {
+	if m == nil || m.Reset == nil {
+		return false
+	}
+	return *m.Reset
+}
+
 // GetSsl returns the Ssl field if it's non-nil, zero value otherwise.
 func (m *MailServer) GetSsl() bool {
 	if m == nil || m.Ssl == nil {
@@ -3877,6 +3885,14 @@ func (s *SigningKeysSettings) GetPassphrase() string {
 		return ""
 	}
 	return *s.Passphrase
+}
+
+// GetReset returns the Reset field if it's non-nil, zero value otherwise.
+func (s *SigningKeysSettings) GetReset() bool {
+	if s == nil || s.Reset == nil {
+		return false
+	}
+	return *s.Reset
 }
 
 // GetBinariesSummary returns the BinariesSummary field.
