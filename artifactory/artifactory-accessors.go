@@ -367,38 +367,6 @@ func (b *BuildArtifacts) GetSha256() string {
 	return *b.Sha256
 }
 
-// GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
-func (b *BuildGlobalBasicReadAllowed) GetEnabled() bool {
-	if b == nil || b.Enabled == nil {
-		return false
-	}
-	return *b.Enabled
-}
-
-// GetReset returns the Reset field if it's non-nil, zero value otherwise.
-func (b *BuildGlobalBasicReadAllowed) GetReset() bool {
-	if b == nil || b.Reset == nil {
-		return false
-	}
-	return *b.Reset
-}
-
-// GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.
-func (b *BuildGlobalBasicReadForAnonymous) GetEnabled() bool {
-	if b == nil || b.Enabled == nil {
-		return false
-	}
-	return *b.Enabled
-}
-
-// GetReset returns the Reset field if it's non-nil, zero value otherwise.
-func (b *BuildGlobalBasicReadForAnonymous) GetReset() bool {
-	if b == nil || b.Reset == nil {
-		return false
-	}
-	return *b.Reset
-}
-
 // GetAgent returns the Agent field.
 func (b *BuildInfo) GetAgent() *Agent {
 	if b == nil {
@@ -1261,6 +1229,14 @@ func (g *GlobalConfigCommon) GetDateFormat() string {
 		return ""
 	}
 	return *g.DateFormat
+}
+
+// GetDownloadRedirectConfig returns the DownloadRedirectConfig field.
+func (g *GlobalConfigCommon) GetDownloadRedirectConfig() *DownloadRedirectConfig {
+	if g == nil {
+		return nil
+	}
+	return g.DownloadRedirectConfig
 }
 
 // GetFileUploadMaxSizeMb returns the FileUploadMaxSizeMb field if it's non-nil, zero value otherwise.
@@ -3607,20 +3583,20 @@ func (s *SecurityRequest) GetAnonAccessEnabled() bool {
 	return *s.AnonAccessEnabled
 }
 
-// GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field.
-func (s *SecurityRequest) GetBuildGlobalBasicReadAllowed() *BuildGlobalBasicReadAllowed {
-	if s == nil {
-		return nil
+// GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field if it's non-nil, zero value otherwise.
+func (s *SecurityRequest) GetBuildGlobalBasicReadAllowed() bool {
+	if s == nil || s.BuildGlobalBasicReadAllowed == nil {
+		return false
 	}
-	return s.BuildGlobalBasicReadAllowed
+	return *s.BuildGlobalBasicReadAllowed
 }
 
-// GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field.
-func (s *SecurityRequest) GetBuildGlobalBasicReadForAnonymous() *BuildGlobalBasicReadForAnonymous {
-	if s == nil {
-		return nil
+// GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field if it's non-nil, zero value otherwise.
+func (s *SecurityRequest) GetBuildGlobalBasicReadForAnonymous() bool {
+	if s == nil || s.BuildGlobalBasicReadForAnonymous == nil {
+		return false
 	}
-	return s.BuildGlobalBasicReadForAnonymous
+	return *s.BuildGlobalBasicReadForAnonymous
 }
 
 // GetCrowdSettings returns the CrowdSettings field.
@@ -3629,6 +3605,14 @@ func (s *SecurityRequest) GetCrowdSettings() *CrowdSettings {
 		return nil
 	}
 	return s.CrowdSettings
+}
+
+// GetHideUnauthorizedResources returns the HideUnauthorizedResources field if it's non-nil, zero value otherwise.
+func (s *SecurityRequest) GetHideUnauthorizedResources() bool {
+	if s == nil || s.HideUnauthorizedResources == nil {
+		return false
+	}
+	return *s.HideUnauthorizedResources
 }
 
 // GetHttpSsoSettings returns the HttpSsoSettings field.
@@ -4021,6 +4005,14 @@ func (t *Tags) GetTags() []string {
 		return nil
 	}
 	return *t.Tags
+}
+
+// GetAllowPermDeletes returns the AllowPermDeletes field if it's non-nil, zero value otherwise.
+func (t *TrashcanConfig) GetAllowPermDeletes() bool {
+	if t == nil || t.AllowPermDeletes == nil {
+		return false
+	}
+	return *t.AllowPermDeletes
 }
 
 // GetEnabled returns the Enabled field if it's non-nil, zero value otherwise.

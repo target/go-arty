@@ -162,6 +162,7 @@ func Test_System(t *testing.T) {
 						TrashcanConfig: &TrashcanConfig{
 							Enabled:             Bool(true),
 							RetentionPeriodDays: Int(14),
+							AllowPermDeletes:    Bool(false),
 						},
 						ReplicationsConfig: &ReplicationsConfig{
 							BlockPullReplications: Bool(false),
@@ -178,6 +179,9 @@ func Test_System(t *testing.T) {
 						},
 						SignedUrlConfig: &SignedUrlConfig{
 							MaxValidForSeconds: Int(31536000),
+						},
+						DownloadRedirectConfig: &DownloadRedirectConfig{
+							FileMinimumSize: Int(1),
 						},
 					},
 					Revision: Int(1311),

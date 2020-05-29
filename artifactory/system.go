@@ -71,6 +71,7 @@ type GlobalConfigCommon struct {
 	SumoLogicConfig           *SumoLogicConfig           `yaml:"sumoLogicConfig,omitempty" xml:"sumoLogicConfig,omitempty"`
 	ReleaseBundlesConfig      *ReleaseBundlesConfig      `yaml:"releaseBundlesConfig,omitempty" xml:"releaseBundlesConfig,omitempty"`
 	SignedUrlConfig           *SignedUrlConfig           `yaml:"signedUrlConfig,omitempty" xml:"signedUrlConfig,omitempty"`
+	DownloadRedirectConfig    *DownloadRedirectConfig    `yaml:"downloadRedirectConfig,omitempty" xml:"downloadRedirectConfig,omitempty"`
 }
 
 // GlobalConfigRequest represents elements of the Global Configuration Descriptor
@@ -190,7 +191,7 @@ type Proxy struct {
 	NtHost          *string `yaml:"ntHost,omitempty" xml:"ntHost,omitempty"`
 	Password        *string `yaml:"password,omitempty" xml:"password,omitempty"`
 	Port            *int    `yaml:"port,omitempty" xml:"port,omitempty"`
-	RedirectToHosts *string `yaml:"redirectToHosts,omitempty" xml:"redirectedToHosts,omitempty"`
+	RedirectToHosts *string `yaml:"redirectedToHosts,omitempty" xml:"redirectedToHosts,omitempty"`
 	Username        *string `yaml:"username,omitempty" xml:"username,omitempty"`
 	DefaultProxy    *bool   `yaml:"defaultProxy,omitempty" xml:"defaultProxy,omitempty"`
 }
@@ -253,18 +254,19 @@ type PropertySetResponse struct {
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
 type SecurityRequest struct {
-	AnonAccessEnabled                *bool                             `yaml:"anonAccessEnabled,omitempty"`
-	UserLockPolicy                   *UserLockPolicy                   `yaml:"userLockPolicy,omitempty"`
-	PasswordSettings                 *PasswordSettings                 `yaml:"passwordSettings,omitempty"`
-	LdapSettings                     *map[string]*LdapSetting          `yaml:"ldapSettings,omitempty"`
-	LdapGroupSettings                *map[string]*LdapGroupSetting     `yaml:"ldapGroupSettings,omitempty"`
-	HttpSsoSettings                  *HttpSsoSettings                  `yaml:"httpSsoSettings,omitempty"`
-	CrowdSettings                    *CrowdSettings                    `yaml:"crowdSettings,omitempty"`
-	SamlSettings                     *SamlSettings                     `yaml:"samlSettings,omitempty"`
-	OauthSettings                    *OauthSettingsRequest             `yaml:"oauthSettings,omitempty"`
-	AccessClientSettings             *AccessClientSettings             `yaml:"accessClientSettings,omitempty"`
-	BuildGlobalBasicReadAllowed      *BuildGlobalBasicReadAllowed      `yaml:"buildGlobalBasicReadAllowed,omitempty"`
-	BuildGlobalBasicReadForAnonymous *BuildGlobalBasicReadForAnonymous `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
+	AnonAccessEnabled                *bool                         `yaml:"anonAccessEnabled,omitempty"`
+	HideUnauthorizedResources        *bool                         `yaml:"hideUnauthorizedResources,omitempty"`
+	UserLockPolicy                   *UserLockPolicy               `yaml:"userLockPolicy,omitempty"`
+	PasswordSettings                 *PasswordSettings             `yaml:"passwordSettings,omitempty"`
+	LdapSettings                     *map[string]*LdapSetting      `yaml:"ldapSettings,omitempty"`
+	LdapGroupSettings                *map[string]*LdapGroupSetting `yaml:"ldapGroupSettings,omitempty"`
+	HttpSsoSettings                  *HttpSsoSettings              `yaml:"httpSsoSettings,omitempty"`
+	CrowdSettings                    *CrowdSettings                `yaml:"crowdSettings,omitempty"`
+	SamlSettings                     *SamlSettings                 `yaml:"samlSettings,omitempty"`
+	OauthSettings                    *OauthSettingsRequest         `yaml:"oauthSettings,omitempty"`
+	AccessClientSettings             *AccessClientSettings         `yaml:"accessClientSettings,omitempty"`
+	BuildGlobalBasicReadAllowed      *bool                         `yaml:"buildGlobalBasicReadAllowed,omitempty"`
+	BuildGlobalBasicReadForAnonymous *bool                         `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
 }
 
 // SecurityResponse represents Security settings in a response to a GET request for Artifactory Security Configuration.
@@ -406,7 +408,7 @@ type LdapGroupSetting struct {
 	GroupMemberAttribute *string `yaml:"groupMemberAttribute,omitempty" xml:"groupMemberAttribute,omitempty"`
 	GroupNameAttribute   *string `yaml:"groupNameAttribute,omitempty" xml:"groupNameAttribute,omitempty"`
 	Strategy             *string `yaml:"strategy,omitempty" xml:"strategy,omitempty"`
-	SubTree              *bool   `yaml:"subtree,omitempty" xml:"subTree,omitempty"`
+	SubTree              *bool   `yaml:"subTree,omitempty" xml:"subTree,omitempty"`
 }
 
 // AccessClientSettings represents the Access Client settings in Artifactory
@@ -418,38 +420,6 @@ type AccessClientSettings struct {
 	UserTokenMaxExpiresInMinutes        *int    `yaml:"userTokenMaxExpiresInMinutes,omitempty" xml:"userTokenMaxExpiresInMinutes,omitempty"`
 	TokenVerifyResultCacheSize          *int    `yaml:"tokenVerifyResultCacheSize,omitempty" xml:"tokenVerifyResultCacheSize,omitempty"`
 	TokenVerifyResultCacheExpirySeconds *int    `yaml:"tokenVerifyResultCacheExpirySeconds,omitempty" xml:"tokenVerifyResultCacheExpirySeconds,omitempty"`
-}
-
-// BuildGlobalBasicReadAllowed represents the Build Global Basic Read Information permission
-// settings in Artifactory Security Configuration. This is undocumented in YAML Configuration File.
-//
-type BuildGlobalBasicReadAllowed struct {
-	Enabled *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
-	Reset   *bool `yaml:"-" xml:"-"`
-}
-
-// MarshalYAML implements the Marshaller interface.
-func (b BuildGlobalBasicReadAllowed) MarshalYAML() (interface{}, error) {
-	if b.Reset != nil && *b.Reset {
-		return nil, nil
-	}
-	return b, nil
-}
-
-// BuildGlobalBasicReadForAnonymous represents the Build Global Anonymous Read Information permission
-// settings in Artifactory Security Configuration. This is undocumented in YAML Configuration File.
-//
-type BuildGlobalBasicReadForAnonymous struct {
-	Enabled *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
-	Reset   *bool `yaml:"-" xml:"-"`
-}
-
-// MarshalYAML implements the Marshaller interface.
-func (b BuildGlobalBasicReadForAnonymous) MarshalYAML() (interface{}, error) {
-	if b.Reset != nil && *b.Reset {
-		return nil, nil
-	}
-	return b, nil
 }
 
 // CrowdSettings represents the Crowd settings in Artifactory Security Configuration.
@@ -724,6 +694,7 @@ func (f FolderDownloadConfig) MarshalYAML() (interface{}, error) {
 type TrashcanConfig struct {
 	Enabled             *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	RetentionPeriodDays *int  `yaml:"retentionPeriodDays,omitempty" xml:"retentionPeriodDays,omitempty"`
+	AllowPermDeletes    *bool `yaml:"allowPermDeletes,omitempty" xml:"allowPermDeletes,omitempty"`
 	Reset               *bool `yaml:"-" xml:"-"`
 }
 
