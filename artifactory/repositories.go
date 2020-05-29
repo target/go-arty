@@ -84,7 +84,7 @@ type LocalRepository struct {
 	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty" xml:"enableFileListsIndexing,omitempty"`
 	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty" xml:"optionalIndexCompressionFormats>debianFormat,omitempty"`
 	XrayIndex                       *bool     `json:"xrayIndex,omitempty" xml:"xray>enabled,omitempty"`
-	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"-"`
+	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"downloadRedirect,omitempty"`
 }
 
 func (l LocalRepository) String() string {
@@ -108,9 +108,9 @@ type RemoteRepository struct {
 	SocketTimeoutMillis               *int                    `json:"socketTimeoutMillis,omitempty" xml:"socketTimeoutMillis,omitempty"`
 	LocalAddress                      *string                 `json:"localAddress,omitempty" xml:"localAddress,omitempty"`
 	RetrievalCachePeriodSecs          *int                    `json:"retrievalCachePeriodSecs,omitempty" xml:"retrievalCachePeriodSecs,omitempty"`
-	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty" xml:"-"`
+	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty" xml:"failedRetrievalCachePeriodSecs,omitempty"`
 	MissedRetrievalCachePeriodSecs    *int                    `json:"missedRetrievalCachePeriodSecs,omitempty" xml:"missedRetrievalCachePeriodSecs,omitempty"`
-	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty" xml:"-"`
+	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty" xml:"unusedArtifactsCleanupEnabled,omitempty"`
 	UnusedArtifactsCleanupPeriodHours *int                    `json:"unusedArtifactsCleanupPeriodHours,omitempty" xml:"unusedArtifactsCleanupPeriodHours,omitempty"`
 	AssumedOfflinePeriodSecs          *int                    `json:"assumedOfflinePeriodSecs,omitempty" xml:"assumedOfflinePeriodSecs,omitempty"`
 	FetchJarsEagerly                  *bool                   `json:"fetchJarsEagerly,omitempty" xml:"fetchJarsEagerly,omitempty"`
@@ -131,7 +131,7 @@ type RemoteRepository struct {
 	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty" xml:"clientTlsCertificate,omitempty"`
 	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty" xml:"externalDependencies>enabled,omitempty"`
 	ExternalDependenciesPatterns      *[]string               `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
-	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty" xml:"-"`
+	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty" xml:"downloadRedirect,omitempty"`
 	FeedContextPath                   *string                 `json:"feedContextPath,omitempty" xml:"nuget>feedContextPath,omitempty"`
 	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty" xml:"nuget>downloadContextPath,omitempty"`
 	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty" xml:"nuget>v3FeedUrl,omitempty"`
