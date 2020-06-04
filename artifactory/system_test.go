@@ -86,106 +86,104 @@ func Test_System(t *testing.T) {
 				g.Assert(resp != nil).IsTrue()
 				g.Assert(err == nil).IsTrue()
 
-				expected := &GlobalConfigResponse{
-					GlobalConfigCommon: &GlobalConfigCommon{
-						ServerName:          String("server1"),
-						OfflineMode:         Bool(false),
-						HelpLinksEnabled:    Bool(true),
-						FileUploadMaxSizeMb: Int(100),
-						DateFormat:          String("dd-MM-yy HH:mm:ss z"),
-						AddonsConfig: &AddonsConfig{
-							ShowAddonsInfo:       Bool(true),
-							ShowAddonsInfoCookie: String("1574704307382"),
-						},
-						MailServer: &MailServer{
-							Enabled:        Bool(true),
-							ArtifactoryUrl: String("http://artifactory.domain.local:80"),
-							From:           String("noreply@artifactory.domain.local"),
-							Host:           String("mailHost"),
-							Username:       String("user1"),
-							Password:       String("password1"),
-							Port:           Int(25),
-							SubjectPrefix:  String("[Artifactory]"),
-							Ssl:            Bool(true),
-							Tls:            Bool(true),
-						},
-						XrayConfig: &XrayConfig{
-							Enabled:                       Bool(false),
-							BaseUrl:                       String("https://xray.domain.local"),
-							User:                          String("ATF_xray"),
-							Password:                      String("abcde-fghi-jklm-nopq-rstu-vwxyz!"),
-							ArtifactoryId:                 String("ATF"),
-							XrayId:                        String("0123456789abcdefghijklmnopqrstuvwxyz"),
-							AllowDownloadsXrayUnavailable: Bool(true),
-							AllowBlockedArtifactsDownload: Bool(true),
-							BypassDefaultProxy:            Bool(true),
-						},
-						BintrayConfig: &BintrayConfig{
-							FileUploadLimit: Int(0),
-						},
-						Indexer: &Indexer{
-							Enabled:              Bool(false),
-							CronExp:              String("0 23 5 * * ?"),
-							IncludedRepositories: nil,
-						},
-						UrlBase: String("http://myhost.com/artifactory"),
-						Logo:    String("http://fileserver/path/to/logo.png"),
-						Footer:  String("custom text to appear in the page footer"),
-						GcConfig: &GcConfig{
-							CronExp: String("0 0 /4 * * ?"),
-						},
-						CleanupConfig: &CleanupConfig{
-							CronExp: String("0 12 5 * * ?"),
-						},
-						VirtualCacheCleanupConfig: &VirtualCacheCleanupConfig{
-							CronExp: String("0 12 0 * * ?"),
-						},
-						QuotaConfig: &QuotaConfig{
-							DiskSpaceLimitPercentage:   Int(95),
-							DiskSpaceWarningPercentage: Int(85),
-							Enabled:                    Bool(true),
-						},
-						SystemMessageConfig: &SystemMessageConfig{
-							Enabled:        Bool(true),
-							Message:        String("Welcome to Artifactory"),
-							Title:          String("Hello"),
-							TitleColor:     String("#429F46"),
-							ShowOnAllPages: Bool(false),
-						},
-						FolderDownloadConfig: &FolderDownloadConfig{
-							Enabled:               Bool(false),
-							MaxConcurrentRequests: Int(10),
-							MaxDownloadSizeMb:     Int(1024),
-							MaxFiles:              Int(5000),
-							EnabledForAnonymous:   Bool(false),
-						},
-						TrashcanConfig: &TrashcanConfig{
-							Enabled:             Bool(true),
-							RetentionPeriodDays: Int(14),
-							AllowPermDeletes:    Bool(false),
-						},
-						ReplicationsConfig: &ReplicationsConfig{
-							BlockPullReplications: Bool(false),
-							BlockPushReplications: Bool(false),
-						},
-						SumoLogicConfig: &SumoLogicConfig{
-							Enabled:  Bool(false),
-							Proxy:    String("proxy1"),
-							ClientId: String("abcdef"),
-							Secret:   String("mysecret"),
-						},
-						ReleaseBundlesConfig: &ReleaseBundlesConfig{
-							IncompleteCleanupPeriodHours: Int(720),
-						},
-						SignedUrlConfig: &SignedUrlConfig{
-							MaxValidForSeconds: Int(31536000),
-						},
-						DownloadRedirectConfig: &DownloadRedirectConfig{
-							FileMinimumSize: Int(1),
-						},
+				expected := &GlobalConfig{
+					ServerName:          String("server1"),
+					OfflineMode:         Bool(false),
+					HelpLinksEnabled:    Bool(true),
+					FileUploadMaxSizeMb: Int(100),
+					Revision:            Int(1311),
+					DateFormat:          String("dd-MM-yy HH:mm:ss z"),
+					AddonsConfig: &AddonsConfig{
+						ShowAddonsInfo:       Bool(true),
+						ShowAddonsInfoCookie: String("1574704307382"),
 					},
-					Revision: Int(1311),
-					Security: &SecurityResponse{
+					MailServer: &MailServer{
+						Enabled:        Bool(true),
+						ArtifactoryUrl: String("http://artifactory.domain.local:80"),
+						From:           String("noreply@artifactory.domain.local"),
+						Host:           String("mailHost"),
+						Username:       String("user1"),
+						Password:       String("password1"),
+						Port:           Int(25),
+						SubjectPrefix:  String("[Artifactory]"),
+						Ssl:            Bool(true),
+						Tls:            Bool(true),
+					},
+					XrayConfig: &XrayConfig{
+						Enabled:                       Bool(false),
+						BaseUrl:                       String("https://xray.domain.local"),
+						User:                          String("ATF_xray"),
+						Password:                      String("abcde-fghi-jklm-nopq-rstu-vwxyz!"),
+						ArtifactoryId:                 String("ATF"),
+						XrayId:                        String("0123456789abcdefghijklmnopqrstuvwxyz"),
+						AllowDownloadsXrayUnavailable: Bool(true),
+						AllowBlockedArtifactsDownload: Bool(true),
+						BypassDefaultProxy:            Bool(true),
+					},
+					BintrayConfig: &BintrayConfig{
+						FileUploadLimit: Int(0),
+					},
+					Indexer: &Indexer{
+						Enabled:              Bool(false),
+						CronExp:              String("0 23 5 * * ?"),
+						IncludedRepositories: &[]string{"maven-virtual"},
+					},
+					UrlBase: String("http://myhost.com/artifactory"),
+					Logo:    String("http://fileserver/path/to/logo.png"),
+					Footer:  String("custom text to appear in the page footer"),
+					GcConfig: &GcConfig{
+						CronExp: String("0 0 /4 * * ?"),
+					},
+					CleanupConfig: &CleanupConfig{
+						CronExp: String("0 12 5 * * ?"),
+					},
+					VirtualCacheCleanupConfig: &VirtualCacheCleanupConfig{
+						CronExp: String("0 12 0 * * ?"),
+					},
+					QuotaConfig: &QuotaConfig{
+						DiskSpaceLimitPercentage:   Int(95),
+						DiskSpaceWarningPercentage: Int(85),
+						Enabled:                    Bool(true),
+					},
+					SystemMessageConfig: &SystemMessageConfig{
+						Enabled:        Bool(true),
+						Message:        String("Welcome to Artifactory"),
+						Title:          String("Hello"),
+						TitleColor:     String("#429F46"),
+						ShowOnAllPages: Bool(false),
+					},
+					FolderDownloadConfig: &FolderDownloadConfig{
+						Enabled:               Bool(false),
+						MaxConcurrentRequests: Int(10),
+						MaxDownloadSizeMb:     Int(1024),
+						MaxFiles:              Int(5000),
+						EnabledForAnonymous:   Bool(false),
+					},
+					TrashcanConfig: &TrashcanConfig{
+						Enabled:             Bool(true),
+						RetentionPeriodDays: Int(14),
+						AllowPermDeletes:    Bool(false),
+					},
+					ReplicationsConfig: &ReplicationsConfig{
+						BlockPullReplications: Bool(false),
+						BlockPushReplications: Bool(false),
+					},
+					SumoLogicConfig: &SumoLogicConfig{
+						Enabled:  Bool(false),
+						Proxy:    String("proxy1"),
+						ClientId: String("abcdef"),
+						Secret:   String("mysecret"),
+					},
+					ReleaseBundlesConfig: &ReleaseBundlesConfig{
+						IncompleteCleanupPeriodHours: Int(720),
+					},
+					SignedUrlConfig: &SignedUrlConfig{
+						MaxValidForSeconds: Int(31536000),
+					},
+					DownloadRedirectConfig: &DownloadRedirectConfig{
+						FileMinimumSize: Int(1),
+					},
+					Security: &Security{
 						AnonAccessEnabled:         Bool(false),
 						HideUnauthorizedResources: Bool(false),
 						UserLockPolicy: &UserLockPolicy{
@@ -205,19 +203,13 @@ func Test_System(t *testing.T) {
 								TimeToBlockInMinutes:  Int(60),
 							},
 						},
-						LdapSettings: &[]LdapSetting{
+						LdapSettings: &LdapSettings{
 							{
 								Key:                     String("ldap-setting-1"),
 								EmailAttribute:          String("mail"),
 								LdapPoisoningProtection: Bool(true),
 								LdapUrl:                 String("ldap://ldap.domain.local"),
-								Search: &struct {
-									ManagerDn       *string `yaml:"managerDn,omitempty" xml:"managerDn,omitempty"`
-									ManagerPassword *string `yaml:"managerPassword,omitempty" xml:"managerPassword,omitempty"`
-									SearchBase      *string `yaml:"searchBase,omitempty" xml:"searchBase,omitempty"`
-									SearchFilter    *string `yaml:"searchFilter,omitempty" xml:"searchFilter,omitempty"`
-									SearchSubTree   *bool   `yaml:"searchSubTree,omitempty" xml:"searchSubTree,omitempty"`
-								}{
+								Search: &LdapSettingSearch{
 									ManagerDn:       String("CN=ldap-user,OU=Services,OU=Root,DC=domain,DC=local"),
 									ManagerPassword: String("password"),
 									SearchBase:      String("ou=root,dc=domain,dc=local"),
@@ -230,7 +222,7 @@ func Test_System(t *testing.T) {
 								Enabled:                  Bool(true),
 							},
 						},
-						LdapGroupSettings: &[]LdapGroupSetting{
+						LdapGroupSettings: &LdapGroupSettings{
 							{
 								Name:                 String("ldap-group-setting-1"),
 								DescriptionAttribute: String("description"),
@@ -272,11 +264,11 @@ func Test_System(t *testing.T) {
 							AutoRedirect:             Bool(true),
 							SyncGroups:               Bool(true),
 						},
-						OauthSettings: &OauthSettingsResponse{
+						OauthSettings: &OauthSettings{
 							EnableIntegration:        Bool(true),
 							AllowUserToAccessProfile: Bool(false),
 							PersistUsers:             Bool(false),
-							OauthProvidersSettings: &[]OauthProviderSetting{
+							OauthProvidersSettings: &OauthProviderSettings{
 								{
 									Name:         String("test"),
 									Enabled:      Bool(true),
@@ -300,7 +292,48 @@ func Test_System(t *testing.T) {
 						BuildGlobalBasicReadAllowed:      Bool(false),
 						BuildGlobalBasicReadForAnonymous: Bool(false),
 					},
-					Backups: &[]Backup{
+					PropertySets: &PropertySets{
+						{
+							Name: String("artifactory"),
+							Properties: &Properties{
+								{
+									Name: String("licenses"),
+									PredefinedValues: &PredefinedValues{
+										{
+											Value:        String("AFL-3.0"),
+											DefaultValue: Bool(false),
+										},
+										{
+											Value:        String("AGPL-V3"),
+											DefaultValue: Bool(false),
+										},
+									},
+									ClosedPredefinedValues: Bool(true),
+									MultipleChoice:         Bool(true),
+								},
+							},
+							Visible: Bool(false),
+						},
+					},
+					RepoLayouts: &RepoLayouts{
+						{
+							Name:                             String("maven-2-default"),
+							ArtifactPathPattern:              String("[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]"),
+							DistinctiveDescriptorPathPattern: Bool(true),
+							DescriptorPathPattern:            String("[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).pom"),
+							FolderIntegrationRevisionRegExp:  String("SNAPSHOT"),
+							FileIntegrationRevisionRegExp:    String("SNAPSHOT|(?:(?:[0-9]{8}.[0-9]{6})-(?:[0-9]+))"),
+						},
+						{
+							Name:                             String("maven-1-default"),
+							ArtifactPathPattern:              String("[org]/[type]s/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]"),
+							DistinctiveDescriptorPathPattern: Bool(true),
+							DescriptorPathPattern:            String("[org]/[type]s/[module]-[baseRev](-[fileItegRev]).pom"),
+							FolderIntegrationRevisionRegExp:  String(".+"),
+							FileIntegrationRevisionRegExp:    String(".+"),
+						},
+					},
+					Backups: &Backups{
 						{
 							Key:                    String("backup-daily"),
 							Enabled:                Bool(true),
@@ -322,6 +355,49 @@ func Test_System(t *testing.T) {
 							SendMailOnError:        Bool(true),
 							ExcludeNewRepositories: Bool(false),
 							Precalculate:           Bool(false),
+						},
+					},
+					Proxies: &Proxies{
+						{
+							Key:             String("proxy1"),
+							Domain:          String("domain.local"),
+							Host:            String("proxy1Host"),
+							NtHost:          String("testNtHost"),
+							Username:        String("user1"),
+							Password:        String("password"),
+							Port:            Int(8080),
+							RedirectToHosts: String("host1,host2"),
+							DefaultProxy:    Bool(false),
+						},
+					},
+					ReverseProxies: &ReverseProxies{
+						{
+							Key:                      String("apache"),
+							WebServerType:            String("apache"),
+							ArtifactoryAppContext:    String("artifactory"),
+							PublicAppContext:         nil,
+							ServerName:               String("artifactory.domain.local"),
+							ServerNameExpression:     String("*.artifactory.domain.local"),
+							SslCertificate:           String(""),
+							SslKey:                   String(""),
+							DockerReverseProxyMethod: String("subDomain"),
+							UseHttps:                 Bool(true),
+							UseHttp:                  Bool(true),
+							SslPort:                  Int(443),
+							HttpPort:                 Int(80),
+							ArtifactoryServerName:    String("art1.domain.local"),
+							UpStreamName:             String("artifactory"),
+							ArtifactoryPort:          Int(8081),
+						},
+					},
+					BintrayApplications: &BintrayApplications{
+						{
+							Key:          String("app1"),
+							ClientId:     String("testClientId"),
+							Secret:       String("testSecret"),
+							Org:          String("testOrg"),
+							Scope:        String("testScope"),
+							RefreshToken: String("testRefreshToken"),
 						},
 					},
 					LocalRepositories: &[]LocalRepository{
@@ -470,120 +546,25 @@ func Test_System(t *testing.T) {
 							CheckBinaryExistenceInFilestore: Bool(false),
 						},
 					},
-					Proxies: &[]Proxy{
-						{
-							Key:             String("proxy1"),
-							Domain:          String("domain.local"),
-							Host:            String("proxy1Host"),
-							NtHost:          String("testNtHost"),
-							Username:        String("user1"),
-							Password:        String("password"),
-							Port:            Int(8080),
-							RedirectToHosts: String("host1,host2"),
-							DefaultProxy:    Bool(false),
-						},
-					},
-					ReverseProxies: &[]ReverseProxy{
-						{
-							Key:                      String("apache"),
-							WebServerType:            String("apache"),
-							ArtifactoryAppContext:    String("artifactory"),
-							PublicAppContext:         nil,
-							ServerName:               String("artifactory.domain.local"),
-							ServerNameExpression:     String("*.artifactory.domain.local"),
-							SslCertificate:           String(""),
-							SslKey:                   String(""),
-							DockerReverseProxyMethod: String("subDomain"),
-							UseHttps:                 Bool(true),
-							UseHttp:                  Bool(true),
-							SslPort:                  Int(443),
-							HttpPort:                 Int(80),
-							ArtifactoryServerName:    String("art1.domain.local"),
-							UpStreamName:             String("artifactory"),
-							ArtifactoryPort:          Int(8081),
-						},
-					},
-					PropertySets: &[]PropertySetResponse{
-						{
-							Name: String("artifactory"),
-							Properties: &[]struct {
-								Name             *string `xml:"name,omitempty"`
-								PredefinedValues *[]struct {
-									Value        *string `xml:"value,omitempty"`
-									DefaultValue *bool   `xml:"defaultValue,omitempty"`
-								} `xml:"predefinedValues>predefinedValue,omitempty"`
-								ClosedPredefinedValues *bool `xml:"closedPredefinedValues,omitempty"`
-								MultipleChoice         *bool `xml:"multipleChoice,omitempty"`
-							}{
-								{
-									Name: String("licenses"),
-									PredefinedValues: &[]struct {
-										Value        *string `xml:"value,omitempty"`
-										DefaultValue *bool   `xml:"defaultValue,omitempty"`
-									}{
-										{
-											Value:        String("AFL-3.0"),
-											DefaultValue: Bool(false),
-										},
-										{
-											Value:        String("AGPL-V3"),
-											DefaultValue: Bool(false),
-										},
-									},
-									ClosedPredefinedValues: Bool(true),
-									MultipleChoice:         Bool(true),
-								},
-							},
-							Visible: Bool(false),
-						},
-					},
-					RepoLayouts: &[]RepoLayout{
-						{
-							Name:                             String("maven-2-default"),
-							ArtifactPathPattern:              String("[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]"),
-							DistinctiveDescriptorPathPattern: Bool(true),
-							DescriptorPathPattern:            String("[orgPath]/[module]/[baseRev](-[folderItegRev])/[module]-[baseRev](-[fileItegRev])(-[classifier]).pom"),
-							FolderIntegrationRevisionRegExp:  String("SNAPSHOT"),
-							FileIntegrationRevisionRegExp:    String("SNAPSHOT|(?:(?:[0-9]{8}.[0-9]{6})-(?:[0-9]+))"),
-						},
-						{
-							Name:                             String("maven-1-default"),
-							ArtifactPathPattern:              String("[org]/[type]s/[module]-[baseRev](-[fileItegRev])(-[classifier]).[ext]"),
-							DistinctiveDescriptorPathPattern: Bool(true),
-							DescriptorPathPattern:            String("[org]/[type]s/[module]-[baseRev](-[fileItegRev]).pom"),
-							FolderIntegrationRevisionRegExp:  String(".+"),
-							FileIntegrationRevisionRegExp:    String(".+"),
-						},
-					},
-					BintrayApplications: &[]BintrayApplication{
-						{
-							Key:          String("app1"),
-							ClientId:     String("testClientId"),
-							Secret:       String("testSecret"),
-							Org:          String("testOrg"),
-							Scope:        String("testScope"),
-							RefreshToken: String("testRefreshToken"),
-						},
-					},
 				}
 
+				g.Assert(err == nil).IsTrue()
 				g.Assert(actual).Equal(expected)
-
 			})
 
 			g.It("- should return no error with UpdateConfiguration()", func() {
-				config := GlobalConfigRequest{
-					GlobalConfigCommon: GlobalConfigCommon{
-						ServerName: String("server1"),
-					},
-					Security: &SecurityRequest{
+				config := GlobalConfig{
+					ServerName: String("server1"),
+					Security: &Security{
 						HttpSsoSettings: &HttpSsoSettings{
 							Reset: Bool(true),
 						},
 					},
-					Backups: &map[string]*Backup{
-						"backup-daily": nil,
-						"backup-weekly": {
+					Backups: &Backups{
+						{
+							Key: String("backup-daily"),
+						},
+						{
 							Key:                    String("backup-weekly"),
 							Enabled:                Bool(false),
 							CronExp:                String("0 0 2 ? * SAT"),
@@ -597,7 +578,6 @@ func Test_System(t *testing.T) {
 					},
 					Proxies:             nil,
 					ReverseProxies:      nil,
-					PropertySets:        nil,
 					RepoLayouts:         nil,
 					BintrayApplications: nil,
 				}

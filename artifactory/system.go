@@ -40,13 +40,13 @@ func (v Versions) String() string {
 	return Stringify(v)
 }
 
-// GlobalConfigCommon represents elements of the Global Configuration Descriptor
-// that are common between a GlobalConfigRequest and GlobalConfigResponse.
-// Lots of elements aren't documented but have been mapped from the
+// GlobalConfig represents elements of the Global Configuration Descriptor.
+// Lots of these aren't documented but have been mapped from the
 // XML schema at https://www.jfrog.com/public/xsd/artifactory-v2_2_5.xsd
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
-type GlobalConfigCommon struct {
+type GlobalConfig struct {
+	Revision                  *int                       `yaml:"-" xml:"revision,omitempty"`
 	ServerName                *string                    `yaml:"serverName,omitempty" xml:"serverName,omitempty"`
 	OfflineMode               *bool                      `yaml:"offlineMode,omitempty" xml:"offlineMode,omitempty"`
 	HelpLinksEnabled          *bool                      `yaml:"helpLinksEnabled,omitempty" xml:"helpLinksEnabled,omitempty"`
@@ -72,55 +72,18 @@ type GlobalConfigCommon struct {
 	ReleaseBundlesConfig      *ReleaseBundlesConfig      `yaml:"releaseBundlesConfig,omitempty" xml:"releaseBundlesConfig,omitempty"`
 	SignedUrlConfig           *SignedUrlConfig           `yaml:"signedUrlConfig,omitempty" xml:"signedUrlConfig,omitempty"`
 	DownloadRedirectConfig    *DownloadRedirectConfig    `yaml:"downloadRedirectConfig,omitempty" xml:"downloadRedirectConfig,omitempty"`
-}
-
-// GlobalConfigRequest represents elements of the Global Configuration Descriptor
-// that can be updated in a PATCH request.
-// Notes:
-// 1) Fields whose types implement the MarshalYAML() method have an additional Reset
-//    (bool) field which when set to true will YAML encode their value to null,
-//    thus resetting their values to Artifactory's defaults.
-// 2) Repository and repository replication configuration is omitted as the
-//    Repositories service methods should be used instead.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
-type GlobalConfigRequest struct {
-	GlobalConfigCommon  `yaml:",inline"`
-	Security            *SecurityRequest                `yaml:"security,omitempty"`
-	Backups             *map[string]*Backup             `yaml:"backups,omitempty"`
-	Proxies             *map[string]*Proxy              `yaml:"proxies,omitempty"`
-	ReverseProxies      *map[string]*ReverseProxy       `yaml:"reverseProxies,omitempty"`
-	PropertySets        *map[string]*PropertySetRequest `yaml:"propertySets,omitempty"`
-	RepoLayouts         *map[string]*RepoLayout         `yaml:"repoLayouts,omitempty"`
-	BintrayApplications *map[string]*BintrayApplication `yaml:"bintrayApplications,omitempty"`
-}
-
-func (g GlobalConfigRequest) String() string {
-	return Stringify(g)
-}
-
-// GlobalConfigResponse represents the response to a GET request for the Global Configuration Descriptor.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File
-type GlobalConfigResponse struct {
-	*GlobalConfigCommon
-	Revision            *int                   `xml:"revision,omitempty"`
-	Security            *SecurityResponse      `xml:"security,omitempty"`
-	Backups             *[]Backup              `xml:"backups>backup,omitempty"`
-	LocalRepositories   *[]LocalRepository     `xml:"localRepositories>localRepository,omitempty"`
-	RemoteRepositories  *[]RemoteRepository    `xml:"remoteRepositories>remoteRepository,omitempty"`
-	VirtualRepositories *[]VirtualRepository   `xml:"virtualRepositories>virtualRepository,omitempty"`
-	LocalReplications   *[]Replication         `xml:"localReplications>localReplication,omitempty"`
-	RemoteReplications  *[]Replication         `xml:"remoteReplications>remoteReplication,omitempty"`
-	Proxies             *[]Proxy               `xml:"proxies>proxy,omitempty"`
-	ReverseProxies      *[]ReverseProxy        `xml:"reverseProxies>reverseProxy,omitempty"`
-	PropertySets        *[]PropertySetResponse `xml:"propertySets>propertySet,omitempty"`
-	RepoLayouts         *[]RepoLayout          `xml:"repoLayouts>repoLayout,omitempty"`
-	BintrayApplications *[]BintrayApplication  `xml:"bintrayApplications>bintrayApplication,omitempty"`
-}
-
-func (g GlobalConfigResponse) String() string {
-	return Stringify(g)
+	Security                  *Security                  `yaml:"security,omitempty" xml:"security,omitempty"`
+	Backups                   *Backups                   `yaml:"backups,omitempty" xml:"backups>backup,omitempty"`
+	Proxies                   *Proxies                   `yaml:"proxies,omitempty" xml:"proxies>proxy,omitempty"`
+	ReverseProxies            *ReverseProxies            `yaml:"reverseProxies,omitempty" xml:"reverseProxies>reverseProxy,omitempty"`
+	PropertySets              *PropertySets              `yaml:"propertySets,omitempty" xml:"propertySets>propertySet,omitempty"`
+	RepoLayouts               *RepoLayouts               `yaml:"repoLayouts,omitempty" xml:"repoLayouts>repoLayout,omitempty"`
+	BintrayApplications       *BintrayApplications       `yaml:"bintrayApplications,omitempty" xml:"bintrayApplications>bintrayApplication,omitempty"`
+	LocalRepositories         *[]LocalRepository         `yaml:"-" xml:"localRepositories>localRepository,omitempty"`
+	RemoteRepositories        *[]RemoteRepository        `yaml:"-" xml:"remoteRepositories>remoteRepository,omitempty"`
+	VirtualRepositories       *[]VirtualRepository       `yaml:"-" xml:"virtualRepositories>virtualRepository,omitempty"`
+	LocalReplications         *[]Replication             `yaml:"-" xml:"localReplications>localReplication,omitempty"`
+	RemoteReplications        *[]Replication             `yaml:"-" xml:"remoteReplications>remoteReplication,omitempty"`
 }
 
 // AddonsConfig represents Addons-related configuration.
@@ -181,7 +144,7 @@ type BintrayConfig struct {
 	FileUploadLimit *int    `yaml:"fileUploadLimit,omitempty" xml:"fileUploadLimit,omitempty"`
 }
 
-// Proxy represents a Proxy setting in Artifactory General Configuration.
+// Proxy represents a Proxy setting in Artifactory's Global Configuration Descriptor.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
 type Proxy struct {
@@ -196,7 +159,46 @@ type Proxy struct {
 	DefaultProxy    *bool   `yaml:"defaultProxy,omitempty" xml:"defaultProxy,omitempty"`
 }
 
-// ReverseProxy represents a Reverse Proxy configuration in Artifactory HTTP Settings.
+// Proxies is an alias for a slice of Proxy that can be
+// properly marshaled to/from YAML.
+type Proxies []*Proxy
+
+// MarshalYAML implements the yaml.Marshaller interface for Proxies.
+func (p Proxies) MarshalYAML() (interface{}, error) {
+	proxiesMap := make(map[string]*Proxy)
+	for _, proxy := range p {
+		if *proxy == (Proxy{Key: proxy.Key}) {
+			proxiesMap[*proxy.Key] = nil
+		} else {
+			proxiesMap[*proxy.Key] = proxy
+		}
+
+	}
+
+	return proxiesMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for Proxies.
+func (p *Proxies) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	proxiesMap := make(map[string]*Proxy)
+	if err := unmarshal(proxiesMap); err != nil {
+		return err
+	}
+
+	var proxiesSlice Proxies
+	for proxyKey, proxy := range proxiesMap {
+		if proxy == nil {
+			continue
+		}
+		proxy.Key = &proxyKey
+		proxiesSlice = append(proxiesSlice, proxy)
+	}
+
+	*p = proxiesSlice
+	return nil
+}
+
+// ReverseProxy represents a Reverse Proxy configuration in Artifactory's Global Configuration Descriptor.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetReverseProxyConfiguration
 type ReverseProxy struct {
@@ -218,74 +220,193 @@ type ReverseProxy struct {
 	ArtifactoryPort          *int    `yaml:"artifactoryPort,omitempty" xml:"artifactoryPort,omitempty"`
 }
 
-// PropertySetRequest represents a Property Set in a PATCH request to update Artifactory General Configuration.
+// ReverseProxies is an alias for a slice of ReverseProxy that can be
+// properly marshaled to/from YAML.
+type ReverseProxies []*ReverseProxy
+
+// MarshalYAML implements the yaml.Marshaller interface for ReverseProxies.
+func (r ReverseProxies) MarshalYAML() (interface{}, error) {
+	reverseProxiesMap := make(map[string]*ReverseProxy)
+	for _, reverseProxy := range r {
+		if *reverseProxy == (ReverseProxy{Key: reverseProxy.Key}) {
+			reverseProxiesMap[*reverseProxy.Key] = nil
+		} else {
+			reverseProxiesMap[*reverseProxy.Key] = reverseProxy
+		}
+	}
+
+	return reverseProxiesMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for ReverseProxies.
+func (r *ReverseProxies) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	reverseProxiesMap := make(map[string]*ReverseProxy)
+	if err := unmarshal(reverseProxiesMap); err != nil {
+		return err
+	}
+
+	var reverseProxiesSlice ReverseProxies
+	for reverseProxyKey, reverseProxy := range reverseProxiesMap {
+		if reverseProxy == nil {
+			continue
+		}
+		reverseProxy.Key = &reverseProxyKey
+		reverseProxiesSlice = append(reverseProxiesSlice, reverseProxy)
+	}
+
+	*r = reverseProxiesSlice
+	return nil
+}
+
+// PropertySet represents a Property Set in Artifactory's Global Configuration Descriptor.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
-type PropertySetRequest struct {
-	Properties *[]struct {
-		Name             *string `yaml:"name,omitempty"`
-		PredefinedValues *map[string]struct {
-			DefaultValue *bool `yaml:"defaultValue,omitempty"`
-		} `yaml:"predefinedValues,omitempty"`
-		ClosedPredefinedValues *bool `yaml:"closedPredefinedValues,omitempty"`
-		MultipleChoice         *bool `yaml:"multipleChoice,omitempty"`
-	} `yaml:"properties,omitempty"`
-	Visible *bool `yaml:"visible,omitempty"`
+type PropertySet struct {
+	Name       *string     `yaml:"-" xml:"name,omitempty"`
+	Properties *Properties `yaml:"properties,omitempty" xml:"properties>property,omitempty"`
+	Visible    *bool       `yaml:"visible,omitempty" xml:"visible,omitempty"`
 }
 
-// PropertySetResponse represents a Property Set in a response to a GET request for Artifactory General Configuration.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-General(General,PropertySets,Proxy,Mail)
-type PropertySetResponse struct {
-	Name       *string `xml:"name,omitempty"`
-	Properties *[]struct {
-		Name             *string `xml:"name,omitempty"`
-		PredefinedValues *[]struct {
-			Value        *string `xml:"value,omitempty"`
-			DefaultValue *bool   `xml:"defaultValue,omitempty"`
-		} `xml:"predefinedValues>predefinedValue,omitempty"`
-		ClosedPredefinedValues *bool `xml:"closedPredefinedValues,omitempty"`
-		MultipleChoice         *bool `xml:"multipleChoice,omitempty"`
-	} `xml:"properties>property,omitempty"`
-	Visible *bool `xml:"visible,omitempty"`
+// Properties is an alias for a slice of Property in a PropertySet that can be
+// properly marshaled to/from YAML.
+type Properties []*Property
+
+// MarshalYAML implements the yaml.Marshaller interface for Properties.
+func (p Properties) MarshalYAML() (interface{}, error) {
+	propertiesMap := make(map[string]*Property)
+	for _, property := range p {
+		if *property == (Property{Name: property.Name}) {
+			propertiesMap[*property.Name] = nil
+		} else {
+			propertiesMap[*property.Name] = property
+		}
+	}
+
+	return propertiesMap, nil
 }
 
-// SecurityRequest represents Security settings in a PATCH request to update Artifactory Security Configuration.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
-type SecurityRequest struct {
-	AnonAccessEnabled                *bool                         `yaml:"anonAccessEnabled,omitempty"`
-	HideUnauthorizedResources        *bool                         `yaml:"hideUnauthorizedResources,omitempty"`
-	UserLockPolicy                   *UserLockPolicy               `yaml:"userLockPolicy,omitempty"`
-	PasswordSettings                 *PasswordSettings             `yaml:"passwordSettings,omitempty"`
-	LdapSettings                     *map[string]*LdapSetting      `yaml:"ldapSettings,omitempty"`
-	LdapGroupSettings                *map[string]*LdapGroupSetting `yaml:"ldapGroupSettings,omitempty"`
-	HttpSsoSettings                  *HttpSsoSettings              `yaml:"httpSsoSettings,omitempty"`
-	CrowdSettings                    *CrowdSettings                `yaml:"crowdSettings,omitempty"`
-	SamlSettings                     *SamlSettings                 `yaml:"samlSettings,omitempty"`
-	OauthSettings                    *OauthSettingsRequest         `yaml:"oauthSettings,omitempty"`
-	AccessClientSettings             *AccessClientSettings         `yaml:"accessClientSettings,omitempty"`
-	BuildGlobalBasicReadAllowed      *bool                         `yaml:"buildGlobalBasicReadAllowed,omitempty"`
-	BuildGlobalBasicReadForAnonymous *bool                         `yaml:"buildGlobalBasicReadForAnonymous,omitempty"`
+// UnmarshalYAML implements yaml.Unmarshaler for Properties.
+func (p *Properties) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	propertiesMap := make(map[string]*Property)
+	if err := unmarshal(propertiesMap); err != nil {
+		return err
+	}
+
+	var propertiesSlice Properties
+	for propertyName, property := range propertiesMap {
+		if property == nil {
+			continue
+		}
+		property.Name = &propertyName
+		propertiesSlice = append(propertiesSlice, property)
+	}
+
+	*p = propertiesSlice
+	return nil
 }
 
-// SecurityResponse represents Security settings in a response to a GET request for Artifactory Security Configuration.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
-type SecurityResponse struct {
-	AnonAccessEnabled                *bool                  `xml:"anonAccessEnabled,omitempty"`
-	HideUnauthorizedResources        *bool                  `xml:"hideUnauthorizedResources,omitempty"`
-	UserLockPolicy                   *UserLockPolicy        `xml:"userLockPolicy,omitempty"`
-	PasswordSettings                 *PasswordSettings      `xml:"passwordSettings,omitempty"`
-	LdapSettings                     *[]LdapSetting         `xml:"ldapSettings>ldapSetting,omitempty"`
-	LdapGroupSettings                *[]LdapGroupSetting    `xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
-	HttpSsoSettings                  *HttpSsoSettings       `xml:"httpSsoSettings,omitempty"`
-	CrowdSettings                    *CrowdSettings         `xml:"crowdSettings,omitempty"`
-	SamlSettings                     *SamlSettings          `xml:"samlSettings,omitempty"`
-	OauthSettings                    *OauthSettingsResponse `xml:"oauthSettings,omitempty"`
-	AccessClientSettings             *AccessClientSettings  `xml:"accessClientSettings,omitempty"`
-	BuildGlobalBasicReadAllowed      *bool                  `xml:"buildGlobalBasicReadAllowed,omitempty"`
-	BuildGlobalBasicReadForAnonymous *bool                  `xml:"buildGlobalBasicReadForAnonymous,omitempty"`
+type Property struct {
+	Name                   *string           `yaml:"-" xml:"name,omitempty"`
+	PredefinedValues       *PredefinedValues `yaml:"predefinedValues,omitempty" xml:"predefinedValues>predefinedValue,omitempty"`
+	ClosedPredefinedValues *bool             `yaml:"closedPredefinedValues,omitempty" xml:"closedPredefinedValues,omitempty"`
+	MultipleChoice         *bool             `yaml:"multipleChoice,omitempty" xml:"multipleChoice,omitempty"`
+}
+
+type PredefinedValue struct {
+	Value        *string `yaml:"-" xml:"value,omitempty"`
+	DefaultValue *bool   `yaml:"defaultValue,omitempty" xml:"defaultValue,omitempty"`
+}
+
+// PredefinedValues is an alias for a slice of PredefinedValue in a
+// PropertySet's Property that can be properly marshaled to/from YAML.
+type PredefinedValues []*PredefinedValue
+
+// MarshalYAML implements the yaml.Marshaller interface for PredefinedValues.
+func (p PredefinedValues) MarshalYAML() (interface{}, error) {
+	predefinedValuesMap := make(map[string]*PredefinedValue)
+	for _, predefinedValue := range p {
+		if *predefinedValue == (PredefinedValue{Value: predefinedValue.Value}) {
+			predefinedValuesMap[*predefinedValue.Value] = nil
+		} else {
+			predefinedValuesMap[*predefinedValue.Value] = predefinedValue
+		}
+	}
+
+	return predefinedValuesMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for PredefinedValues.
+func (p *PredefinedValues) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	predefinedValuesMap := make(map[string]*PredefinedValue)
+	if err := unmarshal(predefinedValuesMap); err != nil {
+		return err
+	}
+
+	var predefinedValuesSlice PredefinedValues
+	for predefinedValueName, predefinedValue := range predefinedValuesMap {
+		if predefinedValue == nil {
+			continue
+		}
+		predefinedValue.Value = &predefinedValueName
+		predefinedValuesSlice = append(predefinedValuesSlice, predefinedValue)
+	}
+
+	*p = predefinedValuesSlice
+	return nil
+}
+
+// PropertySets is an alias for a slice of PropertySet that can be
+// properly marshaled to/from YAML.
+type PropertySets []*PropertySet
+
+// MarshalYAML implements the yaml.Marshaller interface for PropertySets.
+func (p PropertySets) MarshalYAML() (interface{}, error) {
+	propertySetsMap := make(map[string]*PropertySet)
+	for _, propertySet := range p {
+		if *propertySet == (PropertySet{Name: propertySet.Name}) {
+			propertySetsMap[*propertySet.Name] = nil
+		} else {
+			propertySetsMap[*propertySet.Name] = propertySet
+		}
+	}
+
+	return propertySetsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for PropertySets.
+func (p *PropertySets) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	propertySetsMap := make(map[string]*PropertySet)
+	if err := unmarshal(propertySetsMap); err != nil {
+		return err
+	}
+
+	var propertySetsSlice PropertySets
+	for propertySetName, propertySet := range propertySetsMap {
+		if propertySet == nil {
+			continue
+		}
+		propertySet.Name = &propertySetName
+		propertySetsSlice = append(propertySetsSlice, propertySet)
+	}
+
+	*p = propertySetsSlice
+	return nil
+}
+
+type Security struct {
+	AnonAccessEnabled                *bool                 `yaml:"anonAccessEnabled,omitempty" xml:"anonAccessEnabled,omitempty"`
+	HideUnauthorizedResources        *bool                 `yaml:"hideUnauthorizedResources,omitempty" xml:"hideUnauthorizedResources,omitempty"`
+	UserLockPolicy                   *UserLockPolicy       `yaml:"userLockPolicy,omitempty" xml:"userLockPolicy,omitempty"`
+	PasswordSettings                 *PasswordSettings     `yaml:"passwordSettings,omitempty" xml:"passwordSettings,omitempty"`
+	LdapSettings                     *LdapSettings         `yaml:"ldapSettings,omitempty" xml:"ldapSettings>ldapSetting,omitempty"`
+	LdapGroupSettings                *LdapGroupSettings    `yaml:"ldapGroupSettings,omitempty" xml:"ldapGroupSettings>ldapGroupSetting,omitempty"`
+	HttpSsoSettings                  *HttpSsoSettings      `yaml:"httpSsoSettings,omitempty" xml:"httpSsoSettings,omitempty"`
+	CrowdSettings                    *CrowdSettings        `yaml:"crowdSettings,omitempty" xml:"crowdSettings,omitempty"`
+	SamlSettings                     *SamlSettings         `yaml:"samlSettings,omitempty" xml:"samlSettings,omitempty"`
+	OauthSettings                    *OauthSettings        `yaml:"oauthSettings,omitempty" xml:"oauthSettings,omitempty"`
+	AccessClientSettings             *AccessClientSettings `yaml:"accessClientSettings,omitempty" xml:"accessClientSettings,omitempty"`
+	BuildGlobalBasicReadAllowed      *bool                 `yaml:"buildGlobalBasicReadAllowed,omitempty" xml:"buildGlobalBasicReadAllowed,omitempty"`
+	BuildGlobalBasicReadForAnonymous *bool                 `yaml:"buildGlobalBasicReadForAnonymous,omitempty" xml:"buildGlobalBasicReadForAnonymous,omitempty"`
 }
 
 // PasswordSettings represents the Password settings in Artifactory Security Configuration.
@@ -379,21 +500,63 @@ func (s SigningKeysSettings) MarshalYAML() (interface{}, error) {
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
 type LdapSetting struct {
-	Key                     *string `yaml:"-" xml:"key,omitempty"`
-	EmailAttribute          *string `yaml:"emailAttribute,omitempty" xml:"emailAttribute,omitempty"`
-	LdapPoisoningProtection *bool   `yaml:"ldapPoisoningProtection,omitempty" xml:"ldapPoisoningProtection,omitempty"`
-	LdapUrl                 *string `yaml:"ldapUrl,omitempty" xml:"ldapUrl,omitempty"`
-	Search                  *struct {
-		ManagerDn       *string `yaml:"managerDn,omitempty" xml:"managerDn,omitempty"`
-		ManagerPassword *string `yaml:"managerPassword,omitempty" xml:"managerPassword,omitempty"`
-		SearchBase      *string `yaml:"searchBase,omitempty" xml:"searchBase,omitempty"`
-		SearchFilter    *string `yaml:"searchFilter,omitempty" xml:"searchFilter,omitempty"`
-		SearchSubTree   *bool   `yaml:"searchSubTree,omitempty" xml:"searchSubTree,omitempty"`
-	} `yaml:"search,omitempty" xml:"search,omitempty"`
-	UserDnPattern            *string `yaml:"userDnPattern,omitempty" xml:"userDnPattern,omitempty"`
-	AllowUserToAccessProfile *bool   `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
-	AutoCreateUser           *bool   `yaml:"autoCreateUser,omitempty" xml:"autoCreateUser,omitempty"`
-	Enabled                  *bool   `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
+	Key                      *string            `yaml:"-" xml:"key,omitempty"`
+	EmailAttribute           *string            `yaml:"emailAttribute,omitempty" xml:"emailAttribute,omitempty"`
+	LdapPoisoningProtection  *bool              `yaml:"ldapPoisoningProtection,omitempty" xml:"ldapPoisoningProtection,omitempty"`
+	LdapUrl                  *string            `yaml:"ldapUrl,omitempty" xml:"ldapUrl,omitempty"`
+	Search                   *LdapSettingSearch `yaml:"search,omitempty" xml:"search,omitempty"`
+	UserDnPattern            *string            `yaml:"userDnPattern,omitempty" xml:"userDnPattern,omitempty"`
+	AllowUserToAccessProfile *bool              `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
+	AutoCreateUser           *bool              `yaml:"autoCreateUser,omitempty" xml:"autoCreateUser,omitempty"`
+	Enabled                  *bool              `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
+}
+
+// LdapSettingSearch represents the Search setting in an LDAPSetting.
+//
+type LdapSettingSearch struct {
+	ManagerDn       *string `yaml:"managerDn,omitempty" xml:"managerDn,omitempty"`
+	ManagerPassword *string `yaml:"managerPassword,omitempty" xml:"managerPassword,omitempty"`
+	SearchBase      *string `yaml:"searchBase,omitempty" xml:"searchBase,omitempty"`
+	SearchFilter    *string `yaml:"searchFilter,omitempty" xml:"searchFilter,omitempty"`
+	SearchSubTree   *bool   `yaml:"searchSubTree,omitempty" xml:"searchSubTree,omitempty"`
+}
+
+// LdapSettings is an alias for a slice of LdapSetting that can be
+// properly marshaled to/from YAML.
+type LdapSettings []*LdapSetting
+
+// MarshalYAML implements the yaml.Marshaller interface for LdapSettings.
+func (l LdapSettings) MarshalYAML() (interface{}, error) {
+	ldapSettingsMap := make(map[string]*LdapSetting)
+	for _, ldapSetting := range l {
+		if *ldapSetting == (LdapSetting{Key: ldapSetting.Key}) {
+			ldapSettingsMap[*ldapSetting.Key] = nil
+		} else {
+			ldapSettingsMap[*ldapSetting.Key] = ldapSetting
+		}
+	}
+
+	return ldapSettingsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for LdapSettings.
+func (l *LdapSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	ldapSettingsMap := make(map[string]*LdapSetting)
+	if err := unmarshal(ldapSettingsMap); err != nil {
+		return err
+	}
+
+	var ldapSettingsSlice LdapSettings
+	for ldapSettingKey, ldapSetting := range ldapSettingsMap {
+		if ldapSetting == nil {
+			continue
+		}
+		ldapSetting.Key = &ldapSettingKey
+		ldapSettingsSlice = append(ldapSettingsSlice, ldapSetting)
+	}
+
+	*l = ldapSettingsSlice
+	return nil
 }
 
 // LdapGroupSetting represents the LDAP Group settings in Artifactory Security Configuration.
@@ -409,6 +572,44 @@ type LdapGroupSetting struct {
 	GroupNameAttribute   *string `yaml:"groupNameAttribute,omitempty" xml:"groupNameAttribute,omitempty"`
 	Strategy             *string `yaml:"strategy,omitempty" xml:"strategy,omitempty"`
 	SubTree              *bool   `yaml:"subTree,omitempty" xml:"subTree,omitempty"`
+}
+
+// LdapGroupSettings is an alias for a slice of LdapGroupSetting that can be
+// properly marshaled to/from YAML.
+type LdapGroupSettings []*LdapGroupSetting
+
+// MarshalYAML implements the yaml.Marshaller interface for LdapGroupSettings.
+func (l LdapGroupSettings) MarshalYAML() (interface{}, error) {
+	ldapGroupSettingsMap := make(map[string]*LdapGroupSetting)
+	for _, ldapGroupSetting := range l {
+		if *ldapGroupSetting == (LdapGroupSetting{Name: ldapGroupSetting.Name}) {
+			ldapGroupSettingsMap[*ldapGroupSetting.Name] = nil
+		} else {
+			ldapGroupSettingsMap[*ldapGroupSetting.Name] = ldapGroupSetting
+		}
+	}
+
+	return ldapGroupSettingsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for LdapGroupSettings.
+func (l *LdapGroupSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	ldapGroupSettingsMap := make(map[string]*LdapGroupSetting)
+	if err := unmarshal(ldapGroupSettingsMap); err != nil {
+		return err
+	}
+
+	var ldapGroupSettingsSlice LdapGroupSettings
+	for ldapGroupSettingName, ldapGroupSetting := range ldapGroupSettingsMap {
+		if ldapGroupSetting == nil {
+			continue
+		}
+		ldapGroupSetting.Name = &ldapGroupSettingName
+		ldapGroupSettingsSlice = append(ldapGroupSettingsSlice, ldapGroupSetting)
+	}
+
+	*l = ldapGroupSettingsSlice
+	return nil
 }
 
 // AccessClientSettings represents the Access Client settings in Artifactory
@@ -470,33 +671,61 @@ func (s SamlSettings) MarshalYAML() (interface{}, error) {
 	return s, nil
 }
 
-// OauthSettingsRequest represents the OAuth settings in a PATCH request to update Artifactory Security Configuration.
+// OauthSettings represents the OAuth settings in Artifactory Security Configuration.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
-type OauthSettingsRequest struct {
-	AllowUserToAccessProfile *bool                             `yaml:"allowUserToAccessProfile,omitempty"`
-	EnableIntegration        *bool                             `yaml:"enableIntegration,omitempty"`
-	PersistUsers             *bool                             `yaml:"persistUsers,omitempty"`
-	OauthProvidersSettings   *map[string]*OauthProviderSetting `yaml:"oauthProvidersSettings,omitempty"`
-	Reset                    *bool                             `yaml:"-"`
+type OauthSettings struct {
+	AllowUserToAccessProfile *bool                  `yaml:"allowUserToAccessProfile,omitempty" xml:"allowUserToAccessProfile,omitempty"`
+	EnableIntegration        *bool                  `yaml:"enableIntegration,omitempty" xml:"enableIntegration,omitempty"`
+	PersistUsers             *bool                  `yaml:"persistUsers,omitempty" xml:"persistUsers,omitempty"`
+	OauthProvidersSettings   *OauthProviderSettings `yaml:"oauthProvidersSettings,omitempty" xml:"oauthProvidersSettings>oauthProvidersSettings,omitempty"`
+	Reset                    *bool                  `yaml:"-" xml:"-"`
 }
 
 // MarshalYAML implements the Marshaller interface.
-func (o OauthSettingsRequest) MarshalYAML() (interface{}, error) {
+func (o OauthSettings) MarshalYAML() (interface{}, error) {
 	if o.Reset != nil && *o.Reset {
 		return nil, nil
 	}
 	return o, nil
 }
 
-// OauthSettingsResponse represents the OAuth settings in a response to a GET request for Artifactory Security Configuration.
-//
-// Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
-type OauthSettingsResponse struct {
-	AllowUserToAccessProfile *bool                   `xml:"allowUserToAccessProfile,omitempty"`
-	EnableIntegration        *bool                   `xml:"enableIntegration,omitempty"`
-	PersistUsers             *bool                   `xml:"persistUsers,omitempty"`
-	OauthProvidersSettings   *[]OauthProviderSetting `xml:"oauthProvidersSettings>oauthProvidersSettings,omitempty"`
+// OauthProviderSettings is an alias for a slice of OauthProviderSetting that can be
+// properly marshaled to/from YAML.
+type OauthProviderSettings []*OauthProviderSetting
+
+// MarshalYAML implements the yaml.Marshaller interface for OauthProviderSettings.
+func (o OauthProviderSettings) MarshalYAML() (interface{}, error) {
+	oauthProviderSettingsMap := make(map[string]*OauthProviderSetting)
+	for _, oauthProviderSetting := range o {
+		if *oauthProviderSetting == (OauthProviderSetting{Name: oauthProviderSetting.Name}) {
+			oauthProviderSettingsMap[*oauthProviderSetting.Name] = nil
+		} else {
+			oauthProviderSettingsMap[*oauthProviderSetting.Name] = oauthProviderSetting
+		}
+	}
+
+	return oauthProviderSettingsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for OauthProviderSettings.
+func (o *OauthProviderSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	oauthProviderSettingsMap := make(map[string]*OauthProviderSetting)
+	if err := unmarshal(oauthProviderSettingsMap); err != nil {
+		return err
+	}
+
+	var oauthProviderSettingsSlice OauthProviderSettings
+	for oauthProviderSettingName, oauthProviderSetting := range oauthProviderSettingsMap {
+		if oauthProviderSetting == nil {
+			continue
+		}
+		oauthProviderSetting.Name = &oauthProviderSettingName
+		oauthProviderSettingsSlice = append(oauthProviderSettingsSlice, oauthProviderSetting)
+	}
+
+	*o = oauthProviderSettingsSlice
+	return nil
 }
 
 // OauthProviderSetting represents the Oauth Provider settings in Artifactory Security Configuration.
@@ -550,13 +779,51 @@ type Backup struct {
 	Precalculate           *bool     `yaml:"precalculate,omitempty" xml:"precalculate,omitempty"`
 }
 
+// Backups is an alias for a slice of Backup that can be
+// properly marshaled to/from YAML.
+type Backups []*Backup
+
+// MarshalYAML implements the yaml.Marshaller interface for Backups.
+func (b Backups) MarshalYAML() (interface{}, error) {
+	backupsMap := make(map[string]*Backup)
+	for _, backup := range b {
+		if *backup == (Backup{Key: backup.Key}) {
+			backupsMap[*backup.Key] = nil
+		} else {
+			backupsMap[*backup.Key] = backup
+		}
+	}
+
+	return backupsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for Backups.
+func (b *Backups) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	backupsMap := make(map[string]*Backup)
+	if err := unmarshal(backupsMap); err != nil {
+		return err
+	}
+
+	var backupsSlice Backups
+	for backupKey, backupConfig := range backupsMap {
+		if backupConfig == nil {
+			continue
+		}
+		backupConfig.Key = &backupKey
+		backupsSlice = append(backupsSlice, backupConfig)
+	}
+
+	*b = backupsSlice
+	return nil
+}
+
 // Indexer represents the Maven Indexer settings in Artifactory Services Configuration.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Servicesconfiguration(Backups,MavenIndexer)
 type Indexer struct {
 	Enabled              *bool     `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	CronExp              *string   `yaml:"cronExp,omitempty" xml:"cronExp,omitempty"`
-	IncludedRepositories *[]string `yaml:"includedRepositories,omitempty" xml:"includedRepositories,omitempty"`
+	IncludedRepositories *[]string `yaml:"includedRepositories,omitempty" xml:"includedRepositories>repositoryRef,omitempty"`
 	Reset                *bool     `yaml:"-" xml:"-"`
 }
 
@@ -579,6 +846,44 @@ type RepoLayout struct {
 	DescriptorPathPattern            *string `yaml:"descriptorPathPattern,omitempty" xml:"descriptorPathPattern,omitempty"`
 	FolderIntegrationRevisionRegExp  *string `yaml:"folderIntegrationRevisionRegExp,omitempty" xml:"folderIntegrationRevisionRegExp,omitempty"`
 	FileIntegrationRevisionRegExp    *string `yaml:"fileIntegrationRevisionRegExp,omitempty" xml:"fileIntegrationRevisionRegExp,omitempty"`
+}
+
+// RepoLayouts is an alias for a slice of RepoLayout that can be
+// properly marshaled to/from YAML.
+type RepoLayouts []*RepoLayout
+
+// MarshalYAML implements the yaml.Marshaller interface for RepoLayouts.
+func (r RepoLayouts) MarshalYAML() (interface{}, error) {
+	repoLayoutsMap := make(map[string]*RepoLayout)
+	for _, repoLayout := range r {
+		if *repoLayout == (RepoLayout{Name: repoLayout.Name}) {
+			repoLayoutsMap[*repoLayout.Name] = nil
+		} else {
+			repoLayoutsMap[*repoLayout.Name] = repoLayout
+		}
+	}
+
+	return repoLayoutsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for RepoLayouts.
+func (r *RepoLayouts) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	repoLayoutsMap := make(map[string]*RepoLayout)
+	if err := unmarshal(repoLayoutsMap); err != nil {
+		return err
+	}
+
+	var repoLayoutsSlice RepoLayouts
+	for repoLayoutName, repoLayout := range repoLayoutsMap {
+		if repoLayout == nil {
+			continue
+		}
+		repoLayout.Name = &repoLayoutName
+		repoLayoutsSlice = append(repoLayoutsSlice, repoLayout)
+	}
+
+	*r = repoLayoutsSlice
+	return nil
 }
 
 // GcConfig represents the Garbage Collection settings in Artifactory Maintenance Configuration.
@@ -736,6 +1041,44 @@ type BintrayApplication struct {
 	RefreshToken *string `yaml:"refreshToken" xml:"refreshToken,omitempty"`
 }
 
+// BintrayApplications is an alias for a slice of BintrayApplication that can be
+// properly marshaled to/from YAML.
+type BintrayApplications []*BintrayApplication
+
+// MarshalYAML implements the yaml.Marshaller interface for RepoLayouts.
+func (b BintrayApplications) MarshalYAML() (interface{}, error) {
+	bintrayApplicationsMap := make(map[string]*BintrayApplication)
+	for _, bintrayApplication := range b {
+		if *bintrayApplication == (BintrayApplication{Key: bintrayApplication.Key}) {
+			bintrayApplicationsMap[*bintrayApplication.Key] = nil
+		} else {
+			bintrayApplicationsMap[*bintrayApplication.Key] = bintrayApplication
+		}
+	}
+
+	return bintrayApplicationsMap, nil
+}
+
+// UnmarshalYAML implements yaml.Unmarshaler for RepoLayouts.
+func (b *BintrayApplications) UnmarshalYAML(unmarshal func(interface{}) error) error {
+	bintrayApplicationsMap := make(map[string]*BintrayApplication)
+	if err := unmarshal(bintrayApplicationsMap); err != nil {
+		return err
+	}
+
+	var bintrayApplicationsSlice BintrayApplications
+	for bintrayApplicationKey, bintrayApplication := range bintrayApplicationsMap {
+		if bintrayApplication == nil {
+			continue
+		}
+		bintrayApplication.Key = &bintrayApplicationKey
+		bintrayApplicationsSlice = append(bintrayApplicationsSlice, bintrayApplication)
+	}
+
+	*b = bintrayApplicationsSlice
+	return nil
+}
+
 // SumoLogicConfig represents Sumo Logic settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
 //
@@ -839,13 +1182,13 @@ func (s *SystemService) GetVersionAndAddOns() (*Versions, *Response, error) {
 // GetConfiguration returns the Global Artifactory Configuration Descriptor (artifactory.config.xml).
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GeneralConfiguration
-func (s *SystemService) GetConfiguration() (*GlobalConfigResponse, *Response, error) {
+func (s *SystemService) GetConfiguration() (*GlobalConfig, *Response, error) {
 	u := "/api/system/configuration"
 	v := new(bytes.Buffer)
 
 	resp, err := s.client.Call("GET", u, nil, v)
 
-	config := new(GlobalConfigResponse)
+	config := new(GlobalConfig)
 	err = xml.Unmarshal(v.Bytes(), config)
 	if err != nil {
 		return nil, resp, err
@@ -857,7 +1200,7 @@ func (s *SystemService) GetConfiguration() (*GlobalConfigResponse, *Response, er
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GeneralConfiguration
 //       https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Advanced
-func (s *SystemService) UpdateConfiguration(config GlobalConfigRequest) (*string, *Response, error) {
+func (s *SystemService) UpdateConfiguration(config GlobalConfig) (*string, *Response, error) {
 	u, err := s.client.buildURLForRequest("/api/system/configuration")
 	if err != nil {
 		return nil, nil, err

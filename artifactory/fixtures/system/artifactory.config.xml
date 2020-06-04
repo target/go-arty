@@ -39,6 +39,9 @@
     <indexer>
         <enabled>false</enabled>
         <cronExp>0 23 5 * * ?</cronExp>
+        <includedRepositories>
+            <repositoryRef>maven-virtual</repositoryRef>
+        </includedRepositories>
     </indexer>
     <urlBase>http://myhost.com/artifactory</urlBase>
     <logo>http://fileserver/path/to/logo.png</logo>

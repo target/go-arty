@@ -1200,15 +1200,31 @@ func (g *GenericRepository) GetSuppressPomConsistencyChecks() bool {
 }
 
 // GetAddonsConfig returns the AddonsConfig field.
-func (g *GlobalConfigCommon) GetAddonsConfig() *AddonsConfig {
+func (g *GlobalConfig) GetAddonsConfig() *AddonsConfig {
 	if g == nil {
 		return nil
 	}
 	return g.AddonsConfig
 }
 
+// GetBackups returns the Backups field.
+func (g *GlobalConfig) GetBackups() *Backups {
+	if g == nil {
+		return nil
+	}
+	return g.Backups
+}
+
+// GetBintrayApplications returns the BintrayApplications field.
+func (g *GlobalConfig) GetBintrayApplications() *BintrayApplications {
+	if g == nil {
+		return nil
+	}
+	return g.BintrayApplications
+}
+
 // GetBintrayConfig returns the BintrayConfig field.
-func (g *GlobalConfigCommon) GetBintrayConfig() *BintrayConfig {
+func (g *GlobalConfig) GetBintrayConfig() *BintrayConfig {
 	if g == nil {
 		return nil
 	}
@@ -1216,7 +1232,7 @@ func (g *GlobalConfigCommon) GetBintrayConfig() *BintrayConfig {
 }
 
 // GetCleanupConfig returns the CleanupConfig field.
-func (g *GlobalConfigCommon) GetCleanupConfig() *CleanupConfig {
+func (g *GlobalConfig) GetCleanupConfig() *CleanupConfig {
 	if g == nil {
 		return nil
 	}
@@ -1224,7 +1240,7 @@ func (g *GlobalConfigCommon) GetCleanupConfig() *CleanupConfig {
 }
 
 // GetDateFormat returns the DateFormat field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetDateFormat() string {
+func (g *GlobalConfig) GetDateFormat() string {
 	if g == nil || g.DateFormat == nil {
 		return ""
 	}
@@ -1232,7 +1248,7 @@ func (g *GlobalConfigCommon) GetDateFormat() string {
 }
 
 // GetDownloadRedirectConfig returns the DownloadRedirectConfig field.
-func (g *GlobalConfigCommon) GetDownloadRedirectConfig() *DownloadRedirectConfig {
+func (g *GlobalConfig) GetDownloadRedirectConfig() *DownloadRedirectConfig {
 	if g == nil {
 		return nil
 	}
@@ -1240,7 +1256,7 @@ func (g *GlobalConfigCommon) GetDownloadRedirectConfig() *DownloadRedirectConfig
 }
 
 // GetFileUploadMaxSizeMb returns the FileUploadMaxSizeMb field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetFileUploadMaxSizeMb() int {
+func (g *GlobalConfig) GetFileUploadMaxSizeMb() int {
 	if g == nil || g.FileUploadMaxSizeMb == nil {
 		return 0
 	}
@@ -1248,7 +1264,7 @@ func (g *GlobalConfigCommon) GetFileUploadMaxSizeMb() int {
 }
 
 // GetFolderDownloadConfig returns the FolderDownloadConfig field.
-func (g *GlobalConfigCommon) GetFolderDownloadConfig() *FolderDownloadConfig {
+func (g *GlobalConfig) GetFolderDownloadConfig() *FolderDownloadConfig {
 	if g == nil {
 		return nil
 	}
@@ -1256,7 +1272,7 @@ func (g *GlobalConfigCommon) GetFolderDownloadConfig() *FolderDownloadConfig {
 }
 
 // GetFooter returns the Footer field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetFooter() string {
+func (g *GlobalConfig) GetFooter() string {
 	if g == nil || g.Footer == nil {
 		return ""
 	}
@@ -1264,7 +1280,7 @@ func (g *GlobalConfigCommon) GetFooter() string {
 }
 
 // GetGcConfig returns the GcConfig field.
-func (g *GlobalConfigCommon) GetGcConfig() *GcConfig {
+func (g *GlobalConfig) GetGcConfig() *GcConfig {
 	if g == nil {
 		return nil
 	}
@@ -1272,7 +1288,7 @@ func (g *GlobalConfigCommon) GetGcConfig() *GcConfig {
 }
 
 // GetHelpLinksEnabled returns the HelpLinksEnabled field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetHelpLinksEnabled() bool {
+func (g *GlobalConfig) GetHelpLinksEnabled() bool {
 	if g == nil || g.HelpLinksEnabled == nil {
 		return false
 	}
@@ -1280,151 +1296,15 @@ func (g *GlobalConfigCommon) GetHelpLinksEnabled() bool {
 }
 
 // GetIndexer returns the Indexer field.
-func (g *GlobalConfigCommon) GetIndexer() *Indexer {
+func (g *GlobalConfig) GetIndexer() *Indexer {
 	if g == nil {
 		return nil
 	}
 	return g.Indexer
 }
 
-// GetLogo returns the Logo field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetLogo() string {
-	if g == nil || g.Logo == nil {
-		return ""
-	}
-	return *g.Logo
-}
-
-// GetMailServer returns the MailServer field.
-func (g *GlobalConfigCommon) GetMailServer() *MailServer {
-	if g == nil {
-		return nil
-	}
-	return g.MailServer
-}
-
-// GetOfflineMode returns the OfflineMode field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetOfflineMode() bool {
-	if g == nil || g.OfflineMode == nil {
-		return false
-	}
-	return *g.OfflineMode
-}
-
-// GetQuotaConfig returns the QuotaConfig field.
-func (g *GlobalConfigCommon) GetQuotaConfig() *QuotaConfig {
-	if g == nil {
-		return nil
-	}
-	return g.QuotaConfig
-}
-
-// GetReleaseBundlesConfig returns the ReleaseBundlesConfig field.
-func (g *GlobalConfigCommon) GetReleaseBundlesConfig() *ReleaseBundlesConfig {
-	if g == nil {
-		return nil
-	}
-	return g.ReleaseBundlesConfig
-}
-
-// GetReplicationsConfig returns the ReplicationsConfig field.
-func (g *GlobalConfigCommon) GetReplicationsConfig() *ReplicationsConfig {
-	if g == nil {
-		return nil
-	}
-	return g.ReplicationsConfig
-}
-
-// GetServerName returns the ServerName field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetServerName() string {
-	if g == nil || g.ServerName == nil {
-		return ""
-	}
-	return *g.ServerName
-}
-
-// GetSignedUrlConfig returns the SignedUrlConfig field.
-func (g *GlobalConfigCommon) GetSignedUrlConfig() *SignedUrlConfig {
-	if g == nil {
-		return nil
-	}
-	return g.SignedUrlConfig
-}
-
-// GetSumoLogicConfig returns the SumoLogicConfig field.
-func (g *GlobalConfigCommon) GetSumoLogicConfig() *SumoLogicConfig {
-	if g == nil {
-		return nil
-	}
-	return g.SumoLogicConfig
-}
-
-// GetSystemMessageConfig returns the SystemMessageConfig field.
-func (g *GlobalConfigCommon) GetSystemMessageConfig() *SystemMessageConfig {
-	if g == nil {
-		return nil
-	}
-	return g.SystemMessageConfig
-}
-
-// GetTrashcanConfig returns the TrashcanConfig field.
-func (g *GlobalConfigCommon) GetTrashcanConfig() *TrashcanConfig {
-	if g == nil {
-		return nil
-	}
-	return g.TrashcanConfig
-}
-
-// GetUrlBase returns the UrlBase field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigCommon) GetUrlBase() string {
-	if g == nil || g.UrlBase == nil {
-		return ""
-	}
-	return *g.UrlBase
-}
-
-// GetVirtualCacheCleanupConfig returns the VirtualCacheCleanupConfig field.
-func (g *GlobalConfigCommon) GetVirtualCacheCleanupConfig() *VirtualCacheCleanupConfig {
-	if g == nil {
-		return nil
-	}
-	return g.VirtualCacheCleanupConfig
-}
-
-// GetXrayConfig returns the XrayConfig field.
-func (g *GlobalConfigCommon) GetXrayConfig() *XrayConfig {
-	if g == nil {
-		return nil
-	}
-	return g.XrayConfig
-}
-
-// GetSecurity returns the Security field.
-func (g *GlobalConfigRequest) GetSecurity() *SecurityRequest {
-	if g == nil {
-		return nil
-	}
-	return g.Security
-}
-
-// GetBackups returns the Backups field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetBackups() []Backup {
-	if g == nil || g.Backups == nil {
-		return nil
-	}
-	return *g.Backups
-}
-
-// GetBintrayApplications returns the BintrayApplications field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetBintrayApplications() []BintrayApplication {
-	if g == nil || g.BintrayApplications == nil {
-		return nil
-	}
-	return *g.BintrayApplications
-}
-
 // GetLocalReplications returns the LocalReplications field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetLocalReplications() []Replication {
+func (g *GlobalConfig) GetLocalReplications() []Replication {
 	if g == nil || g.LocalReplications == nil {
 		return nil
 	}
@@ -1432,31 +1312,71 @@ func (g *GlobalConfigResponse) GetLocalReplications() []Replication {
 }
 
 // GetLocalRepositories returns the LocalRepositories field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetLocalRepositories() []LocalRepository {
+func (g *GlobalConfig) GetLocalRepositories() []LocalRepository {
 	if g == nil || g.LocalRepositories == nil {
 		return nil
 	}
 	return *g.LocalRepositories
 }
 
-// GetPropertySets returns the PropertySets field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetPropertySets() []PropertySetResponse {
-	if g == nil || g.PropertySets == nil {
-		return nil
+// GetLogo returns the Logo field if it's non-nil, zero value otherwise.
+func (g *GlobalConfig) GetLogo() string {
+	if g == nil || g.Logo == nil {
+		return ""
 	}
-	return *g.PropertySets
+	return *g.Logo
 }
 
-// GetProxies returns the Proxies field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetProxies() []Proxy {
-	if g == nil || g.Proxies == nil {
+// GetMailServer returns the MailServer field.
+func (g *GlobalConfig) GetMailServer() *MailServer {
+	if g == nil {
 		return nil
 	}
-	return *g.Proxies
+	return g.MailServer
+}
+
+// GetOfflineMode returns the OfflineMode field if it's non-nil, zero value otherwise.
+func (g *GlobalConfig) GetOfflineMode() bool {
+	if g == nil || g.OfflineMode == nil {
+		return false
+	}
+	return *g.OfflineMode
+}
+
+// GetPropertySets returns the PropertySets field.
+func (g *GlobalConfig) GetPropertySets() *PropertySets {
+	if g == nil {
+		return nil
+	}
+	return g.PropertySets
+}
+
+// GetProxies returns the Proxies field.
+func (g *GlobalConfig) GetProxies() *Proxies {
+	if g == nil {
+		return nil
+	}
+	return g.Proxies
+}
+
+// GetQuotaConfig returns the QuotaConfig field.
+func (g *GlobalConfig) GetQuotaConfig() *QuotaConfig {
+	if g == nil {
+		return nil
+	}
+	return g.QuotaConfig
+}
+
+// GetReleaseBundlesConfig returns the ReleaseBundlesConfig field.
+func (g *GlobalConfig) GetReleaseBundlesConfig() *ReleaseBundlesConfig {
+	if g == nil {
+		return nil
+	}
+	return g.ReleaseBundlesConfig
 }
 
 // GetRemoteReplications returns the RemoteReplications field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetRemoteReplications() []Replication {
+func (g *GlobalConfig) GetRemoteReplications() []Replication {
 	if g == nil || g.RemoteReplications == nil {
 		return nil
 	}
@@ -1464,31 +1384,39 @@ func (g *GlobalConfigResponse) GetRemoteReplications() []Replication {
 }
 
 // GetRemoteRepositories returns the RemoteRepositories field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetRemoteRepositories() []RemoteRepository {
+func (g *GlobalConfig) GetRemoteRepositories() []RemoteRepository {
 	if g == nil || g.RemoteRepositories == nil {
 		return nil
 	}
 	return *g.RemoteRepositories
 }
 
-// GetRepoLayouts returns the RepoLayouts field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetRepoLayouts() []RepoLayout {
-	if g == nil || g.RepoLayouts == nil {
+// GetReplicationsConfig returns the ReplicationsConfig field.
+func (g *GlobalConfig) GetReplicationsConfig() *ReplicationsConfig {
+	if g == nil {
 		return nil
 	}
-	return *g.RepoLayouts
+	return g.ReplicationsConfig
 }
 
-// GetReverseProxies returns the ReverseProxies field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetReverseProxies() []ReverseProxy {
-	if g == nil || g.ReverseProxies == nil {
+// GetRepoLayouts returns the RepoLayouts field.
+func (g *GlobalConfig) GetRepoLayouts() *RepoLayouts {
+	if g == nil {
 		return nil
 	}
-	return *g.ReverseProxies
+	return g.RepoLayouts
+}
+
+// GetReverseProxies returns the ReverseProxies field.
+func (g *GlobalConfig) GetReverseProxies() *ReverseProxies {
+	if g == nil {
+		return nil
+	}
+	return g.ReverseProxies
 }
 
 // GetRevision returns the Revision field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetRevision() int {
+func (g *GlobalConfig) GetRevision() int {
 	if g == nil || g.Revision == nil {
 		return 0
 	}
@@ -1496,19 +1424,83 @@ func (g *GlobalConfigResponse) GetRevision() int {
 }
 
 // GetSecurity returns the Security field.
-func (g *GlobalConfigResponse) GetSecurity() *SecurityResponse {
+func (g *GlobalConfig) GetSecurity() *Security {
 	if g == nil {
 		return nil
 	}
 	return g.Security
 }
 
+// GetServerName returns the ServerName field if it's non-nil, zero value otherwise.
+func (g *GlobalConfig) GetServerName() string {
+	if g == nil || g.ServerName == nil {
+		return ""
+	}
+	return *g.ServerName
+}
+
+// GetSignedUrlConfig returns the SignedUrlConfig field.
+func (g *GlobalConfig) GetSignedUrlConfig() *SignedUrlConfig {
+	if g == nil {
+		return nil
+	}
+	return g.SignedUrlConfig
+}
+
+// GetSumoLogicConfig returns the SumoLogicConfig field.
+func (g *GlobalConfig) GetSumoLogicConfig() *SumoLogicConfig {
+	if g == nil {
+		return nil
+	}
+	return g.SumoLogicConfig
+}
+
+// GetSystemMessageConfig returns the SystemMessageConfig field.
+func (g *GlobalConfig) GetSystemMessageConfig() *SystemMessageConfig {
+	if g == nil {
+		return nil
+	}
+	return g.SystemMessageConfig
+}
+
+// GetTrashcanConfig returns the TrashcanConfig field.
+func (g *GlobalConfig) GetTrashcanConfig() *TrashcanConfig {
+	if g == nil {
+		return nil
+	}
+	return g.TrashcanConfig
+}
+
+// GetUrlBase returns the UrlBase field if it's non-nil, zero value otherwise.
+func (g *GlobalConfig) GetUrlBase() string {
+	if g == nil || g.UrlBase == nil {
+		return ""
+	}
+	return *g.UrlBase
+}
+
+// GetVirtualCacheCleanupConfig returns the VirtualCacheCleanupConfig field.
+func (g *GlobalConfig) GetVirtualCacheCleanupConfig() *VirtualCacheCleanupConfig {
+	if g == nil {
+		return nil
+	}
+	return g.VirtualCacheCleanupConfig
+}
+
 // GetVirtualRepositories returns the VirtualRepositories field if it's non-nil, zero value otherwise.
-func (g *GlobalConfigResponse) GetVirtualRepositories() []VirtualRepository {
+func (g *GlobalConfig) GetVirtualRepositories() []VirtualRepository {
 	if g == nil || g.VirtualRepositories == nil {
 		return nil
 	}
 	return *g.VirtualRepositories
+}
+
+// GetXrayConfig returns the XrayConfig field.
+func (g *GlobalConfig) GetXrayConfig() *XrayConfig {
+	if g == nil {
+		return nil
+	}
+	return g.XrayConfig
 }
 
 // GetAdminPrivileges returns the AdminPrivileges field if it's non-nil, zero value otherwise.
@@ -1927,12 +1919,60 @@ func (l *LdapSetting) GetLdapUrl() string {
 	return *l.LdapUrl
 }
 
+// GetSearch returns the Search field.
+func (l *LdapSetting) GetSearch() *LdapSettingSearch {
+	if l == nil {
+		return nil
+	}
+	return l.Search
+}
+
 // GetUserDnPattern returns the UserDnPattern field if it's non-nil, zero value otherwise.
 func (l *LdapSetting) GetUserDnPattern() string {
 	if l == nil || l.UserDnPattern == nil {
 		return ""
 	}
 	return *l.UserDnPattern
+}
+
+// GetManagerDn returns the ManagerDn field if it's non-nil, zero value otherwise.
+func (l *LdapSettingSearch) GetManagerDn() string {
+	if l == nil || l.ManagerDn == nil {
+		return ""
+	}
+	return *l.ManagerDn
+}
+
+// GetManagerPassword returns the ManagerPassword field if it's non-nil, zero value otherwise.
+func (l *LdapSettingSearch) GetManagerPassword() string {
+	if l == nil || l.ManagerPassword == nil {
+		return ""
+	}
+	return *l.ManagerPassword
+}
+
+// GetSearchBase returns the SearchBase field if it's non-nil, zero value otherwise.
+func (l *LdapSettingSearch) GetSearchBase() string {
+	if l == nil || l.SearchBase == nil {
+		return ""
+	}
+	return *l.SearchBase
+}
+
+// GetSearchFilter returns the SearchFilter field if it's non-nil, zero value otherwise.
+func (l *LdapSettingSearch) GetSearchFilter() string {
+	if l == nil || l.SearchFilter == nil {
+		return ""
+	}
+	return *l.SearchFilter
+}
+
+// GetSearchSubTree returns the SearchSubTree field if it's non-nil, zero value otherwise.
+func (l *LdapSettingSearch) GetSearchSubTree() bool {
+	if l == nil || l.SearchSubTree == nil {
+		return false
+	}
+	return *l.SearchSubTree
 }
 
 // GetLicensedTo returns the LicensedTo field if it's non-nil, zero value otherwise.
@@ -2304,7 +2344,7 @@ func (o *OauthProviderSetting) GetTokenUrl() string {
 }
 
 // GetAllowUserToAccessProfile returns the AllowUserToAccessProfile field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsRequest) GetAllowUserToAccessProfile() bool {
+func (o *OauthSettings) GetAllowUserToAccessProfile() bool {
 	if o == nil || o.AllowUserToAccessProfile == nil {
 		return false
 	}
@@ -2312,15 +2352,23 @@ func (o *OauthSettingsRequest) GetAllowUserToAccessProfile() bool {
 }
 
 // GetEnableIntegration returns the EnableIntegration field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsRequest) GetEnableIntegration() bool {
+func (o *OauthSettings) GetEnableIntegration() bool {
 	if o == nil || o.EnableIntegration == nil {
 		return false
 	}
 	return *o.EnableIntegration
 }
 
+// GetOauthProvidersSettings returns the OauthProvidersSettings field.
+func (o *OauthSettings) GetOauthProvidersSettings() *OauthProviderSettings {
+	if o == nil {
+		return nil
+	}
+	return o.OauthProvidersSettings
+}
+
 // GetPersistUsers returns the PersistUsers field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsRequest) GetPersistUsers() bool {
+func (o *OauthSettings) GetPersistUsers() bool {
 	if o == nil || o.PersistUsers == nil {
 		return false
 	}
@@ -2328,43 +2376,11 @@ func (o *OauthSettingsRequest) GetPersistUsers() bool {
 }
 
 // GetReset returns the Reset field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsRequest) GetReset() bool {
+func (o *OauthSettings) GetReset() bool {
 	if o == nil || o.Reset == nil {
 		return false
 	}
 	return *o.Reset
-}
-
-// GetAllowUserToAccessProfile returns the AllowUserToAccessProfile field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsResponse) GetAllowUserToAccessProfile() bool {
-	if o == nil || o.AllowUserToAccessProfile == nil {
-		return false
-	}
-	return *o.AllowUserToAccessProfile
-}
-
-// GetEnableIntegration returns the EnableIntegration field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsResponse) GetEnableIntegration() bool {
-	if o == nil || o.EnableIntegration == nil {
-		return false
-	}
-	return *o.EnableIntegration
-}
-
-// GetOauthProvidersSettings returns the OauthProvidersSettings field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsResponse) GetOauthProvidersSettings() []OauthProviderSetting {
-	if o == nil || o.OauthProvidersSettings == nil {
-		return nil
-	}
-	return *o.OauthProvidersSettings
-}
-
-// GetPersistUsers returns the PersistUsers field if it's non-nil, zero value otherwise.
-func (o *OauthSettingsResponse) GetPersistUsers() bool {
-	if o == nil || o.PersistUsers == nil {
-		return false
-	}
-	return *o.PersistUsers
 }
 
 // GetEncryptionPolicy returns the EncryptionPolicy field if it's non-nil, zero value otherwise.
@@ -2511,24 +2527,72 @@ func (p *PermissionTargetV2) GetRepo() *PermissionDetails {
 	return p.Repo
 }
 
-// GetVisible returns the Visible field if it's non-nil, zero value otherwise.
-func (p *PropertySetRequest) GetVisible() bool {
-	if p == nil || p.Visible == nil {
+// GetDefaultValue returns the DefaultValue field if it's non-nil, zero value otherwise.
+func (p *PredefinedValue) GetDefaultValue() bool {
+	if p == nil || p.DefaultValue == nil {
 		return false
 	}
-	return *p.Visible
+	return *p.DefaultValue
+}
+
+// GetValue returns the Value field if it's non-nil, zero value otherwise.
+func (p *PredefinedValue) GetValue() string {
+	if p == nil || p.Value == nil {
+		return ""
+	}
+	return *p.Value
+}
+
+// GetClosedPredefinedValues returns the ClosedPredefinedValues field if it's non-nil, zero value otherwise.
+func (p *Property) GetClosedPredefinedValues() bool {
+	if p == nil || p.ClosedPredefinedValues == nil {
+		return false
+	}
+	return *p.ClosedPredefinedValues
+}
+
+// GetMultipleChoice returns the MultipleChoice field if it's non-nil, zero value otherwise.
+func (p *Property) GetMultipleChoice() bool {
+	if p == nil || p.MultipleChoice == nil {
+		return false
+	}
+	return *p.MultipleChoice
 }
 
 // GetName returns the Name field if it's non-nil, zero value otherwise.
-func (p *PropertySetResponse) GetName() string {
+func (p *Property) GetName() string {
 	if p == nil || p.Name == nil {
 		return ""
 	}
 	return *p.Name
 }
 
+// GetPredefinedValues returns the PredefinedValues field.
+func (p *Property) GetPredefinedValues() *PredefinedValues {
+	if p == nil {
+		return nil
+	}
+	return p.PredefinedValues
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (p *PropertySet) GetName() string {
+	if p == nil || p.Name == nil {
+		return ""
+	}
+	return *p.Name
+}
+
+// GetProperties returns the Properties field.
+func (p *PropertySet) GetProperties() *Properties {
+	if p == nil {
+		return nil
+	}
+	return p.Properties
+}
+
 // GetVisible returns the Visible field if it's non-nil, zero value otherwise.
-func (p *PropertySetResponse) GetVisible() bool {
+func (p *PropertySet) GetVisible() bool {
 	if p == nil || p.Visible == nil {
 		return false
 	}
@@ -3568,7 +3632,7 @@ func (s *SamlSettings) GetSyncGroups() bool {
 }
 
 // GetAccessClientSettings returns the AccessClientSettings field.
-func (s *SecurityRequest) GetAccessClientSettings() *AccessClientSettings {
+func (s *Security) GetAccessClientSettings() *AccessClientSettings {
 	if s == nil {
 		return nil
 	}
@@ -3576,7 +3640,7 @@ func (s *SecurityRequest) GetAccessClientSettings() *AccessClientSettings {
 }
 
 // GetAnonAccessEnabled returns the AnonAccessEnabled field if it's non-nil, zero value otherwise.
-func (s *SecurityRequest) GetAnonAccessEnabled() bool {
+func (s *Security) GetAnonAccessEnabled() bool {
 	if s == nil || s.AnonAccessEnabled == nil {
 		return false
 	}
@@ -3584,7 +3648,7 @@ func (s *SecurityRequest) GetAnonAccessEnabled() bool {
 }
 
 // GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field if it's non-nil, zero value otherwise.
-func (s *SecurityRequest) GetBuildGlobalBasicReadAllowed() bool {
+func (s *Security) GetBuildGlobalBasicReadAllowed() bool {
 	if s == nil || s.BuildGlobalBasicReadAllowed == nil {
 		return false
 	}
@@ -3592,7 +3656,7 @@ func (s *SecurityRequest) GetBuildGlobalBasicReadAllowed() bool {
 }
 
 // GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field if it's non-nil, zero value otherwise.
-func (s *SecurityRequest) GetBuildGlobalBasicReadForAnonymous() bool {
+func (s *Security) GetBuildGlobalBasicReadForAnonymous() bool {
 	if s == nil || s.BuildGlobalBasicReadForAnonymous == nil {
 		return false
 	}
@@ -3600,7 +3664,7 @@ func (s *SecurityRequest) GetBuildGlobalBasicReadForAnonymous() bool {
 }
 
 // GetCrowdSettings returns the CrowdSettings field.
-func (s *SecurityRequest) GetCrowdSettings() *CrowdSettings {
+func (s *Security) GetCrowdSettings() *CrowdSettings {
 	if s == nil {
 		return nil
 	}
@@ -3608,7 +3672,7 @@ func (s *SecurityRequest) GetCrowdSettings() *CrowdSettings {
 }
 
 // GetHideUnauthorizedResources returns the HideUnauthorizedResources field if it's non-nil, zero value otherwise.
-func (s *SecurityRequest) GetHideUnauthorizedResources() bool {
+func (s *Security) GetHideUnauthorizedResources() bool {
 	if s == nil || s.HideUnauthorizedResources == nil {
 		return false
 	}
@@ -3616,15 +3680,31 @@ func (s *SecurityRequest) GetHideUnauthorizedResources() bool {
 }
 
 // GetHttpSsoSettings returns the HttpSsoSettings field.
-func (s *SecurityRequest) GetHttpSsoSettings() *HttpSsoSettings {
+func (s *Security) GetHttpSsoSettings() *HttpSsoSettings {
 	if s == nil {
 		return nil
 	}
 	return s.HttpSsoSettings
 }
 
+// GetLdapGroupSettings returns the LdapGroupSettings field.
+func (s *Security) GetLdapGroupSettings() *LdapGroupSettings {
+	if s == nil {
+		return nil
+	}
+	return s.LdapGroupSettings
+}
+
+// GetLdapSettings returns the LdapSettings field.
+func (s *Security) GetLdapSettings() *LdapSettings {
+	if s == nil {
+		return nil
+	}
+	return s.LdapSettings
+}
+
 // GetOauthSettings returns the OauthSettings field.
-func (s *SecurityRequest) GetOauthSettings() *OauthSettingsRequest {
+func (s *Security) GetOauthSettings() *OauthSettings {
 	if s == nil {
 		return nil
 	}
@@ -3632,7 +3712,7 @@ func (s *SecurityRequest) GetOauthSettings() *OauthSettingsRequest {
 }
 
 // GetPasswordSettings returns the PasswordSettings field.
-func (s *SecurityRequest) GetPasswordSettings() *PasswordSettings {
+func (s *Security) GetPasswordSettings() *PasswordSettings {
 	if s == nil {
 		return nil
 	}
@@ -3640,7 +3720,7 @@ func (s *SecurityRequest) GetPasswordSettings() *PasswordSettings {
 }
 
 // GetSamlSettings returns the SamlSettings field.
-func (s *SecurityRequest) GetSamlSettings() *SamlSettings {
+func (s *Security) GetSamlSettings() *SamlSettings {
 	if s == nil {
 		return nil
 	}
@@ -3648,111 +3728,7 @@ func (s *SecurityRequest) GetSamlSettings() *SamlSettings {
 }
 
 // GetUserLockPolicy returns the UserLockPolicy field.
-func (s *SecurityRequest) GetUserLockPolicy() *UserLockPolicy {
-	if s == nil {
-		return nil
-	}
-	return s.UserLockPolicy
-}
-
-// GetAccessClientSettings returns the AccessClientSettings field.
-func (s *SecurityResponse) GetAccessClientSettings() *AccessClientSettings {
-	if s == nil {
-		return nil
-	}
-	return s.AccessClientSettings
-}
-
-// GetAnonAccessEnabled returns the AnonAccessEnabled field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetAnonAccessEnabled() bool {
-	if s == nil || s.AnonAccessEnabled == nil {
-		return false
-	}
-	return *s.AnonAccessEnabled
-}
-
-// GetBuildGlobalBasicReadAllowed returns the BuildGlobalBasicReadAllowed field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetBuildGlobalBasicReadAllowed() bool {
-	if s == nil || s.BuildGlobalBasicReadAllowed == nil {
-		return false
-	}
-	return *s.BuildGlobalBasicReadAllowed
-}
-
-// GetBuildGlobalBasicReadForAnonymous returns the BuildGlobalBasicReadForAnonymous field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetBuildGlobalBasicReadForAnonymous() bool {
-	if s == nil || s.BuildGlobalBasicReadForAnonymous == nil {
-		return false
-	}
-	return *s.BuildGlobalBasicReadForAnonymous
-}
-
-// GetCrowdSettings returns the CrowdSettings field.
-func (s *SecurityResponse) GetCrowdSettings() *CrowdSettings {
-	if s == nil {
-		return nil
-	}
-	return s.CrowdSettings
-}
-
-// GetHideUnauthorizedResources returns the HideUnauthorizedResources field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetHideUnauthorizedResources() bool {
-	if s == nil || s.HideUnauthorizedResources == nil {
-		return false
-	}
-	return *s.HideUnauthorizedResources
-}
-
-// GetHttpSsoSettings returns the HttpSsoSettings field.
-func (s *SecurityResponse) GetHttpSsoSettings() *HttpSsoSettings {
-	if s == nil {
-		return nil
-	}
-	return s.HttpSsoSettings
-}
-
-// GetLdapGroupSettings returns the LdapGroupSettings field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetLdapGroupSettings() []LdapGroupSetting {
-	if s == nil || s.LdapGroupSettings == nil {
-		return nil
-	}
-	return *s.LdapGroupSettings
-}
-
-// GetLdapSettings returns the LdapSettings field if it's non-nil, zero value otherwise.
-func (s *SecurityResponse) GetLdapSettings() []LdapSetting {
-	if s == nil || s.LdapSettings == nil {
-		return nil
-	}
-	return *s.LdapSettings
-}
-
-// GetOauthSettings returns the OauthSettings field.
-func (s *SecurityResponse) GetOauthSettings() *OauthSettingsResponse {
-	if s == nil {
-		return nil
-	}
-	return s.OauthSettings
-}
-
-// GetPasswordSettings returns the PasswordSettings field.
-func (s *SecurityResponse) GetPasswordSettings() *PasswordSettings {
-	if s == nil {
-		return nil
-	}
-	return s.PasswordSettings
-}
-
-// GetSamlSettings returns the SamlSettings field.
-func (s *SecurityResponse) GetSamlSettings() *SamlSettings {
-	if s == nil {
-		return nil
-	}
-	return s.SamlSettings
-}
-
-// GetUserLockPolicy returns the UserLockPolicy field.
-func (s *SecurityResponse) GetUserLockPolicy() *UserLockPolicy {
+func (s *Security) GetUserLockPolicy() *UserLockPolicy {
 	if s == nil {
 		return nil
 	}
