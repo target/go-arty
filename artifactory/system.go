@@ -733,7 +733,7 @@ func (o *OauthProviderSettings) UnmarshalYAML(unmarshal func(interface{}) error)
 // Docs: https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Security(Generalsecurity,PasswordPolicy,LDAP,SAML,OAuth,HTTPSSO,Crowd)
 type OauthProviderSetting struct {
 	Name         *string `yaml:"-" xml:"name,omitempty"`
-	Id           *string `yaml:"-" xml:"id,omitempty"`
+	Id           *string `yaml:"id,omitempty" xml:"id,omitempty"`
 	ApiUrl       *string `yaml:"apiUrl,omitempty" xml:"apiUrl,omitempty"`
 	AuthUrl      *string `yaml:"authUrl,omitempty" xml:"authUrl,omitempty"`
 	BasicUrl     *string `yaml:"basicUrl,omitempty" xml:"basicUrl,omitempty"`
