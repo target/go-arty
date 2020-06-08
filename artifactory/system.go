@@ -180,7 +180,7 @@ func (p Proxies) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for Proxies.
 func (p *Proxies) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	proxiesMap := make(map[string]*Proxy)
+	proxiesMap := make(map[*string]*Proxy)
 	if err := unmarshal(proxiesMap); err != nil {
 		return err
 	}
@@ -190,7 +190,7 @@ func (p *Proxies) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if proxy == nil {
 			continue
 		}
-		proxy.Key = &proxyKey
+		proxy.Key = proxyKey
 		proxiesSlice = append(proxiesSlice, proxy)
 	}
 
@@ -240,7 +240,7 @@ func (r ReverseProxies) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for ReverseProxies.
 func (r *ReverseProxies) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	reverseProxiesMap := make(map[string]*ReverseProxy)
+	reverseProxiesMap := make(map[*string]*ReverseProxy)
 	if err := unmarshal(reverseProxiesMap); err != nil {
 		return err
 	}
@@ -250,7 +250,7 @@ func (r *ReverseProxies) UnmarshalYAML(unmarshal func(interface{}) error) error 
 		if reverseProxy == nil {
 			continue
 		}
-		reverseProxy.Key = &reverseProxyKey
+		reverseProxy.Key = reverseProxyKey
 		reverseProxiesSlice = append(reverseProxiesSlice, reverseProxy)
 	}
 
@@ -287,7 +287,7 @@ func (p Properties) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for Properties.
 func (p *Properties) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	propertiesMap := make(map[string]*Property)
+	propertiesMap := make(map[*string]*Property)
 	if err := unmarshal(propertiesMap); err != nil {
 		return err
 	}
@@ -297,7 +297,7 @@ func (p *Properties) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if property == nil {
 			continue
 		}
-		property.Name = &propertyName
+		property.Name = propertyName
 		propertiesSlice = append(propertiesSlice, property)
 	}
 
@@ -337,7 +337,7 @@ func (p PredefinedValues) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for PredefinedValues.
 func (p *PredefinedValues) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	predefinedValuesMap := make(map[string]*PredefinedValue)
+	predefinedValuesMap := make(map[*string]*PredefinedValue)
 	if err := unmarshal(predefinedValuesMap); err != nil {
 		return err
 	}
@@ -347,7 +347,7 @@ func (p *PredefinedValues) UnmarshalYAML(unmarshal func(interface{}) error) erro
 		if predefinedValue == nil {
 			continue
 		}
-		predefinedValue.Value = &predefinedValueName
+		predefinedValue.Value = predefinedValueName
 		predefinedValuesSlice = append(predefinedValuesSlice, predefinedValue)
 	}
 
@@ -375,7 +375,7 @@ func (p PropertySets) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for PropertySets.
 func (p *PropertySets) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	propertySetsMap := make(map[string]*PropertySet)
+	propertySetsMap := make(map[*string]*PropertySet)
 	if err := unmarshal(propertySetsMap); err != nil {
 		return err
 	}
@@ -385,7 +385,7 @@ func (p *PropertySets) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if propertySet == nil {
 			continue
 		}
-		propertySet.Name = &propertySetName
+		propertySet.Name = propertySetName
 		propertySetsSlice = append(propertySetsSlice, propertySet)
 	}
 
@@ -541,7 +541,7 @@ func (l LdapSettings) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for LdapSettings.
 func (l *LdapSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	ldapSettingsMap := make(map[string]*LdapSetting)
+	ldapSettingsMap := make(map[*string]*LdapSetting)
 	if err := unmarshal(ldapSettingsMap); err != nil {
 		return err
 	}
@@ -551,7 +551,7 @@ func (l *LdapSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if ldapSetting == nil {
 			continue
 		}
-		ldapSetting.Key = &ldapSettingKey
+		ldapSetting.Key = ldapSettingKey
 		ldapSettingsSlice = append(ldapSettingsSlice, ldapSetting)
 	}
 
@@ -594,7 +594,7 @@ func (l LdapGroupSettings) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for LdapGroupSettings.
 func (l *LdapGroupSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	ldapGroupSettingsMap := make(map[string]*LdapGroupSetting)
+	ldapGroupSettingsMap := make(map[*string]*LdapGroupSetting)
 	if err := unmarshal(ldapGroupSettingsMap); err != nil {
 		return err
 	}
@@ -604,7 +604,7 @@ func (l *LdapGroupSettings) UnmarshalYAML(unmarshal func(interface{}) error) err
 		if ldapGroupSetting == nil {
 			continue
 		}
-		ldapGroupSetting.Name = &ldapGroupSettingName
+		ldapGroupSetting.Name = ldapGroupSettingName
 		ldapGroupSettingsSlice = append(ldapGroupSettingsSlice, ldapGroupSetting)
 	}
 
@@ -710,7 +710,7 @@ func (o OauthProviderSettings) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for OauthProviderSettings.
 func (o *OauthProviderSettings) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	oauthProviderSettingsMap := make(map[string]*OauthProviderSetting)
+	oauthProviderSettingsMap := make(map[*string]*OauthProviderSetting)
 	if err := unmarshal(oauthProviderSettingsMap); err != nil {
 		return err
 	}
@@ -720,7 +720,7 @@ func (o *OauthProviderSettings) UnmarshalYAML(unmarshal func(interface{}) error)
 		if oauthProviderSetting == nil {
 			continue
 		}
-		oauthProviderSetting.Name = &oauthProviderSettingName
+		oauthProviderSetting.Name = oauthProviderSettingName
 		oauthProviderSettingsSlice = append(oauthProviderSettingsSlice, oauthProviderSetting)
 	}
 
@@ -799,7 +799,7 @@ func (b Backups) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for Backups.
 func (b *Backups) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	backupsMap := make(map[string]*Backup)
+	backupsMap := make(map[*string]*Backup)
 	if err := unmarshal(backupsMap); err != nil {
 		return err
 	}
@@ -809,7 +809,7 @@ func (b *Backups) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if backupConfig == nil {
 			continue
 		}
-		backupConfig.Key = &backupKey
+		backupConfig.Key = backupKey
 		backupsSlice = append(backupsSlice, backupConfig)
 	}
 
@@ -868,7 +868,7 @@ func (r RepoLayouts) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for RepoLayouts.
 func (r *RepoLayouts) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	repoLayoutsMap := make(map[string]*RepoLayout)
+	repoLayoutsMap := make(map[*string]*RepoLayout)
 	if err := unmarshal(repoLayoutsMap); err != nil {
 		return err
 	}
@@ -878,7 +878,7 @@ func (r *RepoLayouts) UnmarshalYAML(unmarshal func(interface{}) error) error {
 		if repoLayout == nil {
 			continue
 		}
-		repoLayout.Name = &repoLayoutName
+		repoLayout.Name = repoLayoutName
 		repoLayoutsSlice = append(repoLayoutsSlice, repoLayout)
 	}
 
@@ -1061,7 +1061,7 @@ func (b BintrayApplications) MarshalYAML() (interface{}, error) {
 
 // UnmarshalYAML implements yaml.Unmarshaler for RepoLayouts.
 func (b *BintrayApplications) UnmarshalYAML(unmarshal func(interface{}) error) error {
-	bintrayApplicationsMap := make(map[string]*BintrayApplication)
+	bintrayApplicationsMap := make(map[*string]*BintrayApplication)
 	if err := unmarshal(bintrayApplicationsMap); err != nil {
 		return err
 	}
@@ -1071,7 +1071,7 @@ func (b *BintrayApplications) UnmarshalYAML(unmarshal func(interface{}) error) e
 		if bintrayApplication == nil {
 			continue
 		}
-		bintrayApplication.Key = &bintrayApplicationKey
+		bintrayApplication.Key = bintrayApplicationKey
 		bintrayApplicationsSlice = append(bintrayApplicationsSlice, bintrayApplication)
 	}
 
