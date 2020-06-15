@@ -74,7 +74,7 @@ func Test_Groups(t *testing.T) {
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Get()", func() {
+			g.It("- should return no error with Get() with IncludeUsers true", func() {
 				groupRequest := &GetGroupRequest{
 					Name:         String("dev-leads"),
 					IncludeUsers: Bool(true),
@@ -86,7 +86,7 @@ func Test_Groups(t *testing.T) {
 				g.Assert(err == nil).IsTrue()
 			})
 
-			g.It("- should return no error with Get()", func() {
+			g.It("- should return no error with Get() with IncludeUsers nil", func() {
 				groupRequest := &GetGroupRequest{
 					Name:         String("dev-leads"),
 					IncludeUsers: nil,
