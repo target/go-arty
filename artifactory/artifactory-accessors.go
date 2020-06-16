@@ -1199,6 +1199,22 @@ func (g *GenericRepository) GetSuppressPomConsistencyChecks() bool {
 	return *g.SuppressPomConsistencyChecks
 }
 
+// GetIncludeUsers returns the IncludeUsers field if it's non-nil, zero value otherwise.
+func (g *GetGroupRequest) GetIncludeUsers() bool {
+	if g == nil || g.IncludeUsers == nil {
+		return false
+	}
+	return *g.IncludeUsers
+}
+
+// GetName returns the Name field if it's non-nil, zero value otherwise.
+func (g *GetGroupRequest) GetName() string {
+	if g == nil || g.Name == nil {
+		return ""
+	}
+	return *g.Name
+}
+
 // GetAddonsConfig returns the AddonsConfig field.
 func (g *GlobalConfig) GetAddonsConfig() *AddonsConfig {
 	if g == nil {
@@ -1557,6 +1573,14 @@ func (g *Group) GetURI() string {
 		return ""
 	}
 	return *g.URI
+}
+
+// GetUserNames returns the UserNames field if it's non-nil, zero value otherwise.
+func (g *Group) GetUserNames() []string {
+	if g == nil || g.UserNames == nil {
+		return nil
+	}
+	return *g.UserNames
 }
 
 // GetExpired returns the Expired field if it's non-nil, zero value otherwise.
