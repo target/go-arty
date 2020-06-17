@@ -200,13 +200,13 @@ func Test_Repositories(t *testing.T) {
 					ContentSynchronisation: &ContentSynchronisation{
 						Enabled: Bool(true),
 						Properties: &struct {
-							Enabled *bool `json:"enabled,omitempty"`
+							Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 						}{Enabled: Bool(true)},
 						Statistics: &struct {
-							Enabled *bool `json:"enabled,omitempty"`
+							Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 						}{Enabled: Bool(true)},
 						Source: &struct {
-							OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty"`
+							OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty" xml:"originAbsenceDetection,omitempty"`
 						}{OriginAbsenceDetection: Bool(true)},
 					},
 					BlockPushingSchema1:  Bool(true),

@@ -45,21 +45,21 @@ func (r Repository) String() string {
 
 // GenericRepository represents the common json across all repository types from Artifactory.
 type GenericRepository struct {
-	Key                          *string   `json:"key,omitempty"`
-	RClass                       *string   `json:"rclass,omitempty"`
-	PackageType                  *string   `json:"packageType,omitempty"`
-	Description                  *string   `json:"description,omitempty"`
-	Notes                        *string   `json:"notes,omitempty"`
-	IncludesPattern              *string   `json:"includesPattern,omitempty"`
-	ExcludesPattern              *string   `json:"excludesPattern,omitempty"`
-	LayoutRef                    *string   `json:"repoLayoutRef,omitempty"`
-	HandleReleases               *bool     `json:"handleReleases,omitempty"`
-	HandleSnapshots              *bool     `json:"handleSnapshots,omitempty"`
-	MaxUniqueSnapshots           *int      `json:"maxUniqueSnapshots,omitempty"`
-	SuppressPomConsistencyChecks *bool     `json:"suppressPomConsistencyChecks,omitempty"`
-	BlackedOut                   *bool     `json:"blackedOut,omitempty"`
-	PropertySets                 *[]string `json:"propertySets,omitempty"`
-	ForceNugetAuthentication     *bool     `json:"forceNugetAuthentication,omitempty"`
+	Key                          *string   `json:"key,omitempty" xml:"key,omitempty"`
+	RClass                       *string   `json:"rclass,omitempty" xml:"-"`
+	PackageType                  *string   `json:"packageType,omitempty" xml:"type,omitempty"`
+	Description                  *string   `json:"description,omitempty" xml:"description,omitempty"`
+	Notes                        *string   `json:"notes,omitempty" xml:"notes,omitempty"`
+	IncludesPattern              *string   `json:"includesPattern,omitempty" xml:"includesPattern,omitempty"`
+	ExcludesPattern              *string   `json:"excludesPattern,omitempty" xml:"excludesPattern,omitempty"`
+	LayoutRef                    *string   `json:"repoLayoutRef,omitempty" xml:"repoLayoutRef,omitempty"`
+	HandleReleases               *bool     `json:"handleReleases,omitempty" xml:"handleReleases,omitempty"`
+	HandleSnapshots              *bool     `json:"handleSnapshots,omitempty" xml:"handleSnapshots,omitempty"`
+	MaxUniqueSnapshots           *int      `json:"maxUniqueSnapshots,omitempty" xml:"maxUniqueSnapshots,omitempty"`
+	SuppressPomConsistencyChecks *bool     `json:"suppressPomConsistencyChecks,omitempty" xml:"suppressPomConsistencyChecks,omitempty"`
+	BlackedOut                   *bool     `json:"blackedOut,omitempty" xml:"blackedOut,omitempty"`
+	PropertySets                 *[]string `json:"propertySets,omitempty" xml:"propertySets>propertySetRef,omitempty"`
+	ForceNugetAuthentication     *bool     `json:"forceNugetAuthentication,omitempty" xml:"forceNugetAuthentication,omitempty"`
 }
 
 func (g GenericRepository) String() string {
@@ -72,19 +72,19 @@ func (g GenericRepository) String() string {
 type LocalRepository struct {
 	*GenericRepository
 
-	DebianTrivialLayout             *bool     `json:"debianTrivialLayout,omitempty"`
-	ChecksumPolicyType              *string   `json:"checksumPolicyType,omitempty"`
-	MaxUniqueTags                   *int      `json:"maxUniqueTags,omitempty"`
-	SnapshotVersionBehavior         *string   `json:"snapshotVersionBehavior,omitempty"`
-	ArchiveBrowsingEnabled          *bool     `json:"archiveBrowsingEnabled,omitempty"`
-	CalculateYumMetadata            *bool     `json:"calculateYumMetadata,omitempty"`
-	YumRootDepth                    *int      `json:"yumRootDepth,omitempty"`
-	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty"`
-	BlockPushingSchema1             *bool     `json:"blockPushingSchema1,omitempty"`
-	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty"`
-	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty"`
-	XrayIndex                       *bool     `json:"xrayIndex,omitempty"`
-	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty"`
+	DebianTrivialLayout             *bool     `json:"debianTrivialLayout,omitempty" xml:"debianTrivialLayout,omitempty"`
+	ChecksumPolicyType              *string   `json:"checksumPolicyType,omitempty" xml:"localRepoChecksumPolicyType,omitempty"`
+	MaxUniqueTags                   *int      `json:"maxUniqueTags,omitempty" xml:"maxUniqueTags,omitempty"`
+	SnapshotVersionBehavior         *string   `json:"snapshotVersionBehavior,omitempty" xml:"snapshotVersionBehavior,omitempty"`
+	ArchiveBrowsingEnabled          *bool     `json:"archiveBrowsingEnabled,omitempty" xml:"archiveBrowsingEnabled,omitempty"`
+	CalculateYumMetadata            *bool     `json:"calculateYumMetadata,omitempty" xml:"calculateYumMetadata,omitempty"`
+	YumRootDepth                    *int      `json:"yumRootDepth,omitempty" xml:"yumRootDepth,omitempty"`
+	DockerAPIVersion                *string   `json:"dockerApiVersion,omitempty" xml:"dockerApiVersion,omitempty"`
+	BlockPushingSchema1             *bool     `json:"blockPushingSchema1,omitempty" xml:"blockPushingSchema1,omitempty"`
+	EnableFileListsIndexing         *bool     `json:"enableFileListsIndexing,omitempty" xml:"enableFileListsIndexing,omitempty"`
+	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty" xml:"optionalIndexCompressionFormats>debianFormat,omitempty"`
+	XrayIndex                       *bool     `json:"xrayIndex,omitempty" xml:"xray>enabled,omitempty"`
+	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"downloadRedirect>enabled,omitempty"`
 }
 
 func (l LocalRepository) String() string {
@@ -97,65 +97,65 @@ func (l LocalRepository) String() string {
 type RemoteRepository struct {
 	*GenericRepository
 
-	URL                               *string                 `json:"url,omitempty"`
-	Username                          *string                 `json:"username,omitempty"`
-	Password                          *string                 `json:"password,omitempty"`
-	Proxy                             *string                 `json:"proxy,omitempty"`
-	RemoteRepoChecksumPolicyType      *string                 `json:"remoteRepoChecksumPolicyType,omitempty"`
-	HardFail                          *bool                   `json:"hardFail,omitempty"`
-	Offline                           *bool                   `json:"offline,omitempty"`
-	StoreArtifactsLocally             *bool                   `json:"storeArtifactsLocally,omitempty"`
-	SocketTimeoutMillis               *int                    `json:"socketTimeoutMillis,omitempty"`
-	LocalAddress                      *string                 `json:"localAddress,omitempty"`
-	RetrievalCachePeriodSecs          *int                    `json:"retrievalCachePeriodSecs,omitempty"`
-	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty"`
-	MissedRetrievalCachePeriodSecs    *int                    `json:"missedRetrievalCachePeriodSecs,omitempty"`
-	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty"`
-	UnusedArtifactsCleanupPeriodHours *int                    `json:"unusedArtifactsCleanupPeriodHours,omitempty"`
-	AssumedOfflinePeriodSecs          *int                    `json:"assumedOfflinePeriodSecs,omitempty"`
-	FetchJarsEagerly                  *bool                   `json:"fetchJarsEagerly,omitempty"`
-	FetchSourcesEagerly               *bool                   `json:"fetchSourcesEagerly,omitempty"`
-	ShareConfiguration                *bool                   `json:"shareConfiguration,omitempty"`
-	SynchronizeProperties             *bool                   `json:"synchronizeProperties,omitempty"`
-	BlockMismatchingMimeTypes         *bool                   `json:"blockMismatchingMimeTypes,omitempty"`
-	AllowAnyHostAuth                  *bool                   `json:"allowAnyHostAuth,omitempty"`
-	EnableCookieManagement            *bool                   `json:"enableCookieManagement,omitempty"`
-	BowerRegistryURL                  *string                 `json:"bowerRegistryUrl,omitempty"`
-	ComposerRegistryURL               *string                 `json:"composerRegistryUrl,omitempty"`
-	PyPIRegistryURL                   *string                 `json:"pyPIRegistryUrl,omitempty"`
-	PyPIRepositorySuffix              *string                 `json:"pyPIRepositorySuffix,omitempty"`
-	VcsType                           *string                 `json:"vcsType,omitempty"`
-	VcsGitProvider                    *string                 `json:"vcsGitProvider,omitempty"`
-	VcsGitDownloadUrl                 *string                 `json:"VcsGitDownloadUrl,omitempty"`
-	BypassHeadRequests                *bool                   `json:"bypassHeadRequests,omitempty"`
-	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty"`
-	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty"`
-	ExternalDependenciesPatterns      *[]string               `json:"externalDependenciesPatterns,omitempty"`
-	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty"`
-	FeedContextPath                   *string                 `json:"feedContextPath,omitempty"`
-	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty"`
-	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty"`
-	XrayIndex                         *bool                   `json:"xrayIndex,omitempty"`
-	ListRemoteFolderItems             *bool                   `json:"listRemoteFolderItems,omitempty"`
-	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty"`
-	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty"`
-	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty"`
-	QueryParams                       *string                 `json:"queryParams,omitempty"`
-	PropagateQueryParams              *bool                   `json:"propagateQueryParams,omitempty"`
+	URL                               *string                 `json:"url,omitempty" xml:"url,omitempty"`
+	Username                          *string                 `json:"username,omitempty" xml:"username,omitempty"`
+	Password                          *string                 `json:"password,omitempty" xml:"password,omitempty"`
+	Proxy                             *string                 `json:"proxy,omitempty" xml:"proxyRef,omitempty"`
+	RemoteRepoChecksumPolicyType      *string                 `json:"remoteRepoChecksumPolicyType,omitempty" xml:"remoteRepoChecksumPolicyType,omitempty"`
+	HardFail                          *bool                   `json:"hardFail,omitempty" xml:"hardFail,omitempty"`
+	Offline                           *bool                   `json:"offline,omitempty" xml:"offline,omitempty"`
+	StoreArtifactsLocally             *bool                   `json:"storeArtifactsLocally,omitempty" xml:"storeArtifactsLocally,omitempty"`
+	SocketTimeoutMillis               *int                    `json:"socketTimeoutMillis,omitempty" xml:"socketTimeoutMillis,omitempty"`
+	LocalAddress                      *string                 `json:"localAddress,omitempty" xml:"localAddress,omitempty"`
+	RetrievalCachePeriodSecs          *int                    `json:"retrievalCachePeriodSecs,omitempty" xml:"retrievalCachePeriodSecs,omitempty"`
+	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty" xml:"failedRetrievalCachePeriodSecs,omitempty"`
+	MissedRetrievalCachePeriodSecs    *int                    `json:"missedRetrievalCachePeriodSecs,omitempty" xml:"missedRetrievalCachePeriodSecs,omitempty"`
+	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty" xml:"unusedArtifactsCleanupEnabled,omitempty"`
+	UnusedArtifactsCleanupPeriodHours *int                    `json:"unusedArtifactsCleanupPeriodHours,omitempty" xml:"unusedArtifactsCleanupPeriodHours,omitempty"`
+	AssumedOfflinePeriodSecs          *int                    `json:"assumedOfflinePeriodSecs,omitempty" xml:"assumedOfflinePeriodSecs,omitempty"`
+	FetchJarsEagerly                  *bool                   `json:"fetchJarsEagerly,omitempty" xml:"fetchJarsEagerly,omitempty"`
+	FetchSourcesEagerly               *bool                   `json:"fetchSourcesEagerly,omitempty" xml:"fetchSourcesEagerly,omitempty"`
+	ShareConfiguration                *bool                   `json:"shareConfiguration,omitempty" xml:"shareConfiguration,omitempty"`
+	SynchronizeProperties             *bool                   `json:"synchronizeProperties,omitempty" xml:"synchronizeProperties,omitempty"`
+	BlockMismatchingMimeTypes         *bool                   `json:"blockMismatchingMimeTypes,omitempty" xml:"blockMismatchingMimeTypes,omitempty"`
+	AllowAnyHostAuth                  *bool                   `json:"allowAnyHostAuth,omitempty" xml:"allowAnyHostAuth,omitempty"`
+	EnableCookieManagement            *bool                   `json:"enableCookieManagement,omitempty" xml:"enableCookieManagement,omitempty"`
+	BowerRegistryURL                  *string                 `json:"bowerRegistryUrl,omitempty" xml:"bowerRegistryUrl,omitempty"`
+	ComposerRegistryURL               *string                 `json:"composerRegistryUrl,omitempty" xml:"composerRegistryUrl,omitempty"`
+	PyPIRegistryURL                   *string                 `json:"pyPIRegistryUrl,omitempty" xml:"pypi>pyPIRegistryUrl,omitempty"`
+	PyPIRepositorySuffix              *string                 `json:"pyPIRepositorySuffix,omitempty" xml:"pyPIRepositorySuffix,omitempty"`
+	VcsType                           *string                 `json:"vcsType,omitempty" xml:"vcs>type,omitempty"`
+	VcsGitProvider                    *string                 `json:"vcsGitProvider,omitempty" xml:"vcs>git>provider,omitempty"`
+	VcsGitDownloadUrl                 *string                 `json:"vcsGitDownloadUrl,omitempty" xml:"vcs>git>downloadUrl,omitempty"`
+	BypassHeadRequests                *bool                   `json:"bypassHeadRequests,omitempty" xml:"bypassHeadRequests,omitempty"`
+	ClientTLSCertificate              *string                 `json:"clientTlsCertificate,omitempty" xml:"clientTlsCertificate,omitempty"`
+	ExternalDependenciesEnabled       *bool                   `json:"externalDependenciesEnabled,omitempty" xml:"externalDependencies>enabled,omitempty"`
+	ExternalDependenciesPatterns      *[]string               `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
+	DownloadRedirect                  *bool                   `json:"downloadRedirect,omitempty" xml:"downloadRedirect>enabled,omitempty"`
+	FeedContextPath                   *string                 `json:"feedContextPath,omitempty" xml:"nuget>feedContextPath,omitempty"`
+	DownloadContextPath               *string                 `json:"downloadContextPath,omitempty" xml:"nuget>downloadContextPath,omitempty"`
+	V3FeedUrl                         *string                 `json:"v3FeedUrl,omitempty" xml:"nuget>v3FeedUrl,omitempty"`
+	XrayIndex                         *bool                   `json:"xrayIndex,omitempty" xml:"xray>enabled,omitempty"`
+	ListRemoteFolderItems             *bool                   `json:"listRemoteFolderItems,omitempty" xml:"listRemoteFolderItems,omitempty"`
+	EnableTokenAuthentication         *bool                   `json:"enableTokenAuthentication,omitempty" xml:"enableTokenAuthentication,omitempty"`
+	ContentSynchronisation            *ContentSynchronisation `json:"contentSynchronisation,omitempty" xml:"contentSynchronisation,omitempty"`
+	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty" xml:"blockPushingSchema1,omitempty"`
+	QueryParams                       *string                 `json:"queryParams,omitempty" xml:"queryParams,omitempty"`
+	PropagateQueryParams              *bool                   `json:"propagateQueryParams,omitempty" xml:"propagateQueryParams,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
 type ContentSynchronisation struct {
-	Enabled    *bool `json:"enabled,omitempty"`
+	Enabled    *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
 	Properties *struct {
-		Enabled *bool `json:"enabled,omitempty"`
-	} `json:"properties,omitempty"`
+		Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	} `json:"properties,omitempty" xml:"properties,omitempty"`
 	Statistics *struct {
-		Enabled *bool `json:"enabled,omitempty"`
-	} `json:"statistics,omitempty"`
+		Enabled *bool `json:"enabled,omitempty" xml:"enabled,omitempty"`
+	} `json:"statistics,omitempty" xml:"statistics,omitempty"`
 	Source *struct {
-		OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty"`
-	} `json:"source,omitempty"`
+		OriginAbsenceDetection *bool `json:"originAbsenceDetection,omitempty" xml:"originAbsenceDetection,omitempty"`
+	} `json:"source,omitempty" xml:"source,omitempty"`
 }
 
 func (r RemoteRepository) String() string {
@@ -168,19 +168,19 @@ func (r RemoteRepository) String() string {
 type VirtualRepository struct {
 	*GenericRepository
 
-	Repositories                                  *[]string `json:"repositories,omitempty"`
-	DebianTrivialLayout                           *bool     `json:"debianTrivialLayout,omitempty"`
-	ArtifactoryRequestsCanRetrieveRemoteArtifacts *bool     `json:"artifactoryRequestsCanRetrieveRemoteArtifacts,omitempty"`
-	KeyPair                                       *string   `json:"keyPair,omitempty"`
-	PomRepositoryReferencesCleanupPolicy          *string   `json:"pomRepositoryReferencesCleanupPolicy,omitempty"`
-	DefaultDeploymentRepo                         *string   `json:"defaultDeploymentRepo,omitempty"`
-	ForceMavenAuthentication                      *bool     `json:"forceMavenAuthentication,omitempty"`
-	ExternalDependenciesEnabled                   *bool     `json:"externalDependenciesEnabled,omitempty"`
-	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty"`
-	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty"`
-	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty"`
-	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty"`
-	DebianDefaultArchitectures                    *string   `json:"debianDefaultArchitectures,omitempty"`
+	Repositories                                  *[]string `json:"repositories,omitempty" xml:"repositories>repositoryRef,omitempty"`
+	DebianTrivialLayout                           *bool     `json:"debianTrivialLayout,omitempty" xml:"debianTrivialLayout,omitempty"`
+	ArtifactoryRequestsCanRetrieveRemoteArtifacts *bool     `json:"artifactoryRequestsCanRetrieveRemoteArtifacts,omitempty" xml:"artifactoryRequestsCanRetrieveRemoteArtifacts,omitempty"`
+	KeyPair                                       *string   `json:"keyPair,omitempty" xml:"keyPair,omitempty"`
+	PomRepositoryReferencesCleanupPolicy          *string   `json:"pomRepositoryReferencesCleanupPolicy,omitempty" xml:"pomRepositoryReferencesCleanupPolicy,omitempty"`
+	DefaultDeploymentRepo                         *string   `json:"defaultDeploymentRepo,omitempty" xml:"defaultDeploymentRepo,omitempty"`
+	ForceMavenAuthentication                      *bool     `json:"forceMavenAuthentication,omitempty" xml:"forceMavenAuthentication,omitempty"`
+	ExternalDependenciesEnabled                   *bool     `json:"externalDependenciesEnabled,omitempty" xml:"externalDependencies>enabled,omitempty"`
+	ExternalDependenciesPatterns                  *[]string `json:"externalDependenciesPatterns,omitempty" xml:"externalDependencies>patterns>pattern,omitempty"`
+	ExternalDependenciesRemoteRepo                *string   `json:"externalDependenciesRemoteRepo,omitempty" xml:"externalDependencies>remoteRepo,omitempty"`
+	ResolveDockerTagsByTimestamp                  *bool     `json:"resolveDockerTagsByTimestamp,omitempty" xml:"resolveDockerTagsByTimestamp,omitempty"`
+	VirtualRetrievalCachePeriodSecs               *int      `json:"virtualRetrievalCachePeriodSecs,omitempty" xml:"virtualCacheConfig>virtualRetrievalCachePeriodSecs,omitempty"`
+	DebianDefaultArchitectures                    *string   `json:"debianDefaultArchitectures,omitempty" xml:"debianDefaultArchitectures,omitempty"`
 }
 
 func (v VirtualRepository) String() string {

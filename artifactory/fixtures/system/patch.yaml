@@ -1,0 +1,15 @@
+serverName: server1
+security:
+  httpSsoSettings: null
+backups:
+  backup-daily: null
+  backup-weekly:
+    cronExp: 0 0 2 ? * SAT
+    excludedRepositories:
+    - example-repo-local
+    retentionPeriodHours: 336
+    createArchive: false
+    enabled: false
+    excludeNewRepositories: false
+    sendMailOnError: true
+    precalculate: false
