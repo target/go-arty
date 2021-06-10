@@ -110,6 +110,7 @@ type RemoteRepository struct {
 	RetrievalCachePeriodSecs          *int                    `json:"retrievalCachePeriodSecs,omitempty" xml:"retrievalCachePeriodSecs,omitempty"`
 	FailedRetrievalCachePeriodSecs    *int                    `json:"failedRetrievalCachePeriodSecs,omitempty" xml:"failedRetrievalCachePeriodSecs,omitempty"`
 	MissedRetrievalCachePeriodSecs    *int                    `json:"missedRetrievalCachePeriodSecs,omitempty" xml:"missedRetrievalCachePeriodSecs,omitempty"`
+	MetadataRetrievalTimeoutSecs      *int                    `json:"metadataRetrievalTimeoutSecs,omitempty" xml:"metadataRetrievalTimeoutSecs,omitempty"`
 	UnusedArtifactsCleanupEnabled     *bool                   `json:"unusedArtifactsCleanupEnabled,omitempty" xml:"unusedArtifactsCleanupEnabled,omitempty"`
 	UnusedArtifactsCleanupPeriodHours *int                    `json:"unusedArtifactsCleanupPeriodHours,omitempty" xml:"unusedArtifactsCleanupPeriodHours,omitempty"`
 	AssumedOfflinePeriodSecs          *int                    `json:"assumedOfflinePeriodSecs,omitempty" xml:"assumedOfflinePeriodSecs,omitempty"`
