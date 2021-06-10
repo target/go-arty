@@ -2927,6 +2927,14 @@ func (r *RemoteRepository) GetLocalAddress() string {
 	return *r.LocalAddress
 }
 
+// GetMetadataRetrievalTimeoutSecs returns the MetadataRetrievalTimeoutSecs field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetMetadataRetrievalTimeoutSecs() int {
+	if r == nil || r.MetadataRetrievalTimeoutSecs == nil {
+		return 0
+	}
+	return *r.MetadataRetrievalTimeoutSecs
+}
+
 // GetMissedRetrievalCachePeriodSecs returns the MissedRetrievalCachePeriodSecs field if it's non-nil, zero value otherwise.
 func (r *RemoteRepository) GetMissedRetrievalCachePeriodSecs() int {
 	if r == nil || r.MissedRetrievalCachePeriodSecs == nil {
