@@ -89,7 +89,7 @@ func Test_Groups(t *testing.T) {
 			g.It("- should return no error with Get() with IncludeUsers nil", func() {
 				groupRequest := &GetGroupRequest{
 					Name:         String("dev-leads"),
-					IncludeUsers: nil,
+					IncludeUsers: Bool(false),
 				}
 
 				actual, resp, err := c.Groups.Get(groupRequest)
