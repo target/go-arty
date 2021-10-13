@@ -1,6 +1,6 @@
-module github.com/target/go-arty
+module github.com/target/go-arty/v2
 
-go 1.13
+go 1.16
 
 require (
 	github.com/coreos/go-semver v0.2.0
