@@ -18,12 +18,13 @@ package artifactory
 
 import (
 	"encoding/json"
-	"github.com/franela/goblin"
-	"github.com/gin-gonic/gin"
-	"github.com/target/go-arty/artifactory/fixtures/system"
 	"io/ioutil"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/franela/goblin"
+	"github.com/gin-gonic/gin"
+	"github.com/target/go-arty/v2/artifactory/fixtures/system"
 )
 
 func Test_System(t *testing.T) {

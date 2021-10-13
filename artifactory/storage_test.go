@@ -25,7 +25,7 @@ import (
 
 	"github.com/franela/goblin"
 	"github.com/gin-gonic/gin"
-	"github.com/target/go-arty/artifactory/fixtures/storage"
+	"github.com/target/go-arty/v2/artifactory/fixtures/storage"
 )
 
 func Test_Storage(t *testing.T) {
