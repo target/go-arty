@@ -24,7 +24,7 @@ import (
 
 	"github.com/franela/goblin"
 	"github.com/gin-gonic/gin"
-	"github.com/target/go-arty/artifactory/fixtures/builds"
+	"github.com/target/go-arty/v2/artifactory/fixtures/builds"
 )
 
 func Test_Builds(t *testing.T) {

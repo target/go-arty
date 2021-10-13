@@ -26,7 +26,7 @@ import (
 
 	"github.com/franela/goblin"
 	"github.com/gin-gonic/gin"
-	"github.com/target/go-arty/artifactory/fixtures/artifacts"
+	"github.com/target/go-arty/v2/artifactory/fixtures/artifacts"
 )
 
 func Test_Artifacts(t *testing.T) {

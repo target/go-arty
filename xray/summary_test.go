@@ -22,7 +22,7 @@ import (
 
 	"github.com/franela/goblin"
 	"github.com/gin-gonic/gin"
-	"github.com/target/go-arty/xray/fixtures/summary"
+	"github.com/target/go-arty/v2/xray/fixtures/summary"
 )
 
 func Test_Summary(t *testing.T) {
