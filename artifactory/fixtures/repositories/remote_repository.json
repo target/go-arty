@@ -25,6 +25,7 @@
   "retrievalCachePeriodSecs": 43200,
   "failedRetrievalCachePeriodSecs": 30,
   "missedRetrievalCachePeriodSecs": 7200,
+  "metadataRetrievalTimeoutSecs": 60,
   "unusedArtifactsCleanupEnabled": false,
   "unusedArtifactsCleanupPeriodHours": 0,
   "assumedOfflinePeriodSecs" : 300,

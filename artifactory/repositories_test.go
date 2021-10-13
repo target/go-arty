@@ -169,6 +169,7 @@ func Test_Repositories(t *testing.T) {
 					RetrievalCachePeriodSecs:          Int(43200),
 					FailedRetrievalCachePeriodSecs:    Int(30),
 					MissedRetrievalCachePeriodSecs:    Int(7200),
+					MetadataRetrievalTimeoutSecs:      Int(60),
 					UnusedArtifactsCleanupEnabled:     Bool(false),
 					UnusedArtifactsCleanupPeriodHours: Int(0),
 					AssumedOfflinePeriodSecs:          Int(300),
