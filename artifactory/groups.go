@@ -67,9 +67,9 @@ type GetGroupRequest struct {
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GetGroupDetails
 func (s *GroupsService) Get(groupRequest *GetGroupRequest) (*Group, *Response, error) {
-	u := fmt.Sprintf("/api/security/groups/%s", groupRequest.GetName())
+	u := fmt.Sprintf("/api/security/groups/%s", *group.Name)
 
-	if groupRequest.GetIncludeUsers() {
+	if *groupRequest.IncludeUsers {
 		u = u + "?includeUsers=true"
 	}
 
