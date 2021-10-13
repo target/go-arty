@@ -10,6 +10,14 @@ go-arty is a Go client library for accessing the [Artifactory](https://www.jfrog
 
 ### Usage
 
+#### With Go Modules
+
+```go
+import "github.com/target/go-arty/v2/artifactory"
+```
+
+#### Without Go Modules
+
 ```go
 import "github.com/target/go-arty/artifactory"
 ```
@@ -46,6 +54,14 @@ client.Authentication.SetTokenAuth("token")
 ## Xray
 
 ### Usage
+
+#### With Go Modules
+
+```go
+import "github.com/target/go-arty/v2/xray"
+```
+
+#### Without Go Modules
 
 ```go
 import "github.com/target/go-arty/xray"
