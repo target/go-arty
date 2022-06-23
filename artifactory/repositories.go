@@ -85,6 +85,7 @@ type LocalRepository struct {
 	OptionalIndexCompressionFormats *[]string `json:"optionalIndexCompressionFormats,omitempty" xml:"optionalIndexCompressionFormats>debianFormat,omitempty"`
 	XrayIndex                       *bool     `json:"xrayIndex,omitempty" xml:"xray>enabled,omitempty"`
 	DownloadRedirect                *bool     `json:"downloadRedirect,omitempty" xml:"downloadRedirect>enabled,omitempty"`
+	PriorityResolution              *bool     `json:"priorityResolution,omitempty" xml:"priorityResolution,omitempty"`
 }
 
 func (l LocalRepository) String() string {
@@ -143,6 +144,7 @@ type RemoteRepository struct {
 	BlockPushingSchema1               *bool                   `json:"blockPushingSchema1,omitempty" xml:"blockPushingSchema1,omitempty"`
 	QueryParams                       *string                 `json:"queryParams,omitempty" xml:"queryParams,omitempty"`
 	PropagateQueryParams              *bool                   `json:"propagateQueryParams,omitempty" xml:"propagateQueryParams,omitempty"`
+	PriorityResolution                *bool                   `json:"priorityResolution,omitempty" xml:"priorityResolution,omitempty"`
 }
 
 // ContentSynchronisation represents smart remote repository configuration
