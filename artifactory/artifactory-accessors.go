@@ -2135,6 +2135,14 @@ func (l *LocalRepository) GetOptionalIndexCompressionFormats() []string {
 	return *l.OptionalIndexCompressionFormats
 }
 
+// GetPriorityResolution returns the PriorityResolution field if it's non-nil, zero value otherwise.
+func (l *LocalRepository) GetPriorityResolution() bool {
+	if l == nil || l.PriorityResolution == nil {
+		return false
+	}
+	return *l.PriorityResolution
+}
+
 // GetSnapshotVersionBehavior returns the SnapshotVersionBehavior field if it's non-nil, zero value otherwise.
 func (l *LocalRepository) GetSnapshotVersionBehavior() string {
 	if l == nil || l.SnapshotVersionBehavior == nil {
@@ -2957,6 +2965,14 @@ func (r *RemoteRepository) GetPassword() string {
 		return ""
 	}
 	return *r.Password
+}
+
+// GetPriorityResolution returns the PriorityResolution field if it's non-nil, zero value otherwise.
+func (r *RemoteRepository) GetPriorityResolution() bool {
+	if r == nil || r.PriorityResolution == nil {
+		return false
+	}
+	return *r.PriorityResolution
 }
 
 // GetPropagateQueryParams returns the PropagateQueryParams field if it's non-nil, zero value otherwise.
