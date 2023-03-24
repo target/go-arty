@@ -29,7 +29,6 @@
 // Copyright (c) 2018 Target Brands, Inc.
 
 //go:build ignore
-// +build ignore
 
 // gen-accessors generates accessor methods for structs with pointer fields.
 //
