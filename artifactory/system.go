@@ -88,7 +88,6 @@ type GlobalConfig struct {
 
 // AddonsConfig represents Addons-related configuration.
 // This is undocumented in YAML Configuration File.
-//
 type AddonsConfig struct {
 	ShowAddonsInfo       *bool   `yaml:"showAddonsInfo,omitempty" xml:"showAddonsInfo,omitempty"`
 	ShowAddonsInfoCookie *string `yaml:"showAddonsInfoCookie,omitempty" xml:"showAddonsInfoCookie,omitempty"`
@@ -121,7 +120,6 @@ func (m MailServer) MarshalYAML() (interface{}, error) {
 
 // XrayConfig represents Xray related settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
-//
 type XrayConfig struct {
 	Enabled                       *bool   `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	BaseUrl                       *string `yaml:"baseUrl,omitempty" xml:"baseUrl,omitempty"`
@@ -137,7 +135,6 @@ type XrayConfig struct {
 
 // BintrayConfig represents Bintray settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
-//
 type BintrayConfig struct {
 	UserName        *string `yaml:"userName,omitempty" xml:"userName,omitempty"`
 	ApiKey          *string `yaml:"apiKey,omitempty" xml:"apiKey,omitempty"`
@@ -447,7 +444,6 @@ func (e ExpirationPolicy) MarshalYAML() (interface{}, error) {
 
 // ResetPolicy represents the Password Reset Protection policy settings in Artifactory Security Configuration.
 // This is undocumented in YAML Configuration File.
-//
 type ResetPolicy struct {
 	Enabled               *bool `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	MaxAttemptsPerAddress *int  `yaml:"maxAttemptsPerAddress,omitempty" xml:"maxAttemptsPerAddress,omitempty"`
@@ -481,7 +477,6 @@ func (u UserLockPolicy) MarshalYAML() (interface{}, error) {
 
 // SigningKeysSetting represents the GPG Signing settings in Artifactory Security Configuration.
 // This is undocumented in YAML Configuration File.
-//
 type SigningKeysSettings struct {
 	Passphrase       *string `yaml:"passphrase,omitempty" xml:"passphrase,omitempty"`
 	KeyStorePassword *string `yaml:"keyStorePassword,omitempty" xml:"keyStorePassword,omitempty"`
@@ -512,7 +507,6 @@ type LdapSetting struct {
 }
 
 // LdapSettingSearch represents the Search setting in an LDAPSetting.
-//
 type LdapSettingSearch struct {
 	ManagerDn       *string `yaml:"managerDn,omitempty" xml:"managerDn,omitempty"`
 	ManagerPassword *string `yaml:"managerPassword,omitempty" xml:"managerPassword,omitempty"`
@@ -614,7 +608,6 @@ func (l *LdapGroupSettings) UnmarshalYAML(unmarshal func(interface{}) error) err
 
 // AccessClientSettings represents the Access Client settings in Artifactory
 // Configuration Descriptor. This is undocumented in YAML Configuration File.
-//
 type AccessClientSettings struct {
 	ServerUrl                           *string `yaml:"serverUrl,omitempty" xml:"serverUrl,omitempty"`
 	AdminToken                          *string `yaml:"adminToken,omitempty" xml:"adminToken,omitempty"`
@@ -1031,7 +1024,6 @@ func (r ReplicationsConfig) MarshalYAML() (interface{}, error) {
 
 // BintrayApplication represents Bintray Oauth applications configuration.
 // This is undocumented in YAML Configuration File.
-//
 type BintrayApplication struct {
 	Key          *string `yaml:"-" xml:"key,omitempty"`
 	ClientId     *string `yaml:"clientId" xml:"clientId,omitempty"`
@@ -1081,7 +1073,6 @@ func (b *BintrayApplications) UnmarshalYAML(unmarshal func(interface{}) error) e
 
 // SumoLogicConfig represents Sumo Logic settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
-//
 type SumoLogicConfig struct {
 	Enabled  *bool   `yaml:"enabled,omitempty" xml:"enabled,omitempty"`
 	Proxy    *string `yaml:"proxy,omitempty" xml:"proxyRef,omitempty"`
@@ -1100,7 +1091,6 @@ func (s SumoLogicConfig) MarshalYAML() (interface{}, error) {
 
 // ReleaseBundlesConfig represents Release Bundle settings in Artifactory's
 // Configuration Descriptor. This is undocumented in YAML Configuration File.
-//
 type ReleaseBundlesConfig struct {
 	IncompleteCleanupPeriodHours *int  `yaml:"incompleteCleanupPeriodHours,omitempty" xml:"incompleteCleanupPeriodHours,omitempty"`
 	Reset                        *bool `yaml:"-" xml:"-"`
@@ -1116,7 +1106,6 @@ func (r ReleaseBundlesConfig) MarshalYAML() (interface{}, error) {
 
 // SignedUrlConfig represents Signed URL settings in Artifactory's Configuration
 // Descriptor. This is undocumented in YAML Configuration File.
-//
 type SignedUrlConfig struct {
 	MaxValidForSeconds *int  `yaml:"maxValidForSeconds,omitempty" xml:"maxValidForSeconds,omitempty"`
 	Reset              *bool `yaml:"-" xml:"-"`
@@ -1132,7 +1121,6 @@ func (s SignedUrlConfig) MarshalYAML() (interface{}, error) {
 
 // DownloadRedirectConfig represents Download Redirect settings in Artifactory's
 // Configuration Descriptor. This is undocumented in YAML Configuration File.
-//
 type DownloadRedirectConfig struct {
 	FileMinimumSize *int  `yaml:"fileMinimumSize,omitempty" xml:"fileMinimumSize,omitempty"`
 	Reset           *bool `yaml:"-" xml:"-"`
@@ -1199,7 +1187,8 @@ func (s *SystemService) GetConfiguration() (*GlobalConfig, *Response, error) {
 // UpdateConfiguration applies the provided Global system configuration to Artifactory.
 //
 // Docs: https://www.jfrog.com/confluence/display/RTF/Artifactory+REST+API#ArtifactoryRESTAPI-GeneralConfiguration
-//       https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Advanced
+//
+//	https://www.jfrog.com/confluence/display/RTF/YAML+Configuration+File#YAMLConfigurationFile-Advanced
 func (s *SystemService) UpdateConfiguration(config GlobalConfig) (*string, *Response, error) {
 	u, err := s.client.buildURLForRequest("/api/system/configuration")
 	if err != nil {
