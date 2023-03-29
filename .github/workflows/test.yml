@@ -10,11 +10,17 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container:
-      image: golang:latest
     steps:
     - name: clone
       uses: actions/checkout@v3
+
+    - name: install go
+      uses: actions/setup-go@v4
+      with:
+        # use version from go.mod file
+        go-version-file: 'go.mod'
+        cache: true
+        check-latest: true
 
     - name: install
       run: |
