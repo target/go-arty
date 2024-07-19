@@ -1,15 +1,31 @@
 {
-	"extends": [
-		"config:base"
-	],
-	"labels": [
-		"dependencies"
-	],
+    "configMigration": true,
+    "extends": [
+        "config:base",
+        "workarounds:all",
+        "replacements:all",
+        ":enableVulnerabilityAlerts",
+        "group:monorepos",
+        "group:recommended",
+        "group:allNonMajor",
+        ":ignoreUnstable",
+        ":separateMultipleMajorReleases",
+        ":separatePatchReleases",
+        ":rebaseStalePrs",
+        ":prImmediately",
+        ":prHourlyLimitNone",
+        ":prConcurrentLimitNone",
+        ":pinDevDependencies",
+        ":ignoreModulesAndTests"
+    ],
+     "labels": [
+         "dependencies"
+	 ],
 	"semanticCommits": "enabled",
-	"golang": {
-		"postUpdateOptions": [
-			"gomodTidy",
-			"gomodUpdateImportPaths"
-		]
-	}
+    "golang": {
+        "postUpdateOptions": [
+            "gomodTidy",
+            "gomodUpdateImportPaths"
+        ]
+    }
 }
