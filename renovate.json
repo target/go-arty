@@ -1,7 +1,7 @@
 {
     "configMigration": true,
     "extends": [
-        "config:base",
+        "config:recommended",
         "workarounds:all",
         "replacements:all",
         ":enableVulnerabilityAlerts",
@@ -18,14 +18,19 @@
         ":pinDevDependencies",
         ":ignoreModulesAndTests"
     ],
-     "labels": [
-         "dependencies"
-	 ],
+    "labels": [
+        "dependencies"
+    ],
     "semanticCommits": "enabled",
-    "golang": {
-        "postUpdateOptions": [
-            "gomodTidy",
-            "gomodUpdateImportPaths"
-        ]
-    }
+    "packageRules": [
+        {
+            "matchCategories": [
+                "golang"
+            ],
+            "postUpdateOptions": [
+                "gomodTidy",
+                "gomodUpdateImportPaths"
+            ]
+        }
+    ]
 }
