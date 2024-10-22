@@ -7,7 +7,7 @@ require (
 	github.com/franela/goblin v0.0.0-20211003143422-0a4f594942bf
 	github.com/gin-gonic/gin v1.10.0
 	github.com/google/go-querystring v1.1.0
-	github.com/tidwall/gjson v1.17.1
+	github.com/tidwall/gjson v1.17.3
 	gopkg.in/yaml.v2 v2.4.0
 )
 
