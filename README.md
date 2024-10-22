@@ -1,3 +1,7 @@
+# Deprecation Warning
+
+As of October 2024, this project has been deprecated and is now archived.
+
 # go-arty
 
 [![GoDoc](https://godoc.org/github.com/target/go-arty?status.svg)](https://godoc.org/github.com/target/go-arty)
